@@ -20,8 +20,46 @@ The easiest way to install <code>Optim3D</code> on Windows is to use the binary 
 After installation, you have a small program called <code>optim3d</code>. Use <code>optim3d --help</code> to see the detailed help:
 
 ```
-  
+  Usage: optim3d [OPTIONS] COMMAND [ARGS]...
+
+    CLI tool to manage full optimized 3D reconstruction of buildings using  
+    GeoFlow3D
+
+  Options:
+    --help  Show this message and exit.
+
+  Commands:
+    index3d      OcTree indexing of 3D point cloud using Entwine.
+    index2d      QuadTree indexing and tiling of building 2D footprints.    
+    tiler3d      Tiling of 3D point cloud using calculated processing areas.
+    reconstruct  Optimized 3D reconstruction of buildings using GeoFlow3D.
 ```
+
+The process consists of four distinct steps or <code>commands</code> that must be executed in a specific order to achieve the desired outcome.
+
+### Step 1 : 2D building footprints indexing and tiling
+
+Quadtree-based tiling scheme is used for spatial partitioning of buildings footprints. This assures that the reconstruction time per tile is more or less the same and that the tiles available for download are similar in file size. This is done using the first command <code>index2d</code>. Use <code>optim3d index2d --help</code> to see the detailed help:
+
+```
+  Usage: optim3d index2d [OPTIONS] [FOOTPRINTS]
+
+    QuadTree indexing and tiling of building 2D footprints.
+
+  Options:
+    --output PATH                   Output directory.  [default: ./output]    
+    --osm <FLOAT FLOAT FLOAT FLOAT>...
+                                    Download and work with building footprints
+                                    from OpenStreetMap [west, north, est,     
+                                    south].
+    --crs INTEGER                   Specify the Coordinate Reference System   
+                                    (EPSG).
+    --max INTEGER                   Maximum number of buildings per tile.     
+                                    [default: 3500]
+    --help                          Show this message and exit.
+```
+
+
 
 ## About Optim3D
 
