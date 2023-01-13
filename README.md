@@ -22,17 +22,17 @@ After installation, you have a small program called <code>optim3d</code>. Use <c
 ```
   Usage: optim3d [OPTIONS] COMMAND [ARGS]...
 
-    CLI tool to manage full optimized reconstruction of large-scale 3D 
-    building models GeoFlow.
+    CLI tool to manage full optimized reconstruction of large-scale 3D building
+    models GeoFlow.
 
   Options:
     --help  Show this message and exit.
 
   Commands:
+    index2d      QuadTree indexing and tiling of building 2D footprints.       
     index3d      OcTree indexing of 3D point cloud using Entwine.
-    index2d      QuadTree indexing and tiling of building 2D footprints.    
-    tiler3d      Tiling of 3D point cloud using the calculated processing areas.
-    reconstruct  Optimized 3D reconstruction of buildings using GeoFlow.
+    tiler3d      Tiling of point cloud using the calculated processing areas.  
+    reconstruct  Optimized 3D reconstruction of buildings using GeoFlow. 
 ```
 
 The process consists of four distinct steps or <code>commands</code> that must be executed in a specific order to achieve the desired outcome.
