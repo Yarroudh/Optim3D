@@ -22,3 +22,14 @@ After installation, you have a small program called <code>optim3d</code>. Use <c
 ```
   
 ```
+## Supported CityJSON versions
+
+The application expects that your file is using the latest version [CityJSON schema](https://www.cityjson.org/specs/1.1.3/). If your file uses an earlier version, you can upgrade it with the upgrade operator of [cjio, CityJSON/io](https://github.com/cityjson/cjio): <code>cjio old.json upgrade save newfile.city.json</code>
+
+Alternatively, any CityGML file can be automatically converted to CityJSON with the open-source project [citygml-tools](https://github.com/citygml4j/citygml-tools).
+
+## About Optim3D
+
+This software was developped by Anass Yarroudh, a Research Engineer in the [Geomatics Unit of the University of Liege](http://geomatics.ulg.ac.be/fr/home.php).
+
+For more detailed information please contact us via <ayarroudh@uliege.be>, we are pleased to send you the necessary information.
