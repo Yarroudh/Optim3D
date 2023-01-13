@@ -5,88 +5,9 @@ import geopandas as gpd
 import osmnx as ox
 from typing import List, Any, Union
 import math
-import matplotlib.pyplot as plt
+import time
 import shapely.geometry as geometry
 
-@click.command()
-@click.argument('footprints', type=click.Path(exists=True), required=False)
-@click.option('--output', help='Output directory.', type=click.Path(exists=False), default="output", show_default=True)
-@click.option('--osm', help='Download and work with building footprints from OpenStreetMap [west, north, est, south].', nargs=4, type=click.Tuple([float, float, float, float]))
-@click.option('--crs', help='Specify the Coordinate Reference System (EPSG).', type=click.INT)
-@click.option('--max', help='Maximum number of buildings per tile.', type=click.INT, default=3500, show_default=True)
-
-def index2d(input, output, osm, crs, max):
-    '''
-    QuadTree indexing and tiling of building 2D footprints.
-    '''
-    
-    if (os.path.exists(output)==False):
-        os.mkdir(output)
-
-    tmp = tempfile.mkdtemp()
-
-    if (osm):
-        buildings = ox.geometries.geometries_from_bbox(north=osm[0], south=osm[1], east=osm[2], west=osm[3], tags = {'building': True} )
-    else:
-        buildings = gpd.read_file(input, encoding="utf-8")
-
-    if (crs):
-        df = buildings.to_crs(epsg=crs)
-    else:
-        df = buildings
-
-    df['centroid'] = df['geometry'].centroid
-
-    centroids = []
-    for row in df.iterrows():
-        centroids.append([row['centroid'].x,row['centroid'].y])
-
-    bounds = df.dissolve().bounds
-    width = bounds.maxx - bounds.minx
-    height = bounds.maxy - bounds.miny
-
-    quadTree = QuadTree(Bounds(float(bounds.minx), float(bounds.miny), float(width), float(height)), max_objects=max)
-
-    for point in centroids:
-        quadTree.insert(Point(point[0], point[1])) 
-
-    boundings = gpd.read_file('{}\\QuadTree.gpkg'.format(tmp))
-    df.reset_index()
-
-    boundings.crs = df.crs
-    node = []
-    for i, building in df.iterrows():
-        for j, bounding in boundings.iterrows():
-            if (bounding.geometry.intersects(building.centroid)):
-                node.append(j)
-                
-    df['node'] = node
-
-    gp = df.groupby('node')
-
-    bbox = []
-    for g in gp.groups:
-        area = gp.get_group(g)
-
-        dissolved = area.dissolve()
-        envelope = dissolved.envelope
-        buffer = envelope.buffer(10)
-
-        bbox.append(buffer)
-
-    process = gpd.GeoDataFrame({'geometry':bbox}, crs="EPSG:{}".crs)
-    process.to_file("{}\\processing_areas.gpkg".format(output))
-
-    if (os.path.exists('{}\\footprint_tiles'.format(output))==False):
-        os.mkdir('{}\\footprint_tiles'.format(output))
-
-    for g in gp.groups:
-        gp.get_group(g).to_file('{}\\footprint_tiles/tile_{}.gpkg'.format(output, g), encoding="utf-8")
-        print(".done: tile_{}.gpkg".format(g))
-
-    print("All tiles generated successfully")
-
-    
 class Point(object):
     x: float
     y: float
@@ -117,7 +38,7 @@ class Bounds(object):
 
     def __repr__(self):
         xmin, xmax, ymin, ymax = self.get_bbox()
-        return '<Bounds: [{0},{1},{2},{3}]>'.format(xmin, xmax, ymin, ymax)
+        return '<Bounds: [{},{},{},{}]>'.format(xmin, xmax, ymin, ymax)
 
     def get_bbox(self):
         return [self.x, self.x + self.width, self.y, self.y + self.height]
@@ -173,18 +94,17 @@ class QuadTree(object):
     __nodes: List
     __indices = []
 
-    def __init__(self, bounds: Bounds, max_objects: int = 10, max_level: int = 4, level: int = 0):
+    def __init__(self, bounds: Bounds, max_objects: int = 100, max_level: int = 4, level: int = 0):
         self.__max_objects = max_objects
         self.__max_levels = max_level
         self.__level = level
         self.__bounds = bounds
         self.__nodes = []
         self.__objects = []
+        #self.__dir = directory
 
     def __repr__(self):
-        return "<QuadTree: ({0}, {1}), {2}x{3}>".format(
-            self.__bounds.x, self.__bounds.y, self.__bounds.width, self.__bounds.height
-        )
+        return "<QuadTree: ({}, {}), {}x{}>".format(self.__bounds.x, self.__bounds.y, self.__bounds.width, self.__bounds.height)
 
     def __iter__(self):
         for obj in self.__objects:
@@ -285,7 +205,7 @@ class QuadTree(object):
                     self.__nodes[index].insert(self.__objects[i])
             self.__objects.clear()
 
-    def retrieve(self, bounds: Union[Bounds, Point]) -> List[Union[Bounds, Point]]:
+    def retrieve(self, bounds: Union[Bounds, Point]) -> List[Bounds]:
         index = self.get_index(bounds)
         return_objects = self.__objects
 
@@ -297,7 +217,7 @@ class QuadTree(object):
                     return_objects.extend(self.__nodes[i].retrieve(bounds))
         return return_objects
 
-    def retrieve_intersections(self, bounds: Union[Bounds, Point]) -> List[Union[Bounds, Point]]:
+    def retrieve_intersections(self, bounds: Bounds) -> List[Union[Bounds, Point]]:
         found_bounds = []
         potentials: List[Union[Bounds, Point]] = self.retrieve(bounds)
         for i in range(len(potentials)):
@@ -336,14 +256,9 @@ class QuadTree(object):
         nearest_results.extend(sorted(search_results, key=lambda another: euclid_compare(point, another)))
         return nearest_results[:max_num]
 
-    def visualize(self, size=15):       
-        df = gpd.GeoDataFrame(columns=['geometry'], geometry='geometry')
-
-        from matplotlib import pyplot as plt
-        from matplotlib import patches
-
-        fig, ax = plt.subplots(1, 1, figsize=(size, size))
-        
+    def create(self, size=15):       
+        df1 = gpd.GeoDataFrame(columns=['geometry'], geometry='geometry')
+    
         def draw_all_nodes(node):
                         
             if (node.__is_leaf()==False):
@@ -354,15 +269,101 @@ class QuadTree(object):
                 
 
         def draw_rect(node):
-            ax.add_patch(patches.Rectangle((node.__bounds.x, node.__bounds.y), node.__bounds.width, node.__bounds.height, edgecolor='grey', linewidth=1.5, fill=False))
             if (node.__is_leaf()):
-                df.loc[len(df.index)] = [geometry.box(node.__bounds.x, node.__bounds.y, node.__bounds.x + node.__bounds.width, node.__bounds.y + node.__bounds.height)]
-            
-        plt.axis([self.__bounds.x,
-                  self.__bounds.x + self.__bounds.width,
-                  self.__bounds.y,
-                  self.__bounds.y + self.__bounds.height])
+                df1.loc[len(df1.index)] = [geometry.box(node.__bounds.x, node.__bounds.y, node.__bounds.x + node.__bounds.width, node.__bounds.y + node.__bounds.height)]
+
         draw_all_nodes(self)
-        df.to_file('QuadTree.gpkg')
-        plt.title('QuadTree -- size: {0}x{1}'.format(self.__bounds.width, self.__bounds.height))
-        plt.show()
+        df1.to_file('./output/quadtree.gpkg', driver="GPKG")
+
+
+@click.command()
+@click.argument('footprints', type=click.Path(exists=True), required=False)
+@click.option('--output', help='Output directory.', type=click.Path(exists=False), default="./output", show_default=True)
+@click.option('--osm', help='Download and work with building footprints from OpenStreetMap [west, north, est, south].', nargs=4, type=click.Tuple([float, float, float, float]))
+@click.option('--crs', help='Specify the Coordinate Reference System (EPSG).', type=click.INT)
+@click.option('--max', help='Maximum number of buildings per tile.', type=click.INT, default=3500, show_default=True)
+
+def index2d(footprints, output, osm, crs, max):
+    '''
+    QuadTree indexing and tiling of building 2D footprints.
+    '''
+
+    start = time.time()
+    
+    if (os.path.exists(output)==False):
+        os.mkdir(output)
+
+    tmp = tempfile.mkdtemp()
+
+    if (osm):
+        buildings = ox.geometries.geometries_from_bbox(north=osm[0], south=osm[1], east=osm[2], west=osm[3], tags = {'building': True} )
+    else:
+        buildings = gpd.read_file(footprints, encoding="utf-8")
+
+    if (crs):
+        df = buildings.to_crs(epsg=crs)
+    else:
+        crs = str(buildings.crs)[-4:]
+        df = buildings
+
+    df['centroid'] = df['geometry'].centroid
+
+    centroids = []
+    for index, row in df.iterrows():
+        centroids.append([row['centroid'].x, row['centroid'].y])
+
+    bounds = df.dissolve().bounds
+    width = bounds.maxx - bounds.minx
+    height = bounds.maxy - bounds.miny
+
+    quadTree = QuadTree(Bounds(float(bounds.minx), float(bounds.miny), float(width), float(height)), max_objects=max)
+
+    for point in centroids:
+        quadTree.insert(Point(point[0], point[1])) 
+
+    quadTree.create()
+
+    boundings = gpd.read_file('{}/QuadTree.gpkg'.format(output))
+    df.reset_index()
+
+    boundings.crs = df.crs
+    node = []
+    for i, building in df.iterrows():
+        for j, bounding in boundings.iterrows():
+            if (bounding.geometry.intersects(building.centroid)):
+                node.append(j)
+                
+    df['node'] = node
+
+    gp = df.drop('centroid', axis=1).groupby('node')
+
+    bbox = []
+    for g in gp.groups:
+        area = gp.get_group(g)
+
+        dissolved = area.dissolve()
+        boundary = dissolved.boundary
+        envelope = boundary.iloc[0].envelope
+        buffer = envelope.buffer(10)
+
+        bbox.append(buffer)
+
+    process = gpd.GeoDataFrame({'geometry':bbox}, crs="EPSG:{}".format(crs))
+    process.set_geometry(col='geometry')
+    process.to_file("{}/processing_areas.gpkg".format(output), driver="GPKG")
+
+    df.head()
+
+    if (os.path.exists('{}\\footprint_tiles'.format(output))==False):
+        os.mkdir('{}\\footprint_tiles'.format(output))
+
+    for g in gp.groups:
+        group = gp.get_group(g)
+        group.to_file('{}\\footprint_tiles\\tile_{}.shp'.format(output, g), encoding="utf-8")
+        print(".done: tile_{}.shp".format(g))
+
+    end = time.time()
+    processTime = end - start
+
+    print("All tiles generated successfully")
+    click.echo("Time: {}".format(time.strftime("%H:%M:%S", time.gmtime(processTime))))

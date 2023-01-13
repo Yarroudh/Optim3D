@@ -11,7 +11,7 @@ def index3d(pointcloud, output):
     '''
     OcTree indexing of 3D point cloud using Entwine.
     '''
-    
+
     if (os.path.exists(output)==False):
         os.mkdir(output)
 
@@ -19,11 +19,10 @@ def index3d(pointcloud, output):
 
     config = {
         "input":os.path.abspath(pointcloud),
-        "output":os.path.abspath("{}/indexed_pointcloud")
+        "output":os.path.abspath("{}/indexed_pointcloud".format(output))
     }
 
     with open('{}\\config.json'.format(tmp),'w') as file:
         json.dumps(json.dump(config, file, indent=2))
 
-    print('{}\\config.json'.format(tmp))
     os.system('entwine build -c {}\\config.json'.format(tmp))
