@@ -73,6 +73,24 @@ Processing large point cloud datasets is hardware-intensive. Therefore, it is ne
     --help         Show this message and exit.
 ```
 
+### Step 3 : Tiling of the 3D point cloud
+
+The indexed point cloud is tiled based on the processing areas calculated when the indexing of building footprints is done. This is achieved using the third command <code>tiler3d</code>. Use <code>optim3d tiler3d --help</code> to see the detailed help:
+
+```
+  Usage: optim3d tiler3d [OPTIONS]
+
+    Tiling of 3D point cloud using the calculated processing areas.
+
+  Options:
+    --areas PATH    The calculated processing areas.  [default:    
+                    ./output/processing_areas.gpkg]
+    --indexed PATH  Indexed 3D point cloud directory.  [default:   
+                    ./output/indexed_pointcloud]
+    --output PATH   Output directory.  [default: ./output]
+    --help          Show this message and exit.
+```
+
 
 
 ## About Optim3D
