@@ -75,7 +75,7 @@ Processing large point cloud datasets is hardware-intensive. Therefore, it is ne
 
 ### Step 3 : Tiling of the 3D point cloud
 
-The indexed point cloud is tiled based on the processing areas calculated when the indexing of building footprints is done. This is achieved using the third command <code>tiler3d</code>. Use <code>optim3d tiler3d --help</code> to see the detailed help:
+The tiling of the indexed point cloud is based on processing areas calculated when the footprints were indexed. This is achieved using the third command <code>tiler3d</code>. Use <code>optim3d tiler3d --help</code> to see the detailed help:
 
 ```
   Usage: optim3d tiler3d [OPTIONS]
@@ -91,7 +91,23 @@ The indexed point cloud is tiled based on the processing areas calculated when t
     --help          Show this message and exit.
 ```
 
+### Step 4 : 3D reconstruction of building models tile by tile
 
+The 3D reconstruction of building models is performed in this step. The process make use of GeoFlow to generate hight detailed 3D building models tile by tile. This is achieved using the third command <code>reconstruct</code>. Use <code>optim3d reconstruct --help</code> to see the detailed help:
+
+```
+  Usage: optim3d reconstruct [OPTIONS]
+
+    Optimized 3D reconstruction of buildings using GeoFlow.
+
+  Options:
+    --pointcloud PATH  3D point cloud tiles directory.  [default:        
+                       ./output/pointcloud_tiles]
+    --footprints PATH  2D building footprints tiles directory.  [default:
+                       ./output/footprint_tiles]
+    --output PATH      Output directory.  [default: ./output]
+    --help             Show this message and exit.
+```
 
 ## About Optim3D
 
