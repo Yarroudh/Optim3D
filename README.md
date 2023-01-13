@@ -22,8 +22,8 @@ After installation, you have a small program called <code>optim3d</code>. Use <c
 ```
   Usage: optim3d [OPTIONS] COMMAND [ARGS]...
 
-    CLI tool to manage full optimized 3D reconstruction of buildings using  
-    GeoFlow3D
+    CLI tool to manage full optimized reconstruction of large-scale 3D 
+    building models GeoFlow.
 
   Options:
     --help  Show this message and exit.
