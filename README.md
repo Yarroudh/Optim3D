@@ -39,7 +39,7 @@ The process consists of four distinct steps or <code>commands</code> that must b
 
 ### Step 1 : 2D building footprints indexing and tiling
 
-Quadtree-based tiling scheme is used for spatial partitioning of buildings footprints. This assures that the reconstruction time per tile is more or less the same and that the tiles available for download are similar in file size. This is done using the first command <code>index2d</code>. Use <code>optim3d index2d --help</code> to see the detailed help:
+Quadtree-based tiling scheme is used for spatial partitioning of building footprints. This assures that the reconstruction time per tile is more or less the same and that the tiles available for download are similar in file size. This is done using the first command <code>index2d</code>. Use <code>optim3d index2d --help</code> to see the detailed help:
 
 ```
   Usage: optim3d index2d [OPTIONS] [FOOTPRINTS]
@@ -57,6 +57,20 @@ Quadtree-based tiling scheme is used for spatial partitioning of buildings footp
     --max INTEGER                   Maximum number of buildings per tile.     
                                     [default: 3500]
     --help                          Show this message and exit.
+```
+
+### Step 2 : OcTree indexing of the 3D point cloud
+
+Processing large point cloud datasets is hardware-intensive. Therefore, it is necessary to index the 3D point cloud before processing. The index structure makes it possible to stream only the parts of the data that are required, without having to download the entire dataset. In this case, the spatial indexing of the airborne point cloud is performed using an octree structure. This can be easily done using Entwine, an open-source library for organizing and indexing large point cloud datasets using an octree data structure that allows fast and efficient spatial queries. This is done using the second command <code>index3d</code>. Use <code>optim3d index3d --help</code> to see the detailed help:
+
+```
+  Usage: optim3d index3d [OPTIONS] POINTCLOUD
+
+    OcTree indexing of 3D point cloud using Entwine.     
+
+  Options:
+    --output PATH  Output directory.  [default: ./output]
+    --help         Show this message and exit.
 ```
 
 
