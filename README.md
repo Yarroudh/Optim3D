@@ -29,7 +29,7 @@ After installation, you have a small program called <code>optim3d</code>. Use <c
     --help  Show this message and exit.
 
   Commands:
-    index2d      QuadTree indexing and tiling of building 2D footprints.       
+    index2d      QuadTree indexing and tiling of 2D building footprints.       
     index3d      OcTree indexing of 3D point cloud using Entwine.
     tiler3d      Tiling of point cloud using the calculated processing areas.  
     reconstruct  Optimized 3D reconstruction of buildings using GeoFlow. 
