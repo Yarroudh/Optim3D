@@ -12,4 +12,11 @@ Our program is based on GeoFlow and makes use of it to perform 3D reconstruction
 
 ## Installation
 
-The easiest way to install <code>ZRect3D</code> on Windows is to use the binary package on the [Release page](). In case you can not use the Windows installer, or if you are using a different operating system, you can build everything from source.
+The easiest way to install <code>Optim3D</code> on Windows is to use the binary package on the [Release page](). In case you can not use the Windows installer, or if you are using a different operating system, you can build everything from source.
+
+## Usage of the CLI
+After installation, you have a small program called <code>optim3d</code>. Use <code>optim3d --help</code> to see the detailed help:
+
+```
+  
+```
