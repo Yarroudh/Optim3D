@@ -1,0 +1,29 @@
+import click
+import json
+import os
+import tempfile
+
+@click.command()
+@click.argument('pointcloud', type=click.Path(exists=True), required=True)
+@click.option('--output', help='Output directory.', type=click.Path(exists=False), default="./output", show_default=True)
+
+def index3d(pointcloud, output):
+    '''
+    OcTree indexing of 3D point cloud using Entwine.
+    '''
+    
+    if (os.path.exists(output)==False):
+        os.mkdir(output)
+
+    tmp = tempfile.mkdtemp()
+
+    config = {
+        "input":os.path.abspath(pointcloud),
+        "output":os.path.abspath("{}/indexed_pointcloud")
+    }
+
+    with open('{}\\config.json'.format(tmp),'w') as file:
+        json.dumps(json.dump(config, file, indent=2))
+
+    print('{}\\config.json'.format(tmp))
+    os.system('entwine build -c {}\\config.json'.format(tmp))
