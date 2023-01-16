@@ -122,7 +122,6 @@ The generated CityJSON files should be processed to add information about tiles 
   Options:
     --cityjson PATH  CityJSON files directory.  [default:
                      ./output/model/cityjson]
-    --output PATH    Output directory.  [default: ./output]
     --help           Show this message and exit.
 ```
 
