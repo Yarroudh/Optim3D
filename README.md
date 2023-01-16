@@ -110,7 +110,7 @@ The 3D reconstruction of building models is performed in this step. The process 
     --help             Show this message and exit.
 ```
 
-### Step 4 : Post-processing of CityJSON files
+### Step 5 : Post-processing of CityJSON files
 
 The generated CityJSON files should be processed to add information about tiles to 3D objects. This is done using the fifth command <code>post</code>. Use <code>optim3d post --help</code> to see the detailed help:
 
