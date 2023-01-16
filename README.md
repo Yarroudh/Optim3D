@@ -29,13 +29,14 @@ After installation, you have a small program called <code>optim3d</code>. Use <c
     --help  Show this message and exit.
 
   Commands:
-    index2d      QuadTree indexing and tiling of 2D building footprints.       
+    index2d      QuadTree indexing and tiling of 2D building footprints.
     index3d      OcTree indexing of 3D point cloud using Entwine.
-    tiler3d      Tiling of point cloud using the calculated processing areas.  
-    reconstruct  Optimized 3D reconstruction of buildings using GeoFlow. 
+    tiler3d      Tiling of point cloud using the calculated processing areas.
+    reconstruct  Optimized 3D reconstruction of buildings using GeoFlow.
+    post         Post-processing generated CityJSON files. 
 ```
 
-The process consists of four distinct steps or <code>commands</code> that must be executed in a specific order to achieve the desired outcome.
+The process consists of five distinct steps or <code>commands</code> that must be executed in a specific order to achieve the desired outcome.
 
 ### Step 1 : 2D building footprints indexing and tiling
 
@@ -93,7 +94,7 @@ The tiling of the indexed point cloud is based on processing areas calculated wh
 
 ### Step 4 : 3D reconstruction of building models tile by tile
 
-The 3D reconstruction of building models is performed in this step. The process make use of GeoFlow to generate hight detailed 3D building models tile by tile. This is achieved using the third command <code>reconstruct</code>. Use <code>optim3d reconstruct --help</code> to see the detailed help:
+The 3D reconstruction of building models is performed in this step. The process make use of GeoFlow to generate hight detailed 3D building models tile by tile. This is achieved using the fourth command <code>reconstruct</code>. Use <code>optim3d reconstruct --help</code> to see the detailed help:
 
 ```
   Usage: optim3d reconstruct [OPTIONS]
@@ -109,8 +110,26 @@ The 3D reconstruction of building models is performed in this step. The process 
     --help             Show this message and exit.
 ```
 
+### Step 4 : Post-processing of CityJSON files
+
+The generated CityJSON files should be processed to add information about tiles to 3D objects. This is done using the fifth command <code>post</code>. Use <code>optim3d post --help</code> to see the detailed help:
+
+```
+  Usage: optim3d post [OPTIONS]
+
+    Post-processing generated CityJSON files.
+
+  Options:
+    --cityjson PATH  CityJSON files directory.  [default:
+                     ./output/model/cityjson]
+    --output PATH    Output directory.  [default: ./output]
+    --help           Show this message and exit.
+```
+
+## Correction of buildings ground-floor elevation
+
+GeoFlow requires that the point cloud includes some ground points around the building so that it can determine the ground floor elevation. However, for aerial point clouds, buildings surrounded by others may not meet this condition which may result in inaccurate height estimation above the ground. This can be resolved using [zrect](https://github.com/Yarroudh/zrect3d), a tool for automatics correction of buildings ground-floor elevation in CityJSON files using ground points from LiDAR data.
+
 ## About Optim3D
 
-This software was developped by Anass Yarroudh, a Research Engineer in the [Geomatics Unit of the University of Liege](http://geomatics.ulg.ac.be/fr/home.php).
-
-For more detailed information please contact us via <ayarroudh@uliege.be>, we are pleased to send you the necessary information.
+This software was developped by Anass Yarroudh, a Research Engineer in the [Geomatics Unit of the University of Liege](http://geomatics.ulg.ac.be/fr/home.php). For more detailed information please contact us via <ayarroudh@uliege.be>, we are pleased to send you the necessary information.
