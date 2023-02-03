@@ -125,13 +125,14 @@ The generated CityJSON files should be processed to add information about tiles 
     --help           Show this message and exit.
 ```
 
-## Correction of buildings ground-floor elevation
+## Related Repositories
+
+[Automatic correction of buildings ground floor elevation in 3D City Models](https://github.com/Yarroudh/ZRect3D)
 
 GeoFlow requires that the point cloud includes some ground points around the building so that it can determine the ground floor elevation. However, for aerial point clouds, buildings surrounded by others may not meet this condition which may result in inaccurate height estimation above the ground. This can be resolved using [ZRect3D](https://github.com/Yarroudh/zrect3d), a tool for automatics correction of buildings ground-floor elevation in CityJSON files using ground points from LiDAR data.
 
 ## About Optim3D
 
-This software was developped by [Anass Yarroudh](https://www.linkedin.com/in/anass-yarroudh/), a Research Engineer in the [Geomatics Unit of the University of Liege](http://geomatics.ulg.ac.be/fr/home.php). For more detailed information please contact us via <ayarroudh@uliege.be>, we are pleased to send you the necessary information.
+This software was developped by [Anass Yarroudh](https://www.linkedin.com/in/anass-yarroudh/), a Research Engineer in the [Geomatics Unit of the University of Liege](http://geomatics.ulg.ac.be/fr/home.php). 
+For more detailed information please contact us via <ayarroudh@uliege.be>, we are pleased to send you the necessary information.
 
-## Related Repos
-[Automatic correction of buildings ground floor elevation in 3D City Models](https://github.com/Yarroudh/ZRect3D)
