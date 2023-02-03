@@ -125,6 +125,8 @@ The generated CityJSON files should be processed to add information about tiles 
     --help           Show this message and exit.
 ```
 
+![image](https://user-images.githubusercontent.com/72500344/216613188-82d54c75-7e03-4ee7-8c1c-d081e0c1d4ac.png)
+
 ## Related Repositories
 
 [Automatic correction of buildings ground floor elevation in 3D City Models](https://github.com/Yarroudh/ZRect3D)
