@@ -23,7 +23,7 @@ After installation, you have a small program called <code>optim3d</code>. Use <c
   Usage: optim3d [OPTIONS] COMMAND [ARGS]...
 
     CLI tool to manage full optimized reconstruction of large-scale 3D building
-    models GeoFlow.
+    models using GeoFlow.
 
   Options:
     --help  Show this message and exit.
@@ -117,7 +117,7 @@ The generated CityJSON files should be processed to add information about tiles 
 ```
   Usage: optim3d post [OPTIONS]
 
-    Post-processing generated CityJSON files.
+    Postprocess the generated CityJSON files.
 
   Options:
     --cityjson PATH  CityJSON files directory.  [default:
@@ -131,4 +131,4 @@ GeoFlow requires that the point cloud includes some ground points around the bui
 
 ## About Optim3D
 
-This software was developped by Anass Yarroudh, a Research Engineer in the [Geomatics Unit of the University of Liege](http://geomatics.ulg.ac.be/fr/home.php). For more detailed information please contact us via <ayarroudh@uliege.be>, we are pleased to send you the necessary information.
+This software was developped by [Anass Yarroudh](https://www.linkedin.com/in/anass-yarroudh/), a Research Engineer in the [Geomatics Unit of the University of Liege](http://geomatics.ulg.ac.be/fr/home.php). For more detailed information please contact us via <ayarroudh@uliege.be>, we are pleased to send you the necessary information.
