@@ -1,6 +1,6 @@
-# Copyright (c) 2020 - University of Liège
-# Author : john Doe (john.doe@uliege.be), Lab of Intelligent Science
-# This file is distributed under the BSD-3 licence. See LICENSE file for complete text of the license
+# Copyright (c) 2022-2023 - University of Liège
+# Author : Anass Yarroudh (ayarroudh@uliege.be), Geomatics Unit of ULiege
+# This file is distributed under the BSD-3 licence. See LICENSE file for complete text of the license.
 
 import click
 import collections
