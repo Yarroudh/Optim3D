@@ -128,6 +128,41 @@ The generated CityJSON files should be processed to add information about tiles 
     --help           Show this message and exit.
 ```
 
+## Results
+
+The results of each command are saved. The output folder will look like this:
+
+```bash
+├── output
+│   ├── flowcharts
+│   │   ├── *.json
+│   ├── footprint_tiles
+│   │   ├── *.cpg
+│   │   ├── *.dbf
+│   │   ├── *.prj
+│   │   ├── *.shp
+│   │   ├── *.shx
+│   ├── indexed_pointcloud
+│   │   ├── ept-data
+│   │   │   ├── *.laz
+│   │   ├── ept-hierarchy
+│   │   │   ├── 0-0-0-0.json
+│   │   ├── ept-sources
+│   │   │   ├── *.json
+│   │   ├── ept.json
+│   │   ├── ept-build.json
+│   ├── model
+│   │   ├── cityjson
+│   │   ├── *.city.json
+│   │   ├── obj
+│   │   ├── *.obj
+│   │   ├── *.obj.mtl
+│   ├── pointcloud_tiles
+│   │   ├── *.las
+│   ├── processing_areas.gpkg
+│   └── quadtree.gpkg
+```
+
 ![image](https://user-images.githubusercontent.com/72500344/216613188-82d54c75-7e03-4ee7-8c1c-d081e0c1d4ac.png)
 
 ## Related Repositories
