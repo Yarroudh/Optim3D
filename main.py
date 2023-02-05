@@ -1,3 +1,7 @@
+# Copyright (c) 2020 - University of Liège
+# Author : john Doe (john.doe@uliege.be), Lab of Intelligent Science
+# This file is distributed under the BSD-3 licence. See LICENSE file for complete text of the license
+
 import click
 import collections
 from commands import pointcloud, footprints, tiling, reconstruction
