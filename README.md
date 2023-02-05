@@ -3,6 +3,7 @@
 # Optimized reconstruction of large-scale 3D building models 
 
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![UGEOM - RESEARCH](https://img.shields.io/badge/UGEOM-RESEARCH-2ea44f)](http://geomatics.ulg.ac.be/)
 
 *Command-Line Interface (CLI) application for efficient and optimized reconstruction of large-scale 3D building models.*
 
