@@ -130,7 +130,7 @@ The generated CityJSON files should be processed to add information about tiles 
 
 ## Results
 
-The results of each command are saved. The output folder will look like this:
+The results of each command are saved in the <code>output</code> folder, which will look like this after executing all the commands:
 
 ```bash
 ├── output
@@ -162,6 +162,8 @@ The results of each command are saved. The output folder will look like this:
 │   ├── processing_areas.gpkg
 │   └── quadtree.gpkg
 ```
+
+The 3D building models can be viewd using [Ninja](https://github.com/cityjson/ninja), the official web viewer for CityJSON files.
 
 ![image](https://user-images.githubusercontent.com/72500344/216613188-82d54c75-7e03-4ee7-8c1c-d081e0c1d4ac.png)
 
