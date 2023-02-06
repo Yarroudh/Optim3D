@@ -2,3 +2,4 @@ click==8.0.4
 entwine==2.2.0
 geopandas==0.9.0
 osmnx==1.1.1
+pdal==2.4.0
