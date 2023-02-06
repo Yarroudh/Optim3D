@@ -2,34 +2,27 @@ Optim3D code, copyright (c) University of Liège 2022-2023, si distributed under
 
 Optim3D uses the following libraries :  
 
-click : 
 
+click : 
 Copyright (c) 2014 Pallets, distributed under the BSD 3-Clause License.
 
 geopandas : 
-
 Copyright (c) 2013-2022, GeoPandas developers, distributed under the BSD 3-Clause License.
 
 osmnx:
-
 Copyright (c) 2016–2023 Geoff Boeing https://geoffboeing.com/, distributed under the MIT License.
 
 shapely:
-
 Copyright (c) 2007, Sean C. Gillies. 2019, Casper van der Wel. 2007-2022, Shapely Contributors, distributed under the BSD 3-Clause License.
 
 subprocess:
-
 Copyright (c) 2003-2005 by Peter Astrand <astrand@lysator.liu.se>, Licensed to PSF under a Contributor Agreement.
 
 psutil:
-
 Copyright (c) 2009, Jay Loden, Dave Daeschler, Giampaolo Rodola, distributed under the BSD 3-Clause License.
 
 pdal:
-
 Copyright (c) 2022, Hobu, Inc. (howard@hobu.co), distributed under the BSD 3-Clause License.
 
-Entwine:
-
+entwine:
 Copyright (c) 2016 Connor Manning, Hobu, Inc. (connor@hobu.co), distributed under the LGPL-2 License.
