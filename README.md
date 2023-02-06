@@ -179,6 +179,8 @@ This software is under the BSD 3-Clause "New" or "Revised" license which is a pe
 
 ## About Optim3D
 
+[![Anass Yarroudh - Research Engineer](https://img.shields.io/static/v1?label=Anass+Yarroudh&message=Research+Engineer&color=ae170f)](https://www.linkedin.com/in/anass-yarroudh/)
+
 This software was developped by [Anass Yarroudh](https://www.linkedin.com/in/anass-yarroudh/), a Research Engineer in the [Geomatics Unit of the University of Liege](http://geomatics.ulg.ac.be/fr/home.php). 
 For more detailed information please contact us via <ayarroudh@uliege.be>, we are pleased to send you the necessary information.
 
