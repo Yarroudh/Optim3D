@@ -173,6 +173,10 @@ The 3D building models can be viewd using [Ninja](https://github.com/cityjson/ni
 
 GeoFlow requires that the point cloud includes some ground points around the building so that it can determine the ground floor elevation. However, for aerial point clouds, buildings surrounded by others may not meet this condition which may result in inaccurate height estimation above the ground. This can be resolved using [ZRect3D](https://github.com/Yarroudh/zrect3d), a tool for automatic correction of buildings ground-floor elevation in CityJSON files using ground points from LiDAR data.
 
+## License
+
+This software is under the BSD 3-Clause "New" or "Revised" license which is a permissive license. Please read the [LICENSE] and the [COPYING] files for more details.
+
 ## About Optim3D
 
 This software was developped by [Anass Yarroudh](https://www.linkedin.com/in/anass-yarroudh/), a Research Engineer in the [Geomatics Unit of the University of Liege](http://geomatics.ulg.ac.be/fr/home.php). 
