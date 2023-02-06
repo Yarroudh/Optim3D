@@ -175,7 +175,7 @@ GeoFlow requires that the point cloud includes some ground points around the bui
 
 ## License
 
-This software is under the BSD 3-Clause "New" or "Revised" license which is a permissive license. Please read the [LICENSE]() and the [COPYING]() files for more details.
+This software is under the BSD 3-Clause "New" or "Revised" license which is a permissive license that allows you almost unlimited freedom with the software so long as you include the BSD copyright and license notice in it. Please read the [LICENSE]() and the [COPYING]() files for more details.
 
 ## About Optim3D
 
