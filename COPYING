@@ -26,3 +26,6 @@ Copyright (c) 2022, Hobu, Inc. (howard@hobu.co), distributed under the BSD Licen
 
 entwine:
 Copyright (c) 2016 Connor Manning, Hobu, Inc. (connor@hobu.co), distributed under the LGPL-2 License.
+
+os, tempfile, math, typing, subprocess, multiprocessing, collections, time, json, copy :
+Copyright © 2001-2023 Python Software Foundation, distributed under PSF license.
