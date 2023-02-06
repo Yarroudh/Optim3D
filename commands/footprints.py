@@ -283,7 +283,7 @@ class QuadTree(object):
 @click.command()
 @click.argument('footprints', type=click.Path(exists=True), required=False)
 @click.option('--output', help='Output directory.', type=click.Path(exists=False), default="./output", show_default=True)
-@click.option('--osm', help='Download and work with building footprints from OpenStreetMap [west, north, est, south].', nargs=4, type=click.Tuple([float, float, float, float]))
+@click.option('--osm', help='Download and work with building footprints from OpenStreetMap [west, north, est, south].', nargs=4, type=click.Tuple([float, float, float, float]), default=(-1, -1, -1, -1))
 @click.option('--crs', help='Specify the Coordinate Reference System (EPSG).', type=click.INT)
 @click.option('--max', help='Maximum number of buildings per tile.', type=click.INT, default=3500, show_default=True)
 
@@ -299,7 +299,7 @@ def index2d(footprints, output, osm, crs, max):
 
     tmp = tempfile.mkdtemp()
 
-    if (osm):
+    if (osm != (-1, -1, -1, -1)):
         buildings = ox.geometries.geometries_from_bbox(north=osm[0], south=osm[1], east=osm[2], west=osm[3], tags = {'building': True} )
     else:
         buildings = gpd.read_file(footprints, encoding="utf-8")
