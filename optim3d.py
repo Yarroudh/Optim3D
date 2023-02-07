@@ -14,7 +14,7 @@ class OrderedGroup(click.Group):
     def list_commands(self, ctx):
         return self.commands
 
-@click.group(cls=OrderedGroup, help="CLI tool to manage full optimized 3D reconstruction of buildings using GeoFlow3D")
+@click.group(cls=OrderedGroup, help="CLI tool to manage full optimized reconstruction of large-scale 3D building models.")
 def cli():
     pass
 
