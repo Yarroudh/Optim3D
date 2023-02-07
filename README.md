@@ -17,7 +17,7 @@ Our program is based on GeoFlow and makes use of it to perform 3D reconstruction
 
 The easiest way to install <code>Optim3D</code> on Windows is to use the binary package on the [Release page](). In case you can not use the Windows installer, or if you are using a different operating system, you can build everything from source.
 
-**NOTE:** It is important to note that in order to use our program for 3D reconstruction of buildings, [GeoFlow-bundle](https://github.com/geoflow3d/geoflow-bundle/releases/tag/2022.06.17) must be installed. It is a necessary requirement for the program to function properly and perform the 3D reconstruction.
+**NOTE:** It is important to note that in order to use our program for 3D reconstruction of buildings, [GeoFlow-bundle](https://github.com/geoflow3d/geoflow-bundle/releases/tag/2022.06.17) must be installed.
 
 ## Usage of the CLI
 After installation, you have a small program called <code>optim3d</code>. Use <code>optim3d --help</code> to see the detailed help:
