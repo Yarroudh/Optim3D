@@ -3,10 +3,10 @@ Optim3D code, copyright (c) University of Liège 2022-2023, is distributed under
 Optim3D uses the following libraries :  
 
 
-click : 
+click: 
 Copyright (c) 2014 Pallets, distributed under the BSD 3-Clause License.
 
-geopandas : 
+geopandas: 
 Copyright (c) 2013-2022, GeoPandas developers, distributed under the BSD 3-Clause License.
 
 osmnx:
@@ -27,5 +27,5 @@ Copyright (c) 2022, Hobu, Inc. (howard@hobu.co), distributed under the BSD Licen
 entwine:
 Copyright (c) 2016 Connor Manning, Hobu, Inc. (connor@hobu.co), distributed under the LGPL-2 License.
 
-os, tempfile, math, typing, subprocess, multiprocessing, collections, time, json, copy :
+os, tempfile, math, typing, subprocess, multiprocessing, collections, time, json, copy:
 Copyright © 2001-2023 Python Software Foundation, distributed under PSF license.
