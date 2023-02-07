@@ -90,14 +90,6 @@ def euclid_distance(one: Union[Bounds, Point], another: Union[Bounds, Point]) ->
     return math.sqrt(euclid_compare(one, another))
 
 class QuadTree(object):
-    __max_objects: int = 10
-    __max_levels: int = 5
-    __level: int
-    __objects: List
-    __bounds: Bounds
-    __nodes: List
-    __indices = []
-
     def __init__(self, bounds: Bounds, max_objects: int = 100, max_level: int = 4, level: int = 0):
         self.__max_objects = max_objects
         self.__max_levels = max_level
@@ -105,8 +97,7 @@ class QuadTree(object):
         self.__bounds = bounds
         self.__nodes = []
         self.__objects = []
-        #self.__dir = directory
-
+        
     def __repr__(self):
         return "<QuadTree: ({}, {}), {}x{}>".format(self.__bounds.x, self.__bounds.y, self.__bounds.width, self.__bounds.height)
 
@@ -261,24 +252,21 @@ class QuadTree(object):
         return nearest_results[:max_num]
 
     def create(self, size=15):       
-        df1 = gpd.GeoDataFrame(columns=['geometry'], geometry='geometry')
+        df = gpd.GeoDataFrame(columns=['geometry'], geometry='geometry')
     
-        def draw_all_nodes(node):
-                        
+        def draw_all_nodes(node):             
             if (node.__is_leaf()==False):
                 draw_rect(node)
                 for i in range(len(node.__nodes)):
                     draw_rect(node.__nodes[i])
                     draw_all_nodes(node.__nodes[i])
                 
-
         def draw_rect(node):
             if (node.__is_leaf()):
-                df1.loc[len(df1.index)] = [geometry.box(node.__bounds.x, node.__bounds.y, node.__bounds.x + node.__bounds.width, node.__bounds.y + node.__bounds.height)]
+                df.loc[len(df.index)] = [geometry.box(node.__bounds.x, node.__bounds.y, node.__bounds.x + node.__bounds.width, node.__bounds.y + node.__bounds.height)]
 
         draw_all_nodes(self)
-        df1.to_file('./output/quadtree.gpkg', driver="GPKG")
-
+        return df
 
 @click.command()
 @click.argument('footprints', type=click.Path(exists=True), required=False)
@@ -324,8 +312,9 @@ def index2d(footprints, output, osm, crs, max):
 
     for point in centroids:
         quadTree.insert(Point(point[0], point[1])) 
-
-    quadTree.create()
+    
+    series = quadTree.create()
+    series.to_file('{}/quadtree.gpkg'.format(output), driver="GPKG")
 
     boundings = gpd.read_file('{}/QuadTree.gpkg'.format(output))
     df.reset_index()
