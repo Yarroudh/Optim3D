@@ -177,6 +177,13 @@ Download the image from [Docker Hub](https://hub.docker.com/r/yarroudh/optim3d) 
 docker pull yarroudh/optim3d
 ```
 
+To see which images are present locally, use the <code>docker images</code> command.
+
+To access the data on your host inside Docker container, you can start the container with the volume from host mounted in the container by using <code>-v</code> flag:
+
+```bash
+docker run -v "/path/to/host/directory:/path/inside/container" optim3d
+```
 
 ## Related repositories
 
