@@ -169,6 +169,15 @@ The 3D building models can be viewd using [Ninja](https://github.com/cityjson/ni
 
 ![image](https://user-images.githubusercontent.com/72500344/216613188-82d54c75-7e03-4ee7-8c1c-d081e0c1d4ac.png)
 
+## Running the application using Docker
+
+Download the image from [Docker Hub](https://hub.docker.com/r/yarroudh/optim3d) using this command:
+
+```bash
+docker pull yarroudh/optim3d
+```
+
+
 ## Related repositories
 
 [Automatic correction of buildings ground floor elevation in 3D City Models](https://github.com/Yarroudh/ZRect3D)
