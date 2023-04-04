@@ -185,6 +185,15 @@ To access the data on your host inside Docker container, you can start the conta
 docker run -v "/path/to/host/directory:/path/inside/container" optim3d
 ```
 
+### 2D building footprints indexing and tiling
+
+```bash
+docker run \
+  -v "/data:/data" \
+  optim3d main.py \
+  index2d data/footprints.shp
+```
+
 ## Related repositories
 
 [Automatic correction of buildings ground floor elevation in 3D City Models](https://github.com/Yarroudh/ZRect3D)
