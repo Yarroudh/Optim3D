@@ -221,7 +221,7 @@ This software is under the BSD 3-Clause "New" or "Revised" license which is a pe
 
 ## Citation
 
-The use of open-source software repositories has become increasingly prevalent in scientific research. If you use this repository for your research, please make sure to cite it appropriately in your work. The recommended citation format for this repository is provided in the accompanying BibTeX citation. Additionally, please make sure to comply with any licensing terms and conditions associated with the use of this repository.
+The use of open-source software repositories has become increasingly prevalent in scientific research. If you use this repository for your research, please make sure to cite it appropriately in your work. The recommended citation format for this repository is provided in the accompanying [BibTeX citation](https://github.com/Yarroudh/Optim3D/blob/main/CITATION.bib). Additionally, please make sure to comply with any licensing terms and conditions associated with the use of this repository.
 
 ```bibtex
 @misc{yarroudh:2023:optim3d,
