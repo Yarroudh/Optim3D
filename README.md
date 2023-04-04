@@ -152,10 +152,7 @@ docker run -v "/path/to/host/directory:/path/inside/container" optim3d
 #### 2D building footprints indexing and tiling
 
 ```bash
-docker run \
-  -v "/data:/data" \
-  optim3d main.py \
-  index2d data/footprints.shp
+docker run -v /data:/data optim3d main.py index2d data/footprints.shp
 ```
 
 ### Building from source
