@@ -211,6 +211,21 @@ GeoFlow requires that the point cloud includes some ground points around the bui
 
 This software is under the BSD 3-Clause "New" or "Revised" license which is a permissive license that allows you almost unlimited freedom with the software so long as you include the BSD copyright and license notice in it. Please read the [LICENSE](https://github.com/Yarroudh/Optim3D/blob/main/LICENSE) and the [COPYING](https://github.com/Yarroudh/Optim3D/blob/main/COPYING) files for more details.
 
+## Citation
+
+The use of open-source software repositories such as GitHub has become increasingly prevalent in scientific research. If you use this repository for your research, please make sure to cite it appropriately in your work. The recommended citation format for this repository is provided in the accompanying BibTeX citation. Additionally, please make sure to comply with any licensing terms and conditions associated with the use of this repository.
+
+```bibtex
+@misc{yarroudh:2023:optim3d,
+  author = {Yarroudh, Anass},
+  title = {Optim3D: Optimized reconstruction of large-scale 3D building models},
+  year = {2023},
+  howpublished = {GitHub Repository},
+  url = {https://github.com/Yarroudh/Optim3D}
+}
+
+```
+
 ## About Optim3D
 
 This software was developped by [Anass Yarroudh](https://www.linkedin.com/in/anass-yarroudh/), a Research Engineer in the [Geomatics Unit of the University of Liege](http://geomatics.ulg.ac.be/fr/home.php). 
