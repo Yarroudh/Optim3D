@@ -231,10 +231,9 @@ The use of open-source software repositories has become increasingly prevalent i
   howpublished = {GitHub Repository},
   url = {https://github.com/Yarroudh/Optim3D}
 }
+```
 
 Yarroudh, A. (2023). Optim3D: Optimized reconstruction of large-scale 3D building models [GitHub repository]. Retrieved from https://github.com/Yarroudh/Optim3D
-
-```
 
 ## About Optim3D
 
