@@ -1,7 +1,11 @@
-@misc{yarroudh:2023:optim3d,
-  author = {Yarroudh, Anass},
-  title = {Optim3D: Optimized reconstruction of large-scale 3D building models},
-  year = {2023},
-  howpublished = {GitHub Repository},
-  url = {https://github.com/Yarroudh/Optim3D}
-}
+cff-version: 1.2.0
+message: If you use this software, please cite it using the following metadata
+title: Optim3D: Optimized reconstruction of large-scale 3D building models
+version: 1.0
+authors:
+  - family-names: Yarroudh
+    given-names: Anass
+version: 0.2.0
+date-released: 2023
+repository-code: Yarroudh/Optim3D
+url: https://github.com/Yarroudh/Optim3D
