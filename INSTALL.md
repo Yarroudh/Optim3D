@@ -21,7 +21,7 @@ Before installing Optim3D, you need to create a Conda environment using the <cod
 conda env create -f environment.yaml
 ```
 
-This command will create a new Conda environment with the name specified in the <code>environment.yaml</code>. The environment uses **Python 3.6.13** and have the following packages installed:
+This command will create a new Conda environment with the name specified in the <code>environment.yaml</code> file. The environment uses **Python 3.6.13** and have the following packages installed:
 - Entwine
 - PDAL
 - Python-PDAL (Python bindings for PDAL)
@@ -54,7 +54,7 @@ Verify that the application is installed correctly by running this command:
 optim3d --help
 ```
 
-If the commands shows you the following message, the application is installed correctly in the Conda environment:
+If the command shows you the following message, the application is installed correctly in the Conda environment:
 
 ```bash
 Usage: optim3d [OPTIONS] COMMAND [ARGS]...
