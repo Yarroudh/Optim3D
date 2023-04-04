@@ -155,6 +155,17 @@ docker run -v "/path/to/host/directory:/path/inside/container" optim3d
 docker run -v /data:/data optim3d main.py index2d data/footprints.shp
 ```
 
+#### Copy the output folder
+
+To copy the output folder from the Docker container to the host system, you can use the <code>docker cp</code> command as follows:
+
+```bash
+docker cp <container_id>:output output
+```
+
+To find the ID of the running Docker container, you can use the <code>docker ps</code> command, which lists all running containers along with their metadata, including the container ID.
+
+
 ### Building from source
 
 If you want to build the solution from source, you should follow the steps in [INSTALL.md](). The commands can be used as decribed for the Binary package.
