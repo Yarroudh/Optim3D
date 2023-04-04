@@ -17,11 +17,14 @@ Our program is based on GeoFlow and makes use of it to perform 3D reconstruction
 
 ## Installation
 
-The easiest way to install <code>Optim3D</code> on Windows is to use the binary package on the [Release page](https://github.com/Yarroudh/Optim3D/releases/tag/release). In case you can not use the Windows installer, or if you are using a different operating system, you can build everything from source (see INSTALL.md). You can also download the [Docker image](https://hub.docker.com/r/yarroudh/optim3d).
+The easiest way to install <code>Optim3D</code> on Windows is to use the binary package on the [Release page](https://github.com/Yarroudh/Optim3D/releases/tag/release). In case you can not use the Windows installer, or if you are using a different operating system, you can build everything from source (see [INSTALL.md]()). You can also download the [Docker image](https://hub.docker.com/r/yarroudh/optim3d).
 
 **NOTE:** It is important to note that in order to use our program for 3D reconstruction of buildings, [GeoFlow-bundle](https://github.com/geoflow3d/geoflow-bundle/releases/tag/2022.06.17) must be installed. Please read the License before using it.
 
 ## Usage of the CLI
+
+### Binary package
+
 After installation, you have a small program called <code>optim3d</code>. Use <code>optim3d --help</code> to see the detailed help:
 
 ```
@@ -43,7 +46,7 @@ Commands:
 
 The process consists of five distinct steps or <code>commands</code> that must be executed in a specific order to achieve the desired outcome.
 
-### Step 1 : 2D building footprints indexing and tiling
+#### Step 1 : 2D building footprints indexing and tiling
 
 Quadtree-based tiling scheme is used for spatial partitioning of building footprints. This assures that the reconstruction time per tile is more or less the same and that the tiles available for download are similar in file size. This is done using the first command <code>index2d</code>. Use <code>optim3d index2d --help</code> to see the detailed help:
 
@@ -65,7 +68,7 @@ Options:
   --help                          Show this message and exit.
 ```
 
-### Step 2 : OcTree indexing of the 3D point cloud
+#### Step 2 : OcTree indexing of the 3D point cloud
 
 Processing large point cloud datasets is hardware-intensive. Therefore, it is necessary to index the 3D point cloud before processing. The index structure makes it possible to stream only the parts of the data that are required, without having to download the entire dataset. In this case, the spatial indexing of the airborne point cloud is performed using an octree structure. This can be easily done using Entwine, an open-source library for organizing and indexing large point cloud datasets using an octree data structure that allows fast and efficient spatial queries. This is done using the second command <code>index3d</code>. Use <code>optim3d index3d --help</code> to see the detailed help:
 
@@ -79,7 +82,7 @@ Options:
   --help         Show this message and exit.
 ```
 
-### Step 3 : Tiling of the 3D point cloud
+#### Step 3 : Tiling of the 3D point cloud
 
 The tiling of the indexed point cloud is based on processing areas calculated when the footprints were indexed. This is achieved using the third command <code>tiler3d</code>. Use <code>optim3d tiler3d --help</code> to see the detailed help:
 
@@ -97,7 +100,7 @@ Options:
   --help          Show this message and exit.
 ```
 
-### Step 4 : 3D reconstruction of building models tile by tile
+#### Step 4 : 3D reconstruction of building models tile by tile
 
 The 3D reconstruction of building models is performed in this step. The process make use of GeoFlow to generate hight detailed 3D building models tile by tile. This is achieved using the fourth command <code>reconstruct</code>. Use <code>optim3d reconstruct --help</code> to see the detailed help:
 
@@ -115,7 +118,7 @@ Options:
   --help             Show this message and exit.
 ```
 
-### Step 5 : Post-processing of CityJSON files
+#### Step 5 : Post-processing of CityJSON files
 
 The generated CityJSON files should be processed to add information about tiles to 3D objects. This is done using the fifth command <code>post</code>. Use <code>optim3d post --help</code> to see the detailed help:
 
@@ -129,6 +132,35 @@ Options:
                    ./output/model/cityjson]
   --help           Show this message and exit.
 ```
+
+### Running the application using Docker
+
+Download the image from [Docker Hub](https://hub.docker.com/r/yarroudh/optim3d) using this command:
+
+```bash
+docker pull yarroudh/optim3d
+```
+
+To see which images are present locally, use the <code>docker images</code> command.
+
+To access the data on your host inside Docker container, you can start the container with the volume from host mounted in the container by using <code>-v</code> flag:
+
+```bash
+docker run -v "/path/to/host/directory:/path/inside/container" optim3d
+```
+
+#### 2D building footprints indexing and tiling
+
+```bash
+docker run \
+  -v "/data:/data" \
+  optim3d main.py \
+  index2d data/footprints.shp
+```
+
+### Building from source
+
+If you want to build the solution from source, you should follow the steps in [INSTALL.md](). The commands can be used as decribed for the Binary package.
 
 ## Results
 
@@ -168,31 +200,6 @@ The results of each command are saved in the <code>output</code> folder, which w
 The 3D building models can be viewd using [Ninja](https://github.com/cityjson/ninja), the official web viewer for CityJSON files.
 
 ![image](https://user-images.githubusercontent.com/72500344/216613188-82d54c75-7e03-4ee7-8c1c-d081e0c1d4ac.png)
-
-## Running the application using Docker
-
-Download the image from [Docker Hub](https://hub.docker.com/r/yarroudh/optim3d) using this command:
-
-```bash
-docker pull yarroudh/optim3d
-```
-
-To see which images are present locally, use the <code>docker images</code> command.
-
-To access the data on your host inside Docker container, you can start the container with the volume from host mounted in the container by using <code>-v</code> flag:
-
-```bash
-docker run -v "/path/to/host/directory:/path/inside/container" optim3d
-```
-
-### 2D building footprints indexing and tiling
-
-```bash
-docker run \
-  -v "/data:/data" \
-  optim3d main.py \
-  index2d data/footprints.shp
-```
 
 ## Related repositories
 
