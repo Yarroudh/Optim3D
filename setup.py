@@ -1,9 +1,5 @@
-try:
-    from setuptools import setup
-
-except ImportError:
-    from distutils.core import setup
-
+from setuptools import setup, find_packages()
+    
 setup(
     name="optim3d",
     version='0.2.0',
