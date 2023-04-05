@@ -27,7 +27,7 @@ Before installing Optim3D, you need to create a Conda environment using the <cod
 conda env create -f environment.yaml
 ```
 
-This command will create a new Conda environment with the name specified in the <code>environment.yaml</code> file. The environment uses **Python 3.6.13** and have the following packages installed:
+This command will create a new Conda environment named <code>optimenv</code>. The environment uses **Python 3.6.13** and have the following packages installed:
 - Cython
 - Entwine
 - PDAL
@@ -58,8 +58,6 @@ This command will install Optim3D and its dependencies in the Conda environment 
 - geopandas==0.9.0
 - osmnx==0.11.3
 - shapely==1.6.0
-
-Now, you can try to reinstall the <code>setup.py</code> file.
 
 ## Step 7: Verify the Installation
 
