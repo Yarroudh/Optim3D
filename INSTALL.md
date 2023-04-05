@@ -10,6 +10,8 @@ Choose the version that matches your operating system, and follow the instructio
 You need to install Geoflow-bundle to perform the 3D reconstruction of buildings. You can follow the steps of installation in the following link:
 https://github.com/geoflow3d/geoflow-bundle
 
+Once Geoflow-bundle is installed, you can go through the next steps.
+
 ## Step 3: Clone the Repository
 Clone the repository of the Optim3D and navigate to its root directory.
 
