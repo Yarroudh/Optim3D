@@ -7,7 +7,7 @@ First, you need to install Miniconda, which is a minimal version of Anaconda. Yo
 Choose the version that matches your operating system, and follow the instructions to install it on your system.
 
 ## Step 2: Install Geoflow-bundle
-You need to install Geoflow-bundle to perform the 3D reconstruction of buildings. You can follow the steps of installation in the following link:
+You need to install **Geoflow-bundle v2022.06.17** to perform the 3D reconstruction of buildings. You can follow the steps of installation in the following link:
 https://github.com/geoflow3d/geoflow-bundle
 
 Once Geoflow-bundle is installed, you can go through the next steps.
