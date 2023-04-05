@@ -63,12 +63,14 @@ error: Setup script exited with error: command 'gcc' failed with exit status 1
 This means you don't have the python development headers installed. You can do this through <code>apt-get</code> on ubuntu/debian with:
 
 ```bash
+sudo apt-get update
 sudo apt-get install python-dev 
 ```
 
-Or the following command for python3:
+Or, for python3 use:
 
 ```bash
+sudo apt-get update
 sudo apt-get install python3-dev
 ```
 
