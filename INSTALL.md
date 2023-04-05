@@ -60,18 +60,12 @@ unable to execute 'gcc': No such file or directory
 error: Setup script exited with error: command 'gcc' failed with exit status 1
 ```
 
-This means you don't have the python development headers installed. You can do this through <code>apt-get</code> on ubuntu/debian with:
+This means you need to install GCC (C and C++ compiler) on your Linux. You can do this through <code>apt-get</code> on Ubuntu 20.04 LTS:
 
 ```bash
 sudo apt-get update
-sudo apt-get install python-dev 
-```
-
-Or, for python3 use:
-
-```bash
-sudo apt-get update
-sudo apt-get install python3-dev
+sudo apt-get upgrade
+sudo apt-get install gcc
 ```
 
 Now, you can try to reinstall the <code>setup.py</code> file.
