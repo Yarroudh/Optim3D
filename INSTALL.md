@@ -6,7 +6,11 @@ First, you need to install Miniconda, which is a minimal version of Anaconda. Yo
 
 Choose the version that matches your operating system, and follow the instructions to install it on your system.
 
-## Step 2: Clone the Repository
+## Step 2: Install Geoflow-bundle
+You need to install Geoflow-bundle to perform the 3D reconstruction of buildings. You can follow the steps of installation in the following link:
+https://github.com/geoflow3d/geoflow-bundle
+
+## Step 3: Clone the Repository
 Clone the repository of the Optim3D and navigate to its root directory.
 
 ```bash
@@ -14,7 +18,7 @@ git clone https://github.com/Yarroudh/Optim3D/
 cd Optim3D
 ```
 
-## Step 3: Create the Conda Environment
+## Step 4: Create the Conda Environment
 Before installing Optim3D, you need to create a Conda environment using the <code>environment.yaml</code> file provided in the repository.
 
 ```bash
@@ -26,14 +30,14 @@ This command will create a new Conda environment with the name specified in the 
 - PDAL
 - Python-PDAL (Python bindings for PDAL)
 
-## Step 4: Activate the Conda Environment
+## Step 5: Activate the Conda Environment
 Activate the Conda environment that you created in the previous step.
 
 ```bash
 conda activate optimenv
 ```
 
-## Step 5: Install the Python Application
+## Step 6: Install the Python Application
 Finally, install the Python application using the <code>setup.py</code> file.
 
 ```bash
@@ -46,7 +50,7 @@ This command will install Optim3D and its dependencies in the Conda environment 
 - osmnx==0.11.3
 - shapely==1.6.0
 
-## Step 6: Verify the Installation
+## Step 7: Verify the Installation
 
 Verify that the application is installed correctly by running this command:
 
