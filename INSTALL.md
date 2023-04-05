@@ -11,7 +11,7 @@ Clone the repository of the Optim3D and navigate to its root directory.
 
 ```bash
 git clone https://github.com/Yarroudh/Optim3D/
-cd optim3d
+cd Optim3D
 ```
 
 ## Step 3: Create the Conda Environment
