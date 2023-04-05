@@ -133,35 +133,7 @@ Options:
 
 ### Running the application using Docker
 
-Download the image from [Docker Hub](https://hub.docker.com/r/yarroudh/optim3d) using this command:
-
-```bash
-docker pull yarroudh/optim3d
-```
-
-To see which images are present locally, use the <code>docker images</code> command.
-
-To access the data on your host inside Docker container, you can start the container with the volume from host mounted in the container by using <code>-v</code> flag:
-
-```bash
-docker run -v "/path/to/host/directory:/path/inside/container" optim3d
-```
-
-#### 2D building footprints indexing and tiling
-
-```bash
-docker run -v /data:/data optim3d main.py index2d data/footprints.shp
-```
-
-#### Copy the output folder
-
-To copy the output folder from the Docker container to the host system, you can use the <code>docker cp</code> command as follows:
-
-```bash
-docker cp <container_id>:output output
-```
-
-To find the ID of the running Docker container, you can use the <code>docker ps</code> command, which lists all running containers along with their metadata, including the container ID.
+Coming soon.
 
 
 ### Building from source
