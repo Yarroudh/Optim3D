@@ -12,6 +12,6 @@ setup(
     install_requires=reqs
     entry_points='''
         [console_scripts]
-        optim3d=optim3d:main
+        optim3d=src.optim3d:cli
     ''',
 )
