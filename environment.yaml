@@ -1,7 +1,6 @@
 name: optimenv
 channels:
   - conda-forge
-  - anaconda
 dependencies:
   - python=3.6.13
   - cython
