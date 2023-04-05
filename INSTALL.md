@@ -66,11 +66,13 @@ This means you don't have the python development headers installed. You can do t
 sudo apt-get install python-dev 
 ```
 
-Or:
+Or the following command for python3:
 
 ```bash
 sudo apt-get install python3-dev
 ```
+
+Now, you can try to reinstall the <code>setup.py</code> file.
 
 ## Step 7: Verify the Installation
 
