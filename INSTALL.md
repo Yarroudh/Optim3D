@@ -67,7 +67,7 @@ Verify that the application is installed correctly by running this command:
 optim3d --help
 ```
 
-If the command shows you the following message, the application is installed correctly in the Conda environment:
+If the command shows you the following message, the application is correctly installed in the Conda environment:
 
 ```bash
 Usage: optim3d [OPTIONS] COMMAND [ARGS]...
