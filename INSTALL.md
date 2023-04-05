@@ -28,6 +28,7 @@ conda env create -f environment.yaml
 ```
 
 This command will create a new Conda environment with the name specified in the <code>environment.yaml</code> file. The environment uses **Python 3.6.13** and have the following packages installed:
+- Cython
 - Entwine
 - PDAL
 - Python-PDAL (Python bindings for PDAL)
