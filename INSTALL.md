@@ -53,21 +53,6 @@ This command will install Optim3D and its dependencies in the Conda environment 
 - osmnx==0.11.3
 - shapely==1.6.0
 
-If the following error occurs:
-
-```bash
-unable to execute 'gcc': No such file or directory
-error: Setup script exited with error: command 'gcc' failed with exit status 1
-```
-
-This means you need to install GCC (C and C++ compiler) on your Linux. You can do this through <code>apt-get</code> on Ubuntu 20.04 LTS:
-
-```bash
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get install gcc
-```
-
 Now, you can try to reinstall the <code>setup.py</code> file.
 
 ## Step 7: Verify the Installation
