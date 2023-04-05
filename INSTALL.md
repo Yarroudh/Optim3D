@@ -40,11 +40,17 @@ Activate the Conda environment that you created in the previous step.
 conda activate optimenv
 ```
 
-## Step 6: Install the Python Application
-Finally, install the Python application using the <code>setup.py</code> file.
+## Step 6: Install Dependencies
+Before installing Optim3D, you should install all the dependencies using the following command:
 
 ```bash
-python setup.py install
+pip install -r requirements.txt
+```
+
+Finally, install Optim3D using the <code>setup.py</code> file.
+
+```bash
+pip install -e .
 ```
 
 This command will install Optim3D and its dependencies in the Conda environment that you created earlier. These dependencies are :
