@@ -53,6 +53,25 @@ This command will install Optim3D and its dependencies in the Conda environment 
 - osmnx==0.11.3
 - shapely==1.6.0
 
+If the following error occurs:
+
+```bash
+unable to execute 'gcc': No such file or directory
+error: Setup script exited with error: command 'gcc' failed with exit status 1
+```
+
+This means you don't have the python development headers installed. You can do this through <code>apt-get</code> on ubuntu/debian with:
+
+```bash
+sudo apt-get install python-dev 
+```
+
+Or:
+
+```bash
+sudo apt-get install python3-dev
+```
+
 ## Step 7: Verify the Installation
 
 Verify that the application is installed correctly by running this command:
