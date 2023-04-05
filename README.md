@@ -131,7 +131,7 @@ Options:
   --help           Show this message and exit.
 ```
 
-### Running the application using Docker
+### Docker Image
 
 Coming soon.
 
