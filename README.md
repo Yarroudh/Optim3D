@@ -1,6 +1,6 @@
 <img src="https://user-images.githubusercontent.com/72500344/210864557-4078754f-86c1-4e7c-b291-73223bdf4e4d.png" alt="logo" width="200"/>
 
-# Optimized reconstruction of large-scale 3D building models 
+# Optimized reconstruction of large-scale 3D building models
 
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://github.com/Yarroudh/ZRect3D/blob/main/LICENSE)
 [![Geomatics Unit of ULiege - Development](https://img.shields.io/badge/Geomatics_Unit_of_ULiege-Development-2ea44f)](http://geomatics.ulg.ac.be/)
@@ -15,7 +15,13 @@ Our program is based on GeoFlow and makes use of it to perform 3D reconstruction
 
 ## Installation
 
-The easiest way to install <code>Optim3D</code> on Windows is to use the binary package on the [Release page](https://github.com/Yarroudh/Optim3D/releases/tag/release). In case you can not use the Windows installer, or if you are using a different operating system, you can build everything from source (see [INSTALL.md]()). You can also download the [Docker image](https://hub.docker.com/r/yarroudh/optim3d).
+You can install optim3d in your Conda environment by simply running:
+
+```bash
+pip install optim3d
+```
+
+Youc can also build everything from source (see [INSTALL.md]()). A [Docker image](https://hub.docker.com/r/yarroudh/optim3d) is also available.
 
 **NOTE:** It is important to note that in order to use our program for 3D reconstruction of buildings, [GeoFlow-bundle](https://github.com/geoflow3d/geoflow-bundle/releases/tag/2022.06.17) must be installed. Please read the License before using it.
 
@@ -39,7 +45,7 @@ Commands:
   index3d      OcTree indexing of 3D point cloud using Entwine.
   tiler3d      Tiling of point cloud using the calculated processing areas.
   reconstruct  Optimized 3D reconstruction of buildings using GeoFlow.
-  post         Post-processing generated CityJSON files. 
+  post         Post-processing generated CityJSON files.
 ```
 
 The process consists of five distinct steps or <code>commands</code> that must be executed in a specific order to achieve the desired outcome.
@@ -54,14 +60,14 @@ Usage: optim3d index2d [OPTIONS] [FOOTPRINTS]
   QuadTree indexing and tiling of building 2D footprints.
 
 Options:
-  --output PATH                   Output directory.  [default: ./output]    
+  --output PATH                   Output directory.  [default: ./output]
   --osm <FLOAT FLOAT FLOAT FLOAT>...
                                   Download and work with building footprints
-                                  from OpenStreetMap [west, north, est,     
+                                  from OpenStreetMap [west, north, est,
                                   south].
-  --crs INTEGER                   Specify the Coordinate Reference System   
+  --crs INTEGER                   Specify the Coordinate Reference System
                                   (EPSG).
-  --max INTEGER                   Maximum number of buildings per tile.     
+  --max INTEGER                   Maximum number of buildings per tile.
                                   [default: 3500]
   --help                          Show this message and exit.
 ```
@@ -73,7 +79,7 @@ Processing large point cloud datasets is hardware-intensive. Therefore, it is ne
 ```
 Usage: optim3d index3d [OPTIONS] POINTCLOUD
 
-  OcTree indexing of 3D point cloud using Entwine.     
+  OcTree indexing of 3D point cloud using Entwine.
 
 Options:
   --output PATH  Output directory.  [default: ./output]
@@ -90,9 +96,9 @@ Usage: optim3d tiler3d [OPTIONS]
   Tiling of 3D point cloud using the calculated processing areas.
 
 Options:
-  --areas PATH    The calculated processing areas.  [default:    
+  --areas PATH    The calculated processing areas.  [default:
                   ./output/processing_areas.gpkg]
-  --indexed PATH  Indexed 3D point cloud directory.  [default:   
+  --indexed PATH  Indexed 3D point cloud directory.  [default:
                   ./output/indexed_pointcloud]
   --output PATH   Output directory.  [default: ./output]
   --help          Show this message and exit.
@@ -108,7 +114,7 @@ Usage: optim3d reconstruct [OPTIONS]
   Optimized 3D reconstruction of buildings using GeoFlow.
 
 Options:
-  --pointcloud PATH  3D point cloud tiles directory.  [default:        
+  --pointcloud PATH  3D point cloud tiles directory.  [default:
                      ./output/pointcloud_tiles]
   --footprints PATH  2D building footprints tiles directory.  [default:
                      ./output/footprint_tiles]
@@ -207,5 +213,5 @@ Yarroudh, A. (2023). Optim3D: Optimized reconstruction of large-scale 3D buildin
 
 ## About Optim3D
 
-This software was developped by [Anass Yarroudh](https://www.linkedin.com/in/anass-yarroudh/), a Research Engineer in the [Geomatics Unit of the University of Liege](http://geomatics.ulg.ac.be/fr/home.php). 
+This software was developped by [Anass Yarroudh](https://www.linkedin.com/in/anass-yarroudh/), a Research Engineer in the [Geomatics Unit of the University of Liege](http://geomatics.ulg.ac.be/fr/home.php).
 For more detailed information please contact us via <ayarroudh@uliege.be>, we are pleased to send you the necessary information.
