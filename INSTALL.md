@@ -12,7 +12,31 @@ https://github.com/geoflow3d/geoflow-bundle
 
 Once Geoflow-bundle is installed, you can go through the next steps.
 
-## Step 3: Clone the Repository
+## Step 3: Create the Conda Environment
+Before installing Optim3D, you need to create a Conda environment by running the following commands:
+
+```bash
+conda create --name optimenv python=3.6.13
+conda install -c conda-forge pdal python-pdal
+conda install -c conda-forge entwine
+```
+
+This command will create a new Conda environment named <code>optimenv</code>. The environment uses **Python 3.6.13** and have the following packages installed:
+- Entwine
+- PDAL
+- Python-PDAL (Python bindings for PDAL)
+
+## Step 4: Install Optim3D
+
+You can install optim3d in your Conda environment by simply running:
+
+```bash
+pip install optim3d
+```
+
+Or, you can build it from source:
+
+###Clone the Repository
 Clone the repository of the Optim3D and navigate to its root directory.
 
 ```bash
@@ -20,27 +44,14 @@ git clone https://github.com/Yarroudh/Optim3D/
 cd Optim3D
 ```
 
-## Step 4: Create the Conda Environment
-Before installing Optim3D, you need to create a Conda environment using the <code>environment.yaml</code> file provided in the repository.
-
-```bash
-conda env create -f environment.yaml
-```
-
-This command will create a new Conda environment named <code>optimenv</code>. The environment uses **Python 3.6.13** and have the following packages installed:
-- Cython
-- Entwine
-- PDAL
-- Python-PDAL (Python bindings for PDAL)
-
-## Step 5: Activate the Conda Environment
+### Activate the Conda Environment
 Activate the Conda environment that you created in the previous step.
 
 ```bash
 conda activate optimenv
 ```
 
-## Step 6: Install Dependencies
+### Install Dependencies
 Before installing Optim3D, you should install all the dependencies using the following command:
 
 ```bash
@@ -59,7 +70,7 @@ This command will install Optim3D and its dependencies in the Conda environment 
 - osmnx==0.11.3
 - shapely==1.6.0
 
-## Step 7: Verify the Installation
+### Verify the Installation
 
 Verify that the application is installed correctly by running this command:
 
