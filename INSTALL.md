@@ -36,7 +36,7 @@ pip install optim3d
 
 Or, you can build it from source:
 
-###Clone the Repository
+### Clone the Repository
 Clone the repository of the Optim3D and navigate to its root directory.
 
 ```bash
