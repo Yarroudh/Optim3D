@@ -147,8 +147,7 @@ Coming soon.
 
 ### Building from source
 
-If you want to build the solution from source, you should follow the steps in [INSTALL.md](). The commands can be used as decribed for the Binary package.
-
+If you want to build the solution from source, you should follow the steps in [INSTALL.md]().
 ## Results
 
 The results of each command are saved in the <code>output</code> folder, which will look like this after executing all the commands:
