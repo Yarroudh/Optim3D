@@ -1,9 +1,7 @@
 name: optimenv
 channels:
   - conda-forge
-  - pypi
 dependencies:
   - python=3.6.13
-  - pdal
   - python-pdal
   - entwine
