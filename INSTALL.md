@@ -26,6 +26,12 @@ This command will create a new Conda environment named <code>optimenv</code>. Th
 - PDAL
 - Python-PDAL (Python bindings for PDAL)
 
+Activate the Conda environment that you created in the previous step.
+
+```bash
+conda activate optimenv
+```
+
 ## Step 4: Install Optim3D
 
 You can install <code>optim3d</code> in your Conda environment by simply running:
@@ -42,13 +48,6 @@ Clone the repository of the Optim3D and navigate to its root directory.
 ```bash
 git clone https://github.com/Yarroudh/Optim3D/
 cd Optim3D
-```
-
-### Activate the Conda Environment
-Activate the Conda environment that you created in the previous step.
-
-```bash
-conda activate optimenv
 ```
 
 ### Install Dependencies
