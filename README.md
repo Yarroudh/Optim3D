@@ -18,10 +18,13 @@ Our program is based on GeoFlow and makes use of it to perform 3D reconstruction
 You can install optim3d in your Conda environment by simply running:
 
 ```bash
+conda create --name optimenv python==3.6
+conda install -c conda-forge entwine
+conda install -c conda-forge pdal python-pdal
 pip install optim3d
 ```
 
-Youc can also build everything from source (see [INSTALL.md]()). A [Docker image](https://hub.docker.com/r/yarroudh/optim3d) is also available.
+You can also build everything from source (see [INSTALL.md]()). A [Docker image](https://hub.docker.com/r/yarroudh/optim3d) is also available.
 
 **NOTE:** It is important to note that in order to use our program for 3D reconstruction of buildings, [GeoFlow-bundle](https://github.com/geoflow3d/geoflow-bundle/releases/tag/2022.06.17) must be installed. Please read the License before using it.
 
