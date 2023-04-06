@@ -28,7 +28,7 @@ This command will create a new Conda environment named <code>optimenv</code>. Th
 
 ## Step 4: Install Optim3D
 
-You can install optim3d in your Conda environment by simply running:
+You can install <code>optim3d</code> in your Conda environment by simply running:
 
 ```bash
 pip install optim3d
