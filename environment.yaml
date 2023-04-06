@@ -1,7 +1,0 @@
-name: optimenv
-channels:
-  - conda-forge
-dependencies:
-  - python=3.6.13
-  - python-pdal
-  - entwine
