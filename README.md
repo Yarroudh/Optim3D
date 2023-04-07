@@ -162,14 +162,19 @@ This command will start a Docker container in detached mode, mount the **<absolu
 4. Launch a command inside the container using <code>docker exec</code>, use the container ID or name and the command you want to run. For example:
 
 ```bash
-docker exec CONTAINER_ID optim3d index2d PATH_TO_FOOTPRINTS_FILE
+docker exec CONTAINER_ID optim3d index2d data/FILE_NAME
 ```
 This command will execute the QuadTree indexing of the 2D footprints data, which can be a Shapefile (.shp) or a GeoPackage (.gpkg).
 
 5. To copy the output of the command from the container to a local path, use the <code>docker cp</code> command with the container ID or name, the path to the file inside the container, and the path to the destination on the host machine. For example:
 
+- To copy the output of one command:
 ```bash
 docker cp CONTAINER_ID:/home/user/output/footprint_tiles PATH_ON_HOST_MACHINE
+```
+- Top copy the output of all the commands:
+```bash
+docker cp CONTAINER_ID:/home/user/output PATH_ON_HOST_MACHINE
 ```
 
 6. Finally, after executing all the commands and copying the results to your local machine, you can stop the Docker container using the <code>docker stop</code> command followed by the container ID or name:
