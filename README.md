@@ -142,17 +142,49 @@ Options:
 
 ### Docker Image
 
+Optim3D is available as Docker image. These are the steps to run it as a Docker container:
+
+1. First pull the image using the docker pull command:
+
 ```bash
-docker run -v $(pwd)/data:/home/user/data optim3d index3d data/pointcloud.las
+docker pull yarroudh/optim3d
 ```
 
+2. To run the Docker container and mount your data inside it, use the <code>docker</code> run command with the <code>-v</code> option to specify the path to the host directory and the path to the container directory where you want to mount the data folder. For example:
+
+```bash
+docker run -d -v ABSOLUTE_PATH_TO_HOST_DATA:/home/user/data yarroudh/optim3d
+```
+
+This command will start a Docker container in detached mode, mount the **<absolute_path_to_host_data>** directory on the host machine to the **/home/user/data** directory inside the container, and run the <code>yarroudh/optim3d</code> image. Do not change the path of the directory inside the container.
+
+3. Find the container ID and copy it. You can use the <code>docker ps</code> command to list all running containers and their IDs.
+4. Launch a command inside the container using <code>docker exec</code>, use the container ID or name and the command you want to run. For example:
+
+```bash
+docker exec CONTAINER_ID optim3d index2d PATH_TO_FOOTPRINTS_FILE
+```
+This command will execute the QuadTree indexing of the 2D footprints data, which can be a Shapefile (.shp) or a GeoPackage (.gpkg).
+
+5. To copy the output of the command from the container to a local path, use the <code>docker cp</code> command with the container ID or name, the path to the file inside the container, and the path to the destination on the host machine. For example:
+
+```bash
+docker cp CONTAINER_ID:/home/user/output/footprint_tiles PATH_ON_HOST_MACHINE
+```
+
+6. Finally, after executing all the commands and copying the results to your local machine, you can stop the Docker container using the <code>docker stop</code> command followed by the container ID or name:
+
+```bash
+docker stop CONTAINER_ID
+```
 
 ### Building from source
 
 If you want to build the solution from source, you should follow the steps in [INSTALL.md]().
+
 ## Results
 
-The results of each command are saved in the <code>output</code> folder, which will look like this after executing all the commands:
+The results of each command are saved in the <code>output</code> folder, which should look like this after executing all the commands:
 
 ```bash
 ├── output
