@@ -142,7 +142,7 @@ Options:
 
 ### Docker Image
 
-Optim3D is available as Docker image. These are the steps to run it as a Docker container:
+Optim3D is available as [Docker image](https://hub.docker.com/r/yarroudh/optim3d). These are the steps to run it as a Docker container:
 
 1. First pull the image using the docker pull command:
 
