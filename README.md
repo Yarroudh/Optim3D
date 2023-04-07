@@ -142,7 +142,9 @@ Options:
 
 ### Docker Image
 
-Coming soon.
+```bash
+docker run -it -d -v <absolute_path_in_local_machine>:/home/user/data optim3d index2d data/<footprints_file>
+```
 
 
 ### Building from source
