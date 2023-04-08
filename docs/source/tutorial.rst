@@ -163,7 +163,7 @@ steps to run it as a Docker container:
    docker run -d -v ABSOLUTE_PATH_TO_HOST_DATA:/home/user/data yarroudh/optim3d
 
 This command will start a Docker container in detached mode, mount the
-**** directory on the host machine to the **/home/user/data** directory
+**ABSOLUTE_PATH_TO_HOST_DATA** directory on the host machine to the **/home/user/data** directory
 inside the container, and run the yarroudh/optim3d image. Do not change
 the path of the directory inside the container.
 

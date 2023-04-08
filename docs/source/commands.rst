@@ -1,6 +1,6 @@
 Optim3D
 =======
 
-.. click:: optim3d.main:cli
+.. click:: main:cli
    :prog: Optim3D
    :nested: full
