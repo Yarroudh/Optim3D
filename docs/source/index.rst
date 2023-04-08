@@ -16,3 +16,15 @@ Welcome to Optim3D's documentation!
    commands
    tutorial
    license
+
+CLI Documentation
+=================
+
+.. automodule:: optim3d.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :noindex:
+
+.. autoprogram:: optim3d.cli
+   :prog: Optim3D
