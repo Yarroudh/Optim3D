@@ -13,6 +13,10 @@ Our program is based on GeoFlow and makes use of it to perform 3D reconstruction
 
 <img src="https://user-images.githubusercontent.com/72500344/212364590-b7fd444d-ec26-4a8b-bda9-fd4e1669bc6e.png" alt="Workflow of 3D Reconstruction" width="500"/>
 
+## Documentation
+
+If you are using our software, we highly recommend that you take the time to read the [documentation](https://optim3d.readthedocs.io/en/latest/) that we have provided on our "Read the Docs" page. The documentation is an essential resource that will help you understand the features and functionality of our software, as well as provide guidance on how to use it effectively.
+
 ## Installation
 
 You can install optim3d in your Conda environment by simply running:
