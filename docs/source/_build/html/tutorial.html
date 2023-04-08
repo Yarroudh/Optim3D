@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usage of CLI &mdash; Optim3D  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="License" href="license.html" />
+    <link rel="prev" title="Optim3D" href="commands.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Optim3D
+          </a>
+              <div class="version">
+                0.1.9
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="welcome.html">Home page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Optim3D</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage of CLI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#commands">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-2d-building-footprints-indexing-and-tiling">Step 1 : 2D building footprints indexing and tiling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-octree-indexing-of-the-3d-point-cloud">Step 2 : OcTree indexing of the 3D point cloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-tiling-of-the-3d-point-cloud">Step 3 : Tiling of the 3D point cloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-4-3d-reconstruction-of-building-models-tile-by-tile">Step 4 : 3D reconstruction of building models tile by tile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-5-post-processing-of-cityjson-files">Step 5 : Post-processing of CityJSON files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#docker-image">Docker Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#results">Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#post-processing">Post-processing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Optim3D</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Usage of CLI</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/yarroudh/Optim3D/blob/main/docs/tutorial.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="usage-of-cli">
+<h1>Usage of CLI<a class="headerlink" href="#usage-of-cli" title="Permalink to this heading"></a></h1>
+<section id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this heading"></a></h2>
+<p>After installation, you have a small program called optim3d. Use optim3d
+–help to see the detailed help:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span> <span class="n">optim3d</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span> <span class="n">COMMAND</span> <span class="p">[</span><span class="n">ARGS</span><span class="p">]</span><span class="o">...</span>
+
+  <span class="n">CLI</span> <span class="n">tool</span> <span class="n">to</span> <span class="n">manage</span> <span class="n">full</span> <span class="n">optimized</span> <span class="n">reconstruction</span> <span class="n">of</span> <span class="n">large</span><span class="o">-</span><span class="n">scale</span> <span class="mi">3</span><span class="n">D</span>
+  <span class="n">building</span> <span class="n">models</span><span class="o">.</span>
+
+<span class="n">Options</span><span class="p">:</span>
+  <span class="o">--</span><span class="n">help</span>  <span class="n">Show</span> <span class="n">this</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span><span class="o">.</span>
+
+<span class="n">Commands</span><span class="p">:</span>
+  <span class="n">index2d</span>      <span class="n">QuadTree</span> <span class="n">indexing</span> <span class="ow">and</span> <span class="n">tiling</span> <span class="n">of</span> <span class="mi">2</span><span class="n">D</span> <span class="n">building</span> <span class="n">footprints</span><span class="o">.</span>
+  <span class="n">index3d</span>      <span class="n">OcTree</span> <span class="n">indexing</span> <span class="n">of</span> <span class="mi">3</span><span class="n">D</span> <span class="n">point</span> <span class="n">cloud</span> <span class="n">using</span> <span class="n">Entwine</span><span class="o">.</span>
+  <span class="n">tiler3d</span>      <span class="n">Tiling</span> <span class="n">of</span> <span class="n">point</span> <span class="n">cloud</span> <span class="n">using</span> <span class="n">the</span> <span class="n">calculated</span> <span class="n">processing</span> <span class="n">areas</span><span class="o">.</span>
+  <span class="n">reconstruct</span>  <span class="n">Optimized</span> <span class="mi">3</span><span class="n">D</span> <span class="n">reconstruction</span> <span class="n">of</span> <span class="n">buildings</span> <span class="n">using</span> <span class="n">GeoFlow</span><span class="o">.</span>
+  <span class="n">post</span>         <span class="n">Post</span><span class="o">-</span><span class="n">processing</span> <span class="n">generated</span> <span class="n">CityJSON</span> <span class="n">files</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>The process consists of five distinct steps or commands that must be
+executed in a specific order to achieve the desired outcome.</p>
+<section id="step-1-2d-building-footprints-indexing-and-tiling">
+<h3>Step 1 : 2D building footprints indexing and tiling<a class="headerlink" href="#step-1-2d-building-footprints-indexing-and-tiling" title="Permalink to this heading"></a></h3>
+<p>Quadtree-based tiling scheme is used for spatial partitioning of
+building footprints. This assures that the reconstruction time per tile
+is more or less the same and that the tiles available for download are
+similar in file size. This is done using the first command index2d. Use
+optim3d index2d –help to see the detailed help:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span> <span class="n">optim3d</span> <span class="n">index2d</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span> <span class="p">[</span><span class="n">FOOTPRINTS</span><span class="p">]</span>
+
+  <span class="n">QuadTree</span> <span class="n">indexing</span> <span class="ow">and</span> <span class="n">tiling</span> <span class="n">of</span> <span class="n">building</span> <span class="mi">2</span><span class="n">D</span> <span class="n">footprints</span><span class="o">.</span>
+
+<span class="n">Options</span><span class="p">:</span>
+  <span class="o">--</span><span class="n">output</span> <span class="n">PATH</span>                   <span class="n">Output</span> <span class="n">directory</span><span class="o">.</span>  <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="o">./</span><span class="n">output</span><span class="p">]</span>
+  <span class="o">--</span><span class="n">osm</span> <span class="o">&lt;</span><span class="n">FLOAT</span> <span class="n">FLOAT</span> <span class="n">FLOAT</span> <span class="n">FLOAT</span><span class="o">&gt;...</span>
+                                  <span class="n">Download</span> <span class="ow">and</span> <span class="n">work</span> <span class="k">with</span> <span class="n">building</span> <span class="n">footprints</span>
+                                  <span class="kn">from</span> <span class="nn">OpenStreetMap</span> <span class="p">[</span><span class="n">west</span><span class="p">,</span> <span class="n">north</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span>
+                                  <span class="n">south</span><span class="p">]</span><span class="o">.</span>
+  <span class="o">--</span><span class="n">crs</span> <span class="n">INTEGER</span>                   <span class="n">Specify</span> <span class="n">the</span> <span class="n">Coordinate</span> <span class="n">Reference</span> <span class="n">System</span>
+                                  <span class="p">(</span><span class="n">EPSG</span><span class="p">)</span><span class="o">.</span>
+  <span class="o">--</span><span class="nb">max</span> <span class="n">INTEGER</span>                   <span class="n">Maximum</span> <span class="n">number</span> <span class="n">of</span> <span class="n">buildings</span> <span class="n">per</span> <span class="n">tile</span><span class="o">.</span>
+                                  <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="mi">3500</span><span class="p">]</span>
+  <span class="o">--</span><span class="n">help</span>                          <span class="n">Show</span> <span class="n">this</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span><span class="o">.</span>
+</pre></div>
+</div>
+</section>
+<section id="step-2-octree-indexing-of-the-3d-point-cloud">
+<h3>Step 2 : OcTree indexing of the 3D point cloud<a class="headerlink" href="#step-2-octree-indexing-of-the-3d-point-cloud" title="Permalink to this heading"></a></h3>
+<p>Processing large point cloud datasets is hardware-intensive. Therefore,
+it is necessary to index the 3D point cloud before processing. The index
+structure makes it possible to stream only the parts of the data that
+are required, without having to download the entire dataset. In this
+case, the spatial indexing of the airborne point cloud is performed
+using an octree structure. This can be easily done using Entwine, an
+open-source library for organizing and indexing large point cloud
+datasets using an octree data structure that allows fast and efficient
+spatial queries. This is done using the second command index3d. Use
+optim3d index3d –help to see the detailed help:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span> <span class="n">optim3d</span> <span class="n">index3d</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span> <span class="n">POINTCLOUD</span>
+
+  <span class="n">OcTree</span> <span class="n">indexing</span> <span class="n">of</span> <span class="mi">3</span><span class="n">D</span> <span class="n">point</span> <span class="n">cloud</span> <span class="n">using</span> <span class="n">Entwine</span><span class="o">.</span>
+
+<span class="n">Options</span><span class="p">:</span>
+  <span class="o">--</span><span class="n">output</span> <span class="n">PATH</span>  <span class="n">Output</span> <span class="n">directory</span><span class="o">.</span>  <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="o">./</span><span class="n">output</span><span class="p">]</span>
+  <span class="o">--</span><span class="n">help</span>         <span class="n">Show</span> <span class="n">this</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span><span class="o">.</span>
+</pre></div>
+</div>
+</section>
+<section id="step-3-tiling-of-the-3d-point-cloud">
+<h3>Step 3 : Tiling of the 3D point cloud<a class="headerlink" href="#step-3-tiling-of-the-3d-point-cloud" title="Permalink to this heading"></a></h3>
+<p>The tiling of the indexed point cloud is based on processing areas
+calculated when the footprints were indexed. This is achieved using the
+third command tiler3d. Use optim3d tiler3d –help to see the detailed
+help:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span> <span class="n">optim3d</span> <span class="n">tiler3d</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span>
+
+  <span class="n">Tiling</span> <span class="n">of</span> <span class="mi">3</span><span class="n">D</span> <span class="n">point</span> <span class="n">cloud</span> <span class="n">using</span> <span class="n">the</span> <span class="n">calculated</span> <span class="n">processing</span> <span class="n">areas</span><span class="o">.</span>
+
+<span class="n">Options</span><span class="p">:</span>
+  <span class="o">--</span><span class="n">areas</span> <span class="n">PATH</span>    <span class="n">The</span> <span class="n">calculated</span> <span class="n">processing</span> <span class="n">areas</span><span class="o">.</span>  <span class="p">[</span><span class="n">default</span><span class="p">:</span>
+                  <span class="o">./</span><span class="n">output</span><span class="o">/</span><span class="n">processing_areas</span><span class="o">.</span><span class="n">gpkg</span><span class="p">]</span>
+  <span class="o">--</span><span class="n">indexed</span> <span class="n">PATH</span>  <span class="n">Indexed</span> <span class="mi">3</span><span class="n">D</span> <span class="n">point</span> <span class="n">cloud</span> <span class="n">directory</span><span class="o">.</span>  <span class="p">[</span><span class="n">default</span><span class="p">:</span>
+                  <span class="o">./</span><span class="n">output</span><span class="o">/</span><span class="n">indexed_pointcloud</span><span class="p">]</span>
+  <span class="o">--</span><span class="n">output</span> <span class="n">PATH</span>   <span class="n">Output</span> <span class="n">directory</span><span class="o">.</span>  <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="o">./</span><span class="n">output</span><span class="p">]</span>
+  <span class="o">--</span><span class="n">help</span>          <span class="n">Show</span> <span class="n">this</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span><span class="o">.</span>
+</pre></div>
+</div>
+</section>
+<section id="step-4-3d-reconstruction-of-building-models-tile-by-tile">
+<h3>Step 4 : 3D reconstruction of building models tile by tile<a class="headerlink" href="#step-4-3d-reconstruction-of-building-models-tile-by-tile" title="Permalink to this heading"></a></h3>
+<p>The 3D reconstruction of building models is performed in this step. The
+process make use of GeoFlow to generate hight detailed 3D building
+models tile by tile. This is achieved using the fourth command
+reconstruct. Use optim3d reconstruct –help to see the detailed help:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span> <span class="n">optim3d</span> <span class="n">reconstruct</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span>
+
+  <span class="n">Optimized</span> <span class="mi">3</span><span class="n">D</span> <span class="n">reconstruction</span> <span class="n">of</span> <span class="n">buildings</span> <span class="n">using</span> <span class="n">GeoFlow</span><span class="o">.</span>
+
+<span class="n">Options</span><span class="p">:</span>
+  <span class="o">--</span><span class="n">pointcloud</span> <span class="n">PATH</span>  <span class="mi">3</span><span class="n">D</span> <span class="n">point</span> <span class="n">cloud</span> <span class="n">tiles</span> <span class="n">directory</span><span class="o">.</span>  <span class="p">[</span><span class="n">default</span><span class="p">:</span>
+                     <span class="o">./</span><span class="n">output</span><span class="o">/</span><span class="n">pointcloud_tiles</span><span class="p">]</span>
+  <span class="o">--</span><span class="n">footprints</span> <span class="n">PATH</span>  <span class="mi">2</span><span class="n">D</span> <span class="n">building</span> <span class="n">footprints</span> <span class="n">tiles</span> <span class="n">directory</span><span class="o">.</span>  <span class="p">[</span><span class="n">default</span><span class="p">:</span>
+                     <span class="o">./</span><span class="n">output</span><span class="o">/</span><span class="n">footprint_tiles</span><span class="p">]</span>
+  <span class="o">--</span><span class="n">output</span> <span class="n">PATH</span>      <span class="n">Output</span> <span class="n">directory</span><span class="o">.</span>  <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="o">./</span><span class="n">output</span><span class="p">]</span>
+  <span class="o">--</span><span class="n">help</span>             <span class="n">Show</span> <span class="n">this</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span><span class="o">.</span>
+</pre></div>
+</div>
+</section>
+<section id="step-5-post-processing-of-cityjson-files">
+<h3>Step 5 : Post-processing of CityJSON files<a class="headerlink" href="#step-5-post-processing-of-cityjson-files" title="Permalink to this heading"></a></h3>
+<p>The generated CityJSON files should be processed to add information
+about tiles to 3D objects. This is done using the fifth command post.
+Use optim3d post –help to see the detailed help:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span> <span class="n">optim3d</span> <span class="n">post</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span>
+
+  <span class="n">Postprocess</span> <span class="n">the</span> <span class="n">generated</span> <span class="n">CityJSON</span> <span class="n">files</span><span class="o">.</span>
+
+<span class="n">Options</span><span class="p">:</span>
+  <span class="o">--</span><span class="n">cityjson</span> <span class="n">PATH</span>  <span class="n">CityJSON</span> <span class="n">files</span> <span class="n">directory</span><span class="o">.</span>  <span class="p">[</span><span class="n">default</span><span class="p">:</span>
+                   <span class="o">./</span><span class="n">output</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">cityjson</span><span class="p">]</span>
+  <span class="o">--</span><span class="n">help</span>           <span class="n">Show</span> <span class="n">this</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span><span class="o">.</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="docker-image">
+<h2>Docker Image<a class="headerlink" href="#docker-image" title="Permalink to this heading"></a></h2>
+<p>Optim3D is available as <a class="reference external" href="https://hub.docker.com/r/yarroudh/optim3d">Docker
+image</a>. These are the
+steps to run it as a Docker container:</p>
+<ol class="arabic simple">
+<li><p>First pull the image using the docker pull command:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>pull<span class="w"> </span>yarroudh/optim3d
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>To run the Docker container and mount your data inside it, use the
+docker run command with the -v option to specify the path to the host
+directory and the path to the container directory where you want to
+mount the data folder. For example:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-v<span class="w"> </span>ABSOLUTE_PATH_TO_HOST_DATA:/home/user/data<span class="w"> </span>yarroudh/optim3d
+</pre></div>
+</div>
+<p>This command will start a Docker container in detached mode, mount the
+<a href="#id1"><span class="problematic" id="id2">**</span></a>** directory on the host machine to the <strong>/home/user/data</strong> directory
+inside the container, and run the yarroudh/optim3d image. Do not change
+the path of the directory inside the container.</p>
+<ol class="arabic simple" start="3">
+<li><p>Find the container ID and copy it. You can use the docker ps command
+to list all running containers and their IDs.</p></li>
+<li><p>Launch a command inside the container using docker exec, use the
+container ID or name and the command you want to run. For example:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>CONTAINER_ID<span class="w"> </span>optim3d<span class="w"> </span>index2d<span class="w"> </span>data/FILE_NAME
+</pre></div>
+</div>
+<p>This command will execute the QuadTree indexing of the 2D footprints
+data, which can be a Shapefile (.shp) or a GeoPackage (.gpkg).</p>
+<ol class="arabic simple" start="5">
+<li><p>To copy the output of the command from the container to a local path,
+use the docker cp command with the container ID or name, the path to
+the file inside the container, and the path to the destination on the
+host machine. For example:</p></li>
+</ol>
+<ul class="simple">
+<li><p>To copy the output of one command:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>cp<span class="w"> </span>CONTAINER_ID:/home/user/output/footprint_tiles<span class="w"> </span>PATH_ON_HOST_MACHINE
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Top copy the output of all the commands:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>cp<span class="w"> </span>CONTAINER_ID:/home/user/output<span class="w"> </span>PATH_ON_HOST_MACHINE
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Finally, after executing all the commands and copying the results to
+your local machine, you can stop the Docker container using the
+docker stop command followed by the container ID or name:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>stop<span class="w"> </span>CONTAINER_ID
+</pre></div>
+</div>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this heading"></a></h2>
+<p>The results of each command are saved in the output folder, which should
+look like this after executing all the commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>├──<span class="w"> </span>output
+│<span class="w">   </span>├──<span class="w"> </span>flowcharts
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>*.json
+│<span class="w">   </span>├──<span class="w"> </span>footprint_tiles
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>*.cpg
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>*.dbf
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>*.prj
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>*.shp
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>*.shx
+│<span class="w">   </span>├──<span class="w"> </span>indexed_pointcloud
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ept-data
+│<span class="w">   </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>*.laz
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ept-hierarchy
+│<span class="w">   </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span><span class="m">0</span>-0-0-0.json
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ept-sources
+│<span class="w">   </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>*.json
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ept.json
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ept-build.json
+│<span class="w">   </span>├──<span class="w"> </span>model
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>cityjson
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>*.city.json
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>obj
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>*.obj
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>*.obj.mtl
+│<span class="w">   </span>├──<span class="w"> </span>pointcloud_tiles
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>*.las
+│<span class="w">   </span>├──<span class="w"> </span>processing_areas.gpkg
+│<span class="w">   </span>└──<span class="w"> </span>quadtree.gpkg
+</pre></div>
+</div>
+<p>The 3D building models can be viewd using
+<a class="reference external" href="https://github.com/cityjson/ninja">Ninja</a>, the official web viewer
+for CityJSON files.</p>
+<figure class="align-default" id="id3">
+<img alt="image" src="https://user-images.githubusercontent.com/72500344/216613188-82d54c75-7e03-4ee7-8c1c-d081e0c1d4ac.png" />
+<figcaption>
+<p><span class="caption-text">image</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="post-processing">
+<h2>Post-processing<a class="headerlink" href="#post-processing" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="https://github.com/Yarroudh/ZRect3D">Automatic correction of buildings ground floor elevation in 3D City
+Models</a></p>
+<p>GeoFlow requires that the point cloud includes some ground points around
+the building so that it can determine the ground floor elevation.
+However, for aerial point clouds, buildings surrounded by others may not
+meet this condition which may result in inaccurate height estimation
+above the ground. This can be resolved using
+<a class="reference external" href="https://github.com/Yarroudh/zrect3d">ZRect3D</a>, a tool for automatic
+correction of buildings ground-floor elevation in CityJSON files using
+ground points from LiDAR data.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="commands.html" class="btn btn-neutral float-left" title="Optim3D" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="license.html" class="btn btn-neutral float-right" title="License" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Anass Yarroudh.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
