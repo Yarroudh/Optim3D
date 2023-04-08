@@ -1,7 +1,7 @@
 import os
 import sys
 import datetime
-sys.path.insert(0, os.path.abspath('../'))
+sys.path.insert(0, os.path.abspath('../../'))
 
 project = 'Optim3D'
 copyright = '2023, Anass Yarroudh'
