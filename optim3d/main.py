@@ -517,18 +517,6 @@ def reconstruct(footprints, pointcloud, output):
     for j in range(len(os.listdir('{}/pointcloud_tiles'.format(output)))):
         commands.append("geof {}/flowcharts/reconstruct{}.json".format(output, j))
 
-    # # define a function to run the commands in parallel
-    # def run_commands(commands):
-    #     if os.name == 'nt': # if running on Windows
-    #         for cmd in commands:
-    #             subprocess.Popen(f'start cmd /c {cmd}', shell=True)
-    #     else: # if running on Linux/Unix
-    #         for cmd in commands:
-    #             subprocess.Popen(['gnome-terminal', '-e', cmd])
-
-    # # run the commands in parallel
-    # run_commands(commands)
-
     processes = [multiprocessing.Process(target=geoflow, args=('{}/flowcharts/reconstruct{}.json'.format(output, j), j)) for j in range(len(os.listdir('{}/pointcloud_tiles'.format(output))))]
 
     for k, process in enumerate(processes):

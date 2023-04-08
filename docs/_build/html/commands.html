@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Optim3D &mdash; Optim3D  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage of CLI" href="tutorial.html" />
+    <link rel="prev" title="Installation Guide" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Optim3D
+          </a>
+              <div class="version">
+                0.1.9
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="welcome.html">Home page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Optim3D</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#optim3d-index2d">index2d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optim3d-index3d">index3d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optim3d-post">post</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optim3d-reconstruct">reconstruct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optim3d-tiler3d">tiler3d</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Usage of CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Optim3D</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Optim3D</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/yarroudh/Optim3D/blob/main/docs/commands.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="optim3d">
+<h1>Optim3D<a class="headerlink" href="#optim3d" title="Permalink to this heading"></a></h1>
+<p>CLI tool to manage full optimized reconstruction of large-scale 3D building models.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>Optim3D<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<section id="optim3d-index2d">
+<h2>index2d<a class="headerlink" href="#optim3d-index2d" title="Permalink to this heading"></a></h2>
+<p>QuadTree indexing and tiling of 2D building footprints.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>Optim3D<span class="w"> </span>index2d<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span><span class="o">[</span>FOOTPRINTS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-Optim3D-index2d-output">
+<span id="cmdoption-optim3d-index2d-output"></span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-Optim3D-index2d-output" title="Permalink to this definition"></a></dt>
+<dd><p>Output directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>./output</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-Optim3D-index2d-osm">
+<span id="cmdoption-optim3d-index2d-osm"></span><span class="sig-name descname"><span class="pre">--osm</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;osm&gt;</span></span><a class="headerlink" href="#cmdoption-Optim3D-index2d-osm" title="Permalink to this definition"></a></dt>
+<dd><p>Download and work with building footprints from OpenStreetMap [west, north, est, south].</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-Optim3D-index2d-crs">
+<span id="cmdoption-optim3d-index2d-crs"></span><span class="sig-name descname"><span class="pre">--crs</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;crs&gt;</span></span><a class="headerlink" href="#cmdoption-Optim3D-index2d-crs" title="Permalink to this definition"></a></dt>
+<dd><p>Specify the Coordinate Reference System (EPSG).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-Optim3D-index2d-max">
+<span id="cmdoption-optim3d-index2d-max"></span><span class="sig-name descname"><span class="pre">--max</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;max&gt;</span></span><a class="headerlink" href="#cmdoption-Optim3D-index2d-max" title="Permalink to this definition"></a></dt>
+<dd><p>Maximum number of buildings per tile.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>3500</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-Optim3D-index2d-arg-FOOTPRINTS">
+<span id="cmdoption-optim3d-index2d-arg-footprints"></span><span class="sig-name descname"><span class="pre">FOOTPRINTS</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-Optim3D-index2d-arg-FOOTPRINTS" title="Permalink to this definition"></a></dt>
+<dd><p>Optional argument</p>
+</dd></dl>
+
+</section>
+<section id="optim3d-index3d">
+<h2>index3d<a class="headerlink" href="#optim3d-index3d" title="Permalink to this heading"></a></h2>
+<p>OcTree indexing of 3D point cloud using Entwine.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>Optim3D<span class="w"> </span>index3d<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>POINTCLOUD
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-Optim3D-index3d-output">
+<span id="cmdoption-optim3d-index3d-output"></span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-Optim3D-index3d-output" title="Permalink to this definition"></a></dt>
+<dd><p>Output directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>./output</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-Optim3D-index3d-arg-POINTCLOUD">
+<span id="cmdoption-optim3d-index3d-arg-pointcloud"></span><span class="sig-name descname"><span class="pre">POINTCLOUD</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-Optim3D-index3d-arg-POINTCLOUD" title="Permalink to this definition"></a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="optim3d-post">
+<h2>post<a class="headerlink" href="#optim3d-post" title="Permalink to this heading"></a></h2>
+<p>Postprocess the generated CityJSON files.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>Optim3D<span class="w"> </span>post<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-Optim3D-post-cityjson">
+<span id="cmdoption-optim3d-post-cityjson"></span><span class="sig-name descname"><span class="pre">--cityjson</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;cityjson&gt;</span></span><a class="headerlink" href="#cmdoption-Optim3D-post-cityjson" title="Permalink to this definition"></a></dt>
+<dd><p>CityJSON files directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>./output/model/cityjson</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="optim3d-reconstruct">
+<h2>reconstruct<a class="headerlink" href="#optim3d-reconstruct" title="Permalink to this heading"></a></h2>
+<p>Optimized 3D reconstruction of buildings using GeoFlow.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>Optim3D<span class="w"> </span>reconstruct<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-Optim3D-reconstruct-pointcloud">
+<span id="cmdoption-optim3d-reconstruct-pointcloud"></span><span class="sig-name descname"><span class="pre">--pointcloud</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;pointcloud&gt;</span></span><a class="headerlink" href="#cmdoption-Optim3D-reconstruct-pointcloud" title="Permalink to this definition"></a></dt>
+<dd><p>3D point cloud tiles directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>./output/pointcloud_tiles</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-Optim3D-reconstruct-footprints">
+<span id="cmdoption-optim3d-reconstruct-footprints"></span><span class="sig-name descname"><span class="pre">--footprints</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;footprints&gt;</span></span><a class="headerlink" href="#cmdoption-Optim3D-reconstruct-footprints" title="Permalink to this definition"></a></dt>
+<dd><p>2D building footprints tiles directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>./output/footprint_tiles</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-Optim3D-reconstruct-output">
+<span id="cmdoption-optim3d-reconstruct-output"></span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-Optim3D-reconstruct-output" title="Permalink to this definition"></a></dt>
+<dd><p>Output directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>./output</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="optim3d-tiler3d">
+<h2>tiler3d<a class="headerlink" href="#optim3d-tiler3d" title="Permalink to this heading"></a></h2>
+<p>Tiling of point cloud using the calculated processing areas.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>Optim3D<span class="w"> </span>tiler3d<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-Optim3D-tiler3d-areas">
+<span id="cmdoption-optim3d-tiler3d-areas"></span><span class="sig-name descname"><span class="pre">--areas</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;areas&gt;</span></span><a class="headerlink" href="#cmdoption-Optim3D-tiler3d-areas" title="Permalink to this definition"></a></dt>
+<dd><p>The calculated processing areas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>./output/processing_areas.gpkg</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-Optim3D-tiler3d-indexed">
+<span id="cmdoption-optim3d-tiler3d-indexed"></span><span class="sig-name descname"><span class="pre">--indexed</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;indexed&gt;</span></span><a class="headerlink" href="#cmdoption-Optim3D-tiler3d-indexed" title="Permalink to this definition"></a></dt>
+<dd><p>Indexed 3D point cloud directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>./output/indexed_pointcloud</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-Optim3D-tiler3d-output">
+<span id="cmdoption-optim3d-tiler3d-output"></span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-Optim3D-tiler3d-output" title="Permalink to this definition"></a></dt>
+<dd><p>Output directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>./output</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial.html" class="btn btn-neutral float-right" title="Usage of CLI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Anass Yarroudh.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
