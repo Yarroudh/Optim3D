@@ -32,7 +32,7 @@ You can also build everything from source (see [INSTALL.md]()). A [Docker image]
 
 ## Usage of the CLI
 
-### Binary package
+### Python package
 
 After installation, you have a small program called <code>optim3d</code>. Use <code>optim3d --help</code> to see the detailed help:
 
