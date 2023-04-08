@@ -7,13 +7,13 @@
 
 *Command-Line Interface (CLI) application for efficient and optimized reconstruction of large-scale 3D building models.*
 
-Optim3D is a powerful tool that for optimized automatic reconstruction of highly detailed and large-scale 3D building models. Our tool is based on the [GeoFlow](https://github.com/geoflow3d/geoflow-bundle) software and utilizes its capabilities to perform 3D reconstruction of buildings. The process is inspired by the 3D BAG project and optimized for large-scale projects through indexing and tiling of the input data, which significantly reduces the processing time and resources required to generate large-scale 3D building models.
+Optim3D is a powerful tool for optimized automatic reconstruction of highly detailed and large-scale 3D building models. Our tool is based on the [GeoFlow](https://github.com/geoflow3d/geoflow-bundle) software and makes use of it to perform the 3D reconstruction of buildings. The process is inspired by the 3D BAG project and optimized for large-scale projects through indexing and tiling of the input data, which significantly reduces the processing time and resources required to generate large-scale 3D building models.
 
 <img src="https://user-images.githubusercontent.com/72500344/212364590-b7fd444d-ec26-4a8b-bda9-fd4e1669bc6e.png" alt="Workflow of 3D Reconstruction" width="500"/>
 
 ## Documentation
 
-If you are using our software, we highly recommend that you take the time to read the [documentation](https://optim3d.readthedocs.io/en/latest/). The documentation is an essential resource that will help you understand the features and functionality of our software, as well as provide guidance on how to use it effectively.
+If you are using Optim3D, we highly recommend that you take the time to read the [documentation](https://optim3d.readthedocs.io/en/latest/). The documentation is an essential resource that will help you understand the features and functionality of our software, as well as provide guidance on how to use it effectively.
 
 ## Installation
 
@@ -21,18 +21,19 @@ You can install optim3d in your Conda environment by simply running:
 
 ```bash
 conda create --name optimenv python==3.6
-conda install -c conda-forge entwine
+conda activate optimenv
 conda install -c conda-forge pdal python-pdal
+conda install -c conda-forge entwine
 pip install optim3d
 ```
 
 You can also build everything from source (see [INSTALL.md]()). A [Docker image](https://hub.docker.com/r/yarroudh/optim3d) is also available.
 
-**NOTE:** It is important to note that in order to use our program for 3D reconstruction of buildings, [GeoFlow-bundle](https://github.com/geoflow3d/geoflow-bundle/releases/tag/2022.06.17) must be installed. Please read the License before using it.
+**NOTE:** It is important to note that in order to use our program for 3D reconstruction of buildings, [GeoFlow-bundle](https://github.com/geoflow3d/geoflow-bundle/releases/tag/2022.06.17) must be installed. Please read the LICENSE file.
 
 ## Usage of the CLI
 
-### Binary package
+### Python package
 
 After installation, you have a small program called <code>optim3d</code>. Use <code>optim3d --help</code> to see the detailed help:
 
@@ -53,7 +54,7 @@ Commands:
   post         Post-processing generated CityJSON files.
 ```
 
-The process consists of five distinct steps or <code>commands</code> that must be executed in a specific order to achieve the desired outcome.
+The process consists of five steps or <code>commands</code> that must be executed in a specific order to achieve the desired outcome.
 
 #### Step 1 : 2D building footprints indexing and tiling
 
@@ -79,7 +80,7 @@ Options:
 
 #### Step 2 : OcTree indexing of the 3D point cloud
 
-Processing large point cloud datasets is hardware-intensive. Therefore, it is necessary to index the 3D point cloud before processing. The index structure makes it possible to stream only the parts of the data that are required, without having to download the entire dataset. In this case, the spatial indexing of the airborne point cloud is performed using an octree structure. This can be easily done using Entwine, an open-source library for organizing and indexing large point cloud datasets using an octree data structure that allows fast and efficient spatial queries. This is done using the second command <code>index3d</code>. Use <code>optim3d index3d --help</code> to see the detailed help:
+Processing large point cloud datasets is hardware-intensive. Therefore, it is necessary to index the 3D point cloud before processing. The index structure makes it possible to stream only the parts of the data that are required, without having to download the entire dataset. In this case, the spatial indexing of the airborne point cloud is performed using an octree structure. This is done using the second command <code>index3d</code>. Use <code>optim3d index3d --help</code> to see the detailed help:
 
 ```
 Usage: optim3d index3d [OPTIONS] POINTCLOUD
@@ -93,7 +94,7 @@ Options:
 
 #### Step 3 : Tiling of the 3D point cloud
 
-The tiling of the indexed point cloud is based on processing areas calculated when the footprints were indexed. This is achieved using the third command <code>tiler3d</code>. Use <code>optim3d tiler3d --help</code> to see the detailed help:
+The tiling of the indexed point cloud is based on the processing areas already calculated. This is achieved using the third command <code>tiler3d</code>. Use <code>optim3d tiler3d --help</code> to see the detailed help:
 
 ```
 Usage: optim3d tiler3d [OPTIONS]
@@ -111,7 +112,7 @@ Options:
 
 #### Step 4 : 3D reconstruction of building models tile by tile
 
-The 3D reconstruction of building models is performed in this step. The process make use of GeoFlow to generate hight detailed 3D building models tile by tile. This is achieved using the fourth command <code>reconstruct</code>. Use <code>optim3d reconstruct --help</code> to see the detailed help:
+In this step, we perform the 3D reconstruction of building models. The process make use of GeoFlow to generate highly detailed 3D building models tile by tile. This is achieved using the fourth command <code>reconstruct</code>. Use <code>optim3d reconstruct --help</code> to see the detailed help:
 
 ```
 Usage: optim3d reconstruct [OPTIONS]
@@ -129,7 +130,7 @@ Options:
 
 #### Step 5 : Post-processing of CityJSON files
 
-The generated CityJSON files should be processed to add information about tiles to 3D objects. This is done using the fifth command <code>post</code>. Use <code>optim3d post --help</code> to see the detailed help:
+The generated CityJSON files should be post-processed to correct the City Objects IDs. This is done using the fifth command <code>post</code>. Use <code>optim3d post --help</code> to see the detailed help:
 
 ```
 Usage: optim3d post [OPTIONS]
@@ -144,21 +145,21 @@ Options:
 
 ### Docker Image
 
-Optim3D is available as [Docker image](https://hub.docker.com/r/yarroudh/optim3d). These are the steps to run it as a Docker container:
+Optim3D is also available as [Docker image](https://hub.docker.com/r/yarroudh/optim3d). These are the steps to run it as a Docker container:
 
-1. First pull the image using the docker pull command:
+1. First pull the image using the <code>docker</code> pull command:
 
 ```bash
 docker pull yarroudh/optim3d
 ```
 
-2. To run the Docker container and mount your data inside it, use the <code>docker</code> run command with the <code>-v</code> option to specify the path to the host directory and the path to the container directory where you want to mount the data folder. For example:
+2. To run the Docker container and mount your data inside it, use the <code>docker run</code> command with the <code>-v</code> option to specify the path to the host directory and the path to the container directory where you want to mount the data folder. For example:
 
 ```bash
 docker run -d -v ABSOLUTE_PATH_TO_HOST_DATA:/home/user/data yarroudh/optim3d
 ```
 
-This command will start a Docker container in detached mode, mount the **<absolute_path_to_host_data>** directory on the host machine to the **/home/user/data** directory inside the container, and run the <code>yarroudh/optim3d</code> image. Do not change the path of the directory inside the container.
+This command will start a Docker container in detached mode, mount the **ABSOLUTE_PATH_TO_HOST_DATA** directory on the host machine to the **/home/user/data** directory inside the container, and run the <code>yarroudh/optim3d</code> image. Do not change the path of the directory inside the container.
 
 3. Find the container ID and copy it. You can use the <code>docker ps</code> command to list all running containers and their IDs.
 4. Launch a command inside the container using <code>docker exec</code>, use the container ID or name and the command you want to run. For example:
@@ -191,7 +192,7 @@ If you want to build the solution from source, you should follow the steps in [I
 
 ## Results
 
-The results of each command are saved in the <code>output</code> folder, which should look like this after executing all the commands:
+The results of each command are saved in the <code>output</code> folder with the following structure:
 
 ```bash
 ├── output
@@ -224,7 +225,7 @@ The results of each command are saved in the <code>output</code> folder, which s
 │   └── quadtree.gpkg
 ```
 
-The 3D building models can be viewd using [Ninja](https://github.com/cityjson/ninja), the official web viewer for CityJSON files.
+The 3D building models can be inspected using [Ninja](https://github.com/cityjson/ninja), the official web viewer for CityJSON files.
 
 ![image](https://user-images.githubusercontent.com/72500344/216613188-82d54c75-7e03-4ee7-8c1c-d081e0c1d4ac.png)
 
