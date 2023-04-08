@@ -146,13 +146,13 @@ Options:
 
 Optim3D is also available as [Docker image](https://hub.docker.com/r/yarroudh/optim3d). These are the steps to run it as a Docker container:
 
-1. First pull the image using the docker pull command:
+1. First pull the image using the <code>docker</code> pull command:
 
 ```bash
 docker pull yarroudh/optim3d
 ```
 
-2. To run the Docker container and mount your data inside it, use the <code>docker</code> run command with the <code>-v</code> option to specify the path to the host directory and the path to the container directory where you want to mount the data folder. For example:
+2. To run the Docker container and mount your data inside it, use the <code>docker run</code> command with the <code>-v</code> option to specify the path to the host directory and the path to the container directory where you want to mount the data folder. For example:
 
 ```bash
 docker run -d -v ABSOLUTE_PATH_TO_HOST_DATA:/home/user/data yarroudh/optim3d
