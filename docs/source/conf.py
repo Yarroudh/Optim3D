@@ -1,6 +1,5 @@
 import os
 import sys
-import datetime
 sys.path.insert(0, os.path.abspath('../../'))
 
 project = 'Optim3D'
@@ -18,13 +17,9 @@ show_powered_by = False
 extensions = [
     'sphinx_click.ext',
     'sphinx.ext.viewcode',
-    'sphinx.ext.autodoc',
-    'sphinx.ext.autosummary'
 ]
 
-templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
-
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
@@ -35,23 +30,14 @@ html_context = {
     "display_github": True,
     "company": "Geomatics Unit of ULiège",
     "website": "https://github.com/Yarroudh/Optim3D",
-    "footer": "Copyright © {} {} | {}"
-              .format(datetime.datetime.now().year, "Geomatics Unit of University of Liège", "All rights reserved."),
     'display_version': True,
     'versions': ['latest'],
     'current_version': 'latest',
     'version_dropdown': True,
-}
-
-html_show_sphinx = False
-
-html_context = {
-    
-}
-
-html_context = {
     'display_github': True,
     'github_user': 'yarroudh',
     'github_repo': 'Optim3D',
     'github_version': 'main/docs/',
 }
+
+html_show_sphinx = False
