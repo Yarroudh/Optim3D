@@ -147,7 +147,7 @@ Options:
 
 Optim3D is also available as [Docker image](https://hub.docker.com/r/yarroudh/optim3d). If you are using a Windows operating system, we recommend running the Docker container inside the Windows Subsystem for Linux 2 (WSL2) environment. Please ensure that Geoflow is installed on the WSL2 environment to ensure compatibility with the container.
 
-These are the steps to run it as a Docker container:
+These are the steps to run Optim3D as a Docker container:
 
 1. First pull the image using the <code>docker</code> pull command:
 
