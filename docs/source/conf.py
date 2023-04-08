@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../'))
+sys.path.insert(0, os.path.abspath('../'))
 
 project = 'Optim3D'
 copyright = '2023, Anass Yarroudh'
@@ -16,7 +16,7 @@ show_powered_by = False
 
 extensions = [
     'sphinx_click.ext',
-    'sphinx.ext.viewcode',
+    'sphinx.ext.autodoc',
 ]
 
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
