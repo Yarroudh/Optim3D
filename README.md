@@ -145,7 +145,9 @@ Options:
 
 ### Docker Image
 
-Optim3D is also available as [Docker image](https://hub.docker.com/r/yarroudh/optim3d). These are the steps to run it as a Docker container:
+Optim3D is also available as [Docker image](https://hub.docker.com/r/yarroudh/optim3d). If you are using a Windows operating system, we recommend running the Docker container inside the Windows Subsystem for Linux 2 (WSL2) environment. Please ensure that Geoflow is installed on the WSL2 environment to ensure compatibility with the container.
+
+These are the steps to run it as a Docker container:
 
 1. First pull the image using the <code>docker</code> pull command:
 
@@ -168,6 +170,13 @@ This command will start a Docker container in detached mode, mount the **ABSOLUT
 docker exec CONTAINER_ID optim3d index2d data/FILE_NAME
 ```
 This command will execute the QuadTree indexing of the 2D footprints data, which can be a Shapefile (.shp) or a GeoPackage (.gpkg).
+
+For the <code>reconstruct</code> command, make sure to copy Geoflow-bundle folder to the <code>$PATH</code> environment variable of the container before running the reconstruction:
+
+```bash
+docker cp PATH_TO_GEOFLOW_BUNDLE CONTAINER_ID:$PATH
+docker exec CONTAINER_ID optim3d reconstruct
+```
 
 5. To copy the output of the command from the container to a local path, use the <code>docker cp</code> command with the container ID or name, the path to the file inside the container, and the path to the destination on the host machine. For example:
 
