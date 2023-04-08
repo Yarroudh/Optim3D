@@ -191,7 +191,7 @@ If you want to build the solution from source, you should follow the steps in [I
 
 ## Results
 
-The results of each command are saved in the <code>output</code> folder, which should look like this after executing all the commands:
+The results of each command are saved in the <code>output</code> folder with the following structure:
 
 ```bash
 ├── output
@@ -224,7 +224,7 @@ The results of each command are saved in the <code>output</code> folder, which s
 │   └── quadtree.gpkg
 ```
 
-The 3D building models can be viewd using [Ninja](https://github.com/cityjson/ninja), the official web viewer for CityJSON files.
+The 3D building models can be inspected using [Ninja](https://github.com/cityjson/ninja), the official web viewer for CityJSON files.
 
 ![image](https://user-images.githubusercontent.com/72500344/216613188-82d54c75-7e03-4ee7-8c1c-d081e0c1d4ac.png)
 
