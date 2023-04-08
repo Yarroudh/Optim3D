@@ -3,3 +3,4 @@ geopandas
 osmnx
 psutil
 sphinx-click
+sphinx-autodoc-click
