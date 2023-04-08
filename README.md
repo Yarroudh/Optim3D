@@ -21,8 +21,8 @@ You can install optim3d in your Conda environment by simply running:
 
 ```bash
 conda create --name optimenv python==3.6
-conda install -c conda-forge entwine
 conda install -c conda-forge pdal python-pdal
+conda install -c conda-forge entwine
 pip install optim3d
 ```
 
