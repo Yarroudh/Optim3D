@@ -149,7 +149,7 @@ Optim3D is also available as [Docker image](https://hub.docker.com/r/yarroudh/op
 
 These are the steps to run Optim3D as a Docker container:
 
-1. First pull the image using the <code>docker</code> pull command:
+1. First pull the image using the <code>docker pull</code> command:
 
 ```bash
 docker pull yarroudh/optim3d
