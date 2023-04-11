@@ -2,4 +2,3 @@ click
 geopandas
 osmnx
 psutil
-sphinx-click
