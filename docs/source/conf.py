@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../optim3d'))
+sys.path.insert(0, os.path.abspath('https://github.com/Yarroudh/Optim3D/tree/main/optim3d'))
 
 project = 'Optim3D'
 copyright = '2023, Anass Yarroudh'
