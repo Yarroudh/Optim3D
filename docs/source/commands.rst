@@ -1,6 +1,6 @@
 Commands
 ========
 
-.. click:: main.cli
+.. click:: main:cli
    :prog: Optim3D
    :nested: full
