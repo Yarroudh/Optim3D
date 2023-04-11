@@ -1,6 +1,7 @@
 Commands
 ========
 
-.. click:: main:cli
-   :prog: Optim3D
-   :nested: full
+.. automodule:: main
+   :members:
+   :undoc-members:
+   :show-inheritance:
