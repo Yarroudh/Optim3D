@@ -17,6 +17,7 @@ Before installing Optim3D, you need to create a Conda environment by running the
 
 ```bash
 conda create --name optimenv python=3.6.13
+conda activate optimenv
 conda install -c conda-forge pdal python-pdal
 conda install -c conda-forge entwine
 ```
@@ -26,11 +27,6 @@ This command will create a new Conda environment named <code>optimenv</code>. Th
 - PDAL
 - Python-PDAL (Python bindings for PDAL)
 
-Activate the Conda environment that you created in the previous step.
-
-```bash
-conda activate optimenv
-```
 
 ## Step 4: Install Optim3D
 

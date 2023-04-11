@@ -39,6 +39,12 @@ This command will create a new Conda environment named optimenv. The
 environment uses **Python 3.6.13** and have the following packages
 installed: - Entwine - PDAL - Python-PDAL (Python bindings for PDAL)
 
+Activate the Conda environment that you created in the previous step.
+
+.. code:: bash
+
+   conda activate optimenv
+
 Step 4: Install Optim3D
 -----------------------
 
