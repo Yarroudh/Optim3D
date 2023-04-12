@@ -7,7 +7,7 @@ channels:
 dependencies:
   - python=3.6
   - pdal
-  pip:
+  - pip:
     - click
     - geopandas
     - osmnx
