@@ -7,4 +7,10 @@ channels:
 dependencies:
   - python=3.6
   - pdal
+  pip:
+    - click
+    - geopandas
+    - osmnx
+    - psutil
+    - sphinx-click
 prefix: /home/docs/.conda/envs/rtd38
