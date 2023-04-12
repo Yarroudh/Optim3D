@@ -1,5 +1,3 @@
-$ conda activate rtd38
-(rtd38) $ conda env export --from-history | tee environment.yml
 name: rtd38
 channels:
   - conda-forge
