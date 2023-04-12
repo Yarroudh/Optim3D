@@ -5,7 +5,7 @@ with open("requirements.txt", "r") as file:
 
 setup(
     name="optim3d",
-    version='0.2.1',
+    version='0.2.2',
     description="CLI application for efficient and optimized reconstruction of large-scale 3D building models",
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
