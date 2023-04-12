@@ -1,7 +1,10 @@
-name: optimenv
+$ conda activate rtd38
+(rtd38) $ conda env export --from-history | tee environment.yml
+name: rtd38
 channels:
   - conda-forge
   - defaults
 dependencies:
   - python=3.6
   - pdal
+prefix: /home/docs/.conda/envs/rtd38
