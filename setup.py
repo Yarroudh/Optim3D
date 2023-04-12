@@ -5,15 +5,15 @@ with open("requirements.txt", "r") as file:
 
 setup(
     name="optim3d",
-    version='0.2.2',
-    description="CLI application for efficient and optimized reconstruction of large-scale 3D building models",
+    version='0.2.4',
+    description="CLI application for efficient and optimized reconstruction of large-scale 3D building models.",
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
+    license="BSD 3-Clause BSD 3-Clause \"New\" or \"Revised\" License",
     author = 'Anass Yarroudh',
     author_email = 'ayarroudh@uliege.be',
     url = 'https://github.com/Yarroudh/Optim3D',
     packages=find_packages(),
-    py_modules=["optim3d"],
     install_requires=requirements,
     entry_points={
         "console_scripts": [
