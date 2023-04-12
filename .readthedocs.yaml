@@ -4,7 +4,7 @@ build:
   os: "ubuntu-22.04"
   tools:
     python: "mambaforge-4.10"
-
+  apt_packages: libpdal-dev
 conda:
   environment: docs/environment.yaml
 
