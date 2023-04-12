@@ -183,7 +183,7 @@ for CityJSON files.
 .. figure:: https://user-images.githubusercontent.com/72500344/216613188-82d54c75-7e03-4ee7-8c1c-d081e0c1d4ac.png
    :alt: image
 
-   image
+   CityJSON file visualized using Ninja
 
 Post-processing
 --------------------
