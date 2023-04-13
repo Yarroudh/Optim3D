@@ -182,7 +182,7 @@ docker cp CONTAINER_ID:/home/user/output/footprint_tiles PATH_ON_HOST_MACHINE
 ```
 This will copy the output of footprints tiling. Please check the results section for the output structure.
 
-- Top copy the output of all the commands:
+- To copy the output of all the commands:
 ```bash
 docker cp CONTAINER_ID:/home/user/output PATH_ON_HOST_MACHINE
 ```
