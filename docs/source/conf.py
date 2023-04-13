@@ -5,7 +5,7 @@ sys.path.insert(0, os.path.abspath('../../optim3d'))
 project = 'Optim3D'
 copyright = '2023, Anass Yarroudh'
 author = 'Anass Yarroudh'
-version = '0.1.9'
+version = '0.3.0'
 author_website = 'http://geomatics.ulg.ac.be/'
 company = 'Geomatics Unit of ULiège'
 github_url = 'https://github.com/Yarroudh/Optim3D'
