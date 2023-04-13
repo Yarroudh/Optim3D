@@ -1,5 +1,5 @@
 # Installation Guide
-This guide describes the steps to install Optim3D from source.
+This guide describes the steps to install Optim3D using [PyPI](https://pypi.org/project/optim3d/) or from source.
 
 ## Step 1: Install Miniconda
 First, you need to install Miniconda, which is a minimal version of Anaconda. You can download Miniconda from the following link: https://docs.conda.io/en/latest/miniconda.html
