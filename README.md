@@ -27,7 +27,7 @@ conda install -c conda-forge entwine
 pip install optim3d
 ```
 
-You can also build everything from source (see [INSTALL.md]()). A [Docker image](https://hub.docker.com/r/yarroudh/optim3d) is also available.
+You can also build everything from source (see [INSTALL.md](https://github.com/Yarroudh/Optim3D/blob/main/INSTALL.md)). A [Docker image](https://hub.docker.com/r/yarroudh/optim3d) is also available.
 
 **NOTE:** It is important to note that in order to use our program for 3D reconstruction of buildings, [GeoFlow-bundle](https://github.com/geoflow3d/geoflow-bundle/releases/tag/2022.06.17) must be installed. Please read the LICENSE file.
 
