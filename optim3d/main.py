@@ -319,7 +319,7 @@ def cli():
 
 @click.command()
 @click.argument('footprints', type=click.Path(exists=True), required=False)
-@click.option('--output', help='Output directory.', type=click.Path(exists=False), default="./output", show_default=True)
+@click.option('--output', help='Output directory.', type=click.Path(exists=False), default="output", show_default=True)
 @click.option('--osm', help='Download and work with building footprints from OpenStreetMap [west, north, est, south].', nargs=4, type=click.Tuple([float, float, float, float]), default=(-1, -1, -1, -1))
 @click.option('--crs', help='Specify the Coordinate Reference System (EPSG).', type=click.INT)
 @click.option('--max', help='Maximum number of buildings per tile.', type=click.INT, default=3500, show_default=True)
@@ -407,7 +407,7 @@ def index2d(footprints, output, osm, crs, max):
 
 @click.command()
 @click.argument('pointcloud', type=click.Path(exists=True), required=True)
-@click.option('--output', help='Output directory.', type=click.Path(exists=False), default="./output", show_default=True)
+@click.option('--output', help='Output directory.', type=click.Path(exists=False), default="output", show_default=True)
 
 def index3d(pointcloud, output):
     '''
@@ -431,9 +431,9 @@ def index3d(pointcloud, output):
     os.system('entwine build -c {}'.format(config_file))
 
 @click.command()
-@click.option('--areas', help='The calculated processing areas.', type=click.Path(exists=True), default="./output/processing_areas.gpkg", show_default=True)
-@click.option('--indexed', help='Indexed 3D point cloud directory.', type=click.Path(exists=True), default="./output/indexed_pointcloud", show_default=True)
-@click.option('--output', help='Output directory.', type=click.Path(exists=False), default="./output", show_default=True)
+@click.option('--areas', help='The calculated processing areas.', type=click.Path(exists=True), default="output/processing_areas.gpkg", show_default=True)
+@click.option('--indexed', help='Indexed 3D point cloud directory.', type=click.Path(exists=True), default="output/indexed_pointcloud", show_default=True)
+@click.option('--output', help='Output directory.', type=click.Path(exists=False), default="output", show_default=True)
 
 def tiler3d(areas, indexed, output):
     '''
@@ -463,9 +463,9 @@ def tiler3d(areas, indexed, output):
     click.echo("Time: {}".format(time.strftime("%H:%M:%S", time.gmtime(processTime))))
 
 @click.command()
-@click.option('--pointcloud', help='3D point cloud tiles directory.', type=click.Path(exists=True), default="./output/pointcloud_tiles", show_default=True)
-@click.option('--footprints', help='2D building footprints tiles directory.', type=click.Path(exists=True), default="./output/footprint_tiles", show_default=True)
-@click.option('--output', help='Output directory.', type=click.Path(exists=False), default="./output", show_default=True)
+@click.option('--pointcloud', help='3D point cloud tiles directory.', type=click.Path(exists=True), default="output/pointcloud_tiles", show_default=True)
+@click.option('--footprints', help='2D building footprints tiles directory.', type=click.Path(exists=True), default="output/footprint_tiles", show_default=True)
+@click.option('--output', help='Output directory.', type=click.Path(exists=False), default="output", show_default=True)
 
 def reconstruct(footprints, pointcloud, output):
     '''
@@ -539,7 +539,7 @@ def reconstruct(footprints, pointcloud, output):
     click.echo("Time: {}".format(time.strftime("%H:%M:%S", time.gmtime(processTime))))
 
 @click.command()
-@click.option('--cityjson', help='CityJSON files directory.', type=click.Path(exists=True), default="./output/model/cityjson", show_default=True)
+@click.option('--cityjson', help='CityJSON files directory.', type=click.Path(exists=True), default="output/model/cityjson", show_default=True)
 
 def post(cityjson):
     '''
