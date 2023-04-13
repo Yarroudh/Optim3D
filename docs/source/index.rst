@@ -13,7 +13,6 @@ Welcome to Optim3D's documentation!
 
    welcome
    installation
-   commands
    tutorial
    docker
    license

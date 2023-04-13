@@ -1,13 +1,10 @@
 version: 2
 
-build:
-  os: "ubuntu-22.04"
-  tools:
-    python: "mambaforge-4.10"
-  apt_packages: 
-    - libpdal-dev
-conda:
-  environment: docs/environment.yaml
-
 sphinx:
   configuration: docs/source/conf.py
+
+python:
+  version: 3.8
+
+install:
+  - requirements: requirements.txt

@@ -15,7 +15,6 @@ show_powered_by = False
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    'sphinx_click.ext',
     'sphinx.ext.autodoc',
 ]
 
