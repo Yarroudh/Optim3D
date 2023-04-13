@@ -11,5 +11,3 @@ conda:
 
 sphinx:
   configuration: docs/source/conf.py
-  
- 
