@@ -473,11 +473,15 @@ def reconstruct(footprints, pointcloud, output):
 
     start = time.time()
 
-    with open("config/reconstruct_.json") as file:
-        reconstruct_ = json.load(file)
+    config_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config')
+    config_file = os.path.join(config_dir, 'reconstruct.json')
+    config_file_ = os.path.join(config_dir, 'reconstruct_.json')
 
-    with open("config/reconstruct.json") as file:
+    with open(config_file) as file:
         reconstruct = json.load(file)
+
+    with open(config_file_) as file:
+        reconstruct_ = json.load(file)
 
     if (os.path.exists('{}/flowcharts'.format(output))==False):
         os.mkdir('{}/flowcharts'.format(output))
