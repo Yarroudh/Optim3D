@@ -27,6 +27,17 @@ This command will create a new Conda environment named <code>optimenv</code>. Th
 - PDAL
 - Python-PDAL (Python bindings for PDAL)
 
+In case the installation of dependencies using <code>conda</code> is taking too much time, an alternative option is to use <code>Mamba</code> as a package manager. Mamba is a faster and more efficient package manager than Conda, particularly when it comes to installation, updates, and dependency resolution. This is because Mamba is written in C++ and uses multithreading to parallelize operations, whereas Conda is written in Python and does not take advantage of multiple cores as effectively.
+
+Mamba can be used in a similar way to Conda for creating and managing Conda environments:
+
+```bash
+conda create --name optimenv python=3.6.13
+conda activate optimenv
+conda install mamba -c conda-forge
+mamba install pdal python-pdal -c conda-forge
+mamba install entwine -c conda-forge
+```
 
 ## Step 4: Install Optim3D
 
