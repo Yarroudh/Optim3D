@@ -424,10 +424,11 @@ def index3d(pointcloud, output):
         "output":os.path.abspath("{}/indexed_pointcloud".format(output))
     }
 
-    with open('{}\\config.json'.format(tmp),'w') as file:
-        json.dumps(json.dump(config, file, indent=2))
+    config_file = os.path.join(tmp, "config.json")
+    with open(config_file, "w") as f:
+        json.dump(config, f, indent=2)
 
-    os.system('entwine build -c {}\\config.json'.format(tmp))
+    os.system('entwine build -c {}'.format(config_file))
 
 @click.command()
 @click.option('--areas', help='The calculated processing areas.', type=click.Path(exists=True), default="./output/processing_areas.gpkg", show_default=True)
