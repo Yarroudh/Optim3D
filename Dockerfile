@@ -174,6 +174,6 @@ RUN mamba install -y mamba && \
     mamba update -y --all && \
     mamba install -y entwine pdal python-pdal
 
-RUN pip install optim3d==0.2.9
+RUN pip install optim3d
 
 CMD ["python", "-c", "while True: pass"]
