@@ -7,7 +7,7 @@
 
 *Command-Line Interface (CLI) application for efficient and optimized reconstruction of large-scale 3D building models.*
 
-Optim3D is a powerful tool for efficient and scalable generation of highly detailed and large-scale 3D building models. The modeling process is based on the [GeoFlow](https://github.com/geoflow3d/geoflow-bundle). The tool focuses mainly on preparing data for efficient reconstruction through indexing, tiling and parallel computing, which significantly reduces the processing time and resources required to generate large-scale 3D building models.
+Optim3D is a powerful tool for efficient and scalable generation of highly detailed and large-scale 3D building models. The modeling process is based on [GeoFlow](https://github.com/geoflow3d/geoflow-bundle). The tool focuses mainly on preparing data for efficient reconstruction through indexing, tiling and parallel computing, which significantly reduces the processing time and resources required to generate large-scale 3D building models.
 
 <img src="https://user-images.githubusercontent.com/72500344/212364590-b7fd444d-ec26-4a8b-bda9-fd4e1669bc6e.png" alt="Workflow of 3D Reconstruction" width="500"/>
 
