@@ -1,13 +1,13 @@
 <img src="https://user-images.githubusercontent.com/72500344/210864557-4078754f-86c1-4e7c-b291-73223bdf4e4d.png" alt="logo" width="200"/>
 
-# Optimized reconstruction of large-scale 3D building models
+# Optim3D: Efficient and scalable generation of large-scale 3D building
 
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://github.com/Yarroudh/ZRect3D/blob/main/LICENSE)
 [![Geomatics Unit of ULiege - Development](https://img.shields.io/badge/Geomatics_Unit_of_ULiege-Development-2ea44f)](http://geomatics.ulg.ac.be/)
 
 *Command-Line Interface (CLI) application for efficient and optimized reconstruction of large-scale 3D building models.*
 
-Optim3D is a powerful tool for optimized automatic reconstruction of highly detailed and large-scale 3D building models. Our tool is based on the [GeoFlow](https://github.com/geoflow3d/geoflow-bundle) software and makes use of it to perform the 3D reconstruction of buildings. The process is inspired by the 3D BAG project and optimized for large-scale projects through indexing and tiling of the input data, which significantly reduces the processing time and resources required to generate large-scale 3D building models.
+Optim3D is a powerful tool for efficient and scalable generation of highly detailed and large-scale 3D building models. The modeling process is based on the [GeoFlow](https://github.com/geoflow3d/geoflow-bundle). The tool focuses mainly on preparing data for efficient reconstruction through indexing, tiling and parallel computing, which significantly reduces the processing time and resources required to generate large-scale 3D building models.
 
 <img src="https://user-images.githubusercontent.com/72500344/212364590-b7fd444d-ec26-4a8b-bda9-fd4e1669bc6e.png" alt="Workflow of 3D Reconstruction" width="500"/>
 
