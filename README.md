@@ -1,9 +1,13 @@
 <img src="https://user-images.githubusercontent.com/72500344/210864557-4078754f-86c1-4e7c-b291-73223bdf4e4d.png" alt="logo" width="200"/>
+<img src="https://github.com/Yarroudh/Optim3D/assets/72500344/ed135c0f-46cf-4557-8b2d-8e13c5a30e3b" alt="3dgeoinfo" width="250"/>
+
+**Paper coming soon. Please, refer to: [Recent Advances in 3D Geoinformation Science](https://link.springer.com/book/9783031436987)**
 
 # Optim3D: Efficient and scalable generation of large-scale 3D building
 
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://github.com/Yarroudh/ZRect3D/blob/main/LICENSE)
 [![Geomatics Unit of ULiege - Development](https://img.shields.io/badge/Geomatics_Unit_of_ULiege-Development-2ea44f)](http://geomatics.ulg.ac.be/)
+[![Paper - Proceedings of the 18th 3D GeoInfo Conference](https://img.shields.io/badge/Paper-Proceedings_of_the_18th_3D_GeoInfo_Conference-254892)](https://link.springer.com/book/9783031436987)
 
 *Command-Line Interface (CLI) application for efficient and optimized reconstruction of large-scale 3D building models.*
 
