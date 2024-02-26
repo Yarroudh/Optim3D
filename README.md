@@ -274,5 +274,5 @@ Yarroudh, A., Kharroubi, A., Billen, R. (2024). Optim3D: Efficient and Scalable 
 
 ## About Optim3D
 
-This software was developped by [Anass Yarroudh](https://www.linkedin.com/in/anass-yarroudh/), a Research Engineer in the [GeoScITY department of the University of Liege](http://geomatics.ulg.ac.be/fr/home.php).
+This software was developped by [Anass Yarroudh](https://www.linkedin.com/in/anass-yarroudh/), Research Engineer in the [GeoScITY department of the University of Liege](http://geomatics.ulg.ac.be/fr/home.php).
 For more detailed information please contact us via <ayarroudh@uliege.be>, we are pleased to send you the necessary information.
