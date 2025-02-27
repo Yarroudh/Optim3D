@@ -13,18 +13,18 @@ https://github.com/geoflow3d/geoflow-bundle
 Once Geoflow-bundle is installed, you can go through the next steps.
 
 ## Step 3: Create the Conda Environment
-Before installing Optim3D, you need to create a Conda environment by running the following commands:
+Before installing Optim3D, you need to create a Python environment by running the following commands:
 
 ```bash
-conda create --name optimenv python=3.6.13
+conda create --name optimenv python=3.9
 conda activate optimenv
 conda install -c conda-forge pdal python-pdal
 conda install -c conda-forge entwine
 ```
 
-This command will create a new Conda environment named <code>optimenv</code>. The environment uses **Python 3.6.13** and have the following packages installed:
-- Entwine
-- PDAL
+This command will create a new Conda environment named <code>optimenv</code>. The environment uses **Python 3.9.13** and have the following packages installed:
+- Entwine>=3.1.0
+- PDAL>=3.4.5
 - Python-PDAL (Python bindings for PDAL)
 
 In case the installation of dependencies using <code>conda</code> is taking too much time, an alternative option is to use <code>Mamba</code> as a package manager. Mamba is a faster and more efficient package manager than Conda, particularly when it comes to installation, updates, and dependency resolution. This is because Mamba is written in C++ and uses multithreading to parallelize operations, whereas Conda is written in Python and does not take advantage of multiple cores as effectively.
@@ -32,7 +32,7 @@ In case the installation of dependencies using <code>conda</code> is taking too 
 Mamba can be used in a similar way to Conda for creating and managing Conda environments:
 
 ```bash
-conda create --name optimenv python=3.6.13
+conda create --name optimenv python=3.9
 conda activate optimenv
 conda install mamba -c conda-forge
 mamba install pdal python-pdal -c conda-forge
@@ -67,14 +67,13 @@ pip install -r requirements.txt
 Finally, install Optim3D using the <code>setup.py</code> file.
 
 ```bash
-pip install -e .
+pip install .
 ```
 
 This command will install Optim3D and its dependencies in the Conda environment that you created earlier. These dependencies are :
-- click==8.0.4
-- geopandas==0.9.0
-- osmnx==0.11.3
-- shapely==1.6.0
+- click==8.1.8 
+- geopandas==1.0.1
+- osmnx==2.0.1
 
 ### Verify the Installation
 

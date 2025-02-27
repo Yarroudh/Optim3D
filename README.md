@@ -23,7 +23,7 @@ If you are using Optim3D, we highly recommend that you take the time to read the
 You can install optim3d in your Conda environment by simply running:
 
 ```bash
-conda create --name optimenv python==3.6
+conda create --name optimenv python==3.9
 conda activate optimenv
 conda install -c conda-forge pdal python-pdal
 conda install -c conda-forge entwine
