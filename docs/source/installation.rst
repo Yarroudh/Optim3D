@@ -30,13 +30,13 @@ running the following commands:
 
 .. code:: bash
 
-   conda create --name optimenv python=3.6.13
+   conda create --name optimenv python=3.9
    conda activate optimenv
    conda install -c conda-forge pdal python-pdal
    conda install -c conda-forge entwine
 
 This command will create a new Conda environment named optimenv. The
-environment uses **Python 3.6.13** and have the following packages
+environment uses **Python 3.9** and have the following packages
 installed: - Entwine - PDAL - Python-PDAL (Python bindings for PDAL)
 
 Step 4: Install Optim3D
@@ -78,7 +78,7 @@ Finally, install Optim3D using the setup.py file.
 
 This command will install Optim3D and its dependencies in the Conda
 environment that you created earlier. These dependencies are : -
-click==8.0.4 - geopandas==0.9.0 - osmnx==0.11.3 - shapely==1.6.0
+click==8.1.8 - geopandas==1.0.1 - osmnx==2.0.1
 
 Verify the Installation
 ~~~~~~~~~~~~~~~~~~~~~~~

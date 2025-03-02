@@ -17,7 +17,7 @@ RUN /bin/bash ~/anaconda.sh -b -p /opt/conda && \
 
 # Configure the environment
 ENV PATH /opt/conda/bin:$PATH
-RUN conda create -n optimenv python=3.6.13
+RUN conda create -n optimenv python=3.9
 RUN echo "conda activate optimenv" > ~/.bashrc
 ENV PATH /opt/conda/envs/env/bin:$PATH
 # RUN conda install -c conda-forge pdal python-pdal
