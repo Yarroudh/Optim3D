@@ -5,7 +5,7 @@
 # Optim3D: Efficient and scalable generation of large-scale 3D building
 
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://github.com/Yarroudh/ZRect3D/blob/main/LICENSE)
-[![Geomatics Unit of ULiege - Development](https://img.shields.io/badge/Geomatics_Unit_of_ULiege-Development-2ea44f)](http://geomatics.ulg.ac.be/)
+[![GeoScITY LAB - Development](https://img.shields.io/badge/Geomatics_Unit_of_ULiege-Development-2ea44f)](http://geomatics.ulg.ac.be/)
 [![Springer](https://img.shields.io/badge/Springer-10.1007/978--3--031--43699--4_50-green?style=flat&link=https://doi.org/10.1007/978-3-031-43699-4_50)](https://doi.org/10.1007/978-3-031-43699-4_50)
 
 *Command-Line Interface (CLI) application for efficient and optimized reconstruction of large-scale 3D building models.*
