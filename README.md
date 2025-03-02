@@ -1,4 +1,4 @@
-<img src="https://user-images.githubusercontent.com/72500344/210864557-4078754f-86c1-4e7c-b291-73223bdf4e4d.png" alt="logo" width="200"/><img src="https://github.com/Yarroudh/Optim3D/assets/72500344/ed135c0f-46cf-4557-8b2d-8e13c5a30e3b" alt="3dgeoinfo" width="250"/>
+<img src="https://github.com/Yarroudh/templates_cj/assets/72500344/1b523bfa-b0d4-46d6-9400-69bc1c81fe90" alt="logo" width="200"/>
 
 **Paper is now published. For more information, please refer to: [Recent Advances in 3D Geoinformation Science](https://link.springer.com/chapter/10.1007/978-3-031-43699-4_50)**
 
@@ -274,5 +274,5 @@ Yarroudh, A., Kharroubi, A., Billen, R. (2024). Optim3D: Efficient and Scalable 
 
 ## About Optim3D
 
-This software was developped by [Anass Yarroudh](https://www.linkedin.com/in/anass-yarroudh/), Research Engineer in the [GeoScITY department of the University of Liege](http://geomatics.ulg.ac.be/fr/home.php).
+This software was developped by [Anass Yarroudh](https://www.linkedin.com/in/anass-yarroudh/), a Research Engineer at the [GeoScITY department of the University of Liege](http://geomatics.ulg.ac.be/fr/home.php).
 For more detailed information please contact us via <ayarroudh@uliege.be>, we are pleased to send you the necessary information.
