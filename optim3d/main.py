@@ -12,6 +12,7 @@ import geopandas as gpd
 import osmnx as ox
 import pdal
 import multiprocessing
+import subprocess
 import psutil
 from typing import List, Any, Union
 import math
@@ -225,19 +226,23 @@ def reconstruct(footprints, pointcloud, output):
         with open('{}/flowcharts/reconstruct{}_.json'.format(output, i), 'w') as file:
             json.dump(data, file, indent=2)
 
-    commands = []
-    for j in range(len(os.listdir('{}/pointcloud_tiles'.format(output)))):
-        commands.append("geof {}/flowcharts/reconstruct{}.json".format(output, j))
-
-    processes = [multiprocessing.Process(target=geoflow, args=('{}/flowcharts/reconstruct{}.json'.format(output, j), j)) for j in range(len(os.listdir('{}/pointcloud_tiles'.format(output))))]
-
-    for k, process in enumerate(processes):
-        while (psutil.virtual_memory()[2] > 90):
+    commands = [
+        "geof {}/flowcharts/reconstruct{}.json".format(output, j)
+        for j in range(len(os.listdir(f"{output}/pointcloud_tiles")))
+    ]
+    
+    processes = []
+    
+    for cmd in commands:
+        while psutil.virtual_memory().percent > 90:
             time.sleep(2)
-        process.start()
-
+        
+        process = subprocess.Popen(cmd, shell=True)
+        processes.append(process)
+    
+    # Wait for all processes to complete
     for process in processes:
-        process.join()
+        process.wait()
 
     end = time.time()
     processTime = end - start
