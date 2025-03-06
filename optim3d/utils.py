@@ -5,12 +5,36 @@
 import click
 import json
 import os
+import sys
+import sys
+
+env_base = sys.prefix
+proj_lib_path = os.path.join(env_base, 'Library', 'share', 'proj')
+os.environ['PROJ_LIB'] = proj_lib_path
+
 import geopandas as gpd
 import pdal
 from typing import List, Any, Union
 import math
 import collections
 import shapely.geometry as geometry
+import psutil
+import subprocess
+
+import subprocess
+
+def run_command_in_terminal(cmd):
+    try:
+        # Run the command directly without creating a new terminal window
+        subprocess.run(cmd, shell=True, check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error running command {cmd}: {e}")
+    except Exception as e:
+        print(f"Unexpected error running command {cmd}: {e}")
+
+def memory_check():
+    # Return the percentage of memory used
+    return psutil.virtual_memory().percent
 
 class OrderedGroup(click.Group):
     def __init__(self, name=None, commands=None, **attrs):
