@@ -72,16 +72,15 @@ def prepare(output, footprint_tiles, indexed_pointcloud, model, pointcloud_tiles
     console.print(f"{copyright}")
     console.print("[bold cyan]Preparation of output folder structure[/bold cyan]\n")
 
-    structure = Tree("output")    
-    structure.add("footprint_tiles")
-    structure.add("indexed_pointcloud")
-    structure.add("model")
-    structure.add("pointcloud_tiles")
-    structure.add("folder_structure.xml")
+    structure = Tree(f"{output}")
+    structure.add(footprint_tiles)
+    structure.add(indexed_pointcloud)
+    structure.add(model)
+    structure.add(pointcloud_tiles)
 
     console.print(structure)
-    console.print(f"[green]\nOutput folder structure prepared at: {os.path.abspath(output)}[/green]")
-    console.print(f"[yellow]Please refer to [bold]{folder_structure}[/bold] for the folder structure.[/yellow]")
+    console.print(f"[green]\nOutput folder structure prepared at:[/green] {os.path.abspath(output)}")
+    console.print(f"Please refer to [bold]{folder_structure}[/bold] for the folder structure.")
 
 
 
@@ -108,6 +107,7 @@ def index2d(footprints, output, folder_structure, osm, osm_save_path, quadtree_f
 
     # Read folder structure XML file
     try:
+        folder_structure = os.path.join(output, folder_structure) if not os.path.exists(folder_structure) else folder_structure
         tree = ET.parse(folder_structure)
     except ET.ParseError:
         console.print("[bold red]Error: {folder_structure} does not exist or is not a valid XML file.[/bold red]")
@@ -162,7 +162,6 @@ def index2d(footprints, output, folder_structure, osm, osm_save_path, quadtree_f
     quadTree.create().to_file(quadtree_path, driver="GPKG")
     boundings = gpd.read_file(quadtree_path)
     boundings.crs = buildings.crs
-    console.print(f"[green]QuadTree saved at {quadtree_path}[/green]")
 
     # Spatial join (efficient replacement for nested loops)
     buildings = buildings.sjoin(boundings, how="left", predicate="intersects")
@@ -171,8 +170,6 @@ def index2d(footprints, output, folder_structure, osm, osm_save_path, quadtree_f
     # Group buildings by node and create bounding boxes
     grouped = buildings.drop(columns=["centroid"]).groupby("node")
 
-    console.print(f"[bold cyan]Generating processing areas and tiles[/bold cyan]")
-
     bbox_geoms = grouped.apply(lambda g: g.dissolve().boundary.iloc[0].envelope.buffer(10) if not g.dissolve().boundary.empty else None)
     bbox_gdf = gpd.GeoDataFrame(geometry=bbox_geoms, crs=f"EPSG:{crs}")
     processing_areas_path = os.path.join(output, processing_areas_fname)
@@ -180,7 +177,7 @@ def index2d(footprints, output, folder_structure, osm, osm_save_path, quadtree_f
 
     # Save individual footprint tiles
     with Progress() as progress:
-        task = progress.add_task("[cyan]Saving footprint tiles", total=len(grouped))
+        task = progress.add_task("[cyan]Tiling", total=len(grouped))
         for node, group in grouped:
             tile_path = f"{tiles_full_path}/tile_{node}.shp"
             group['OIDN'] = range(1, len(group) + 1)
@@ -189,75 +186,185 @@ def index2d(footprints, output, folder_structure, osm, osm_save_path, quadtree_f
 
     # Completion message with execution time
     elapsed_time = time.time() - start_time
-    console.print(f"\n[bold green]All tiles generated successfully. Output saved at: {os.path.abspath(tiles_full_path)}[/bold green]")
-    console.print(f"[yellow]Time: {time.strftime('%H:%M:%S', time.gmtime(elapsed_time))}[/yellow]")
+
+    structure = Tree(output)
+    structure.add(tiles_path)
+    console.print(f"[green]\nQuadTree saved at:[/green] {os.path.abspath(quadtree_path)}")
+    console.print(f"[green]Processing areas saved at:[/green] {os.path.abspath(processing_areas_path)}")
+    console.print(f"[green]All tiles generated successfully and saved at:[/green] {os.path.abspath(tiles_full_path)}")
+    console.print(structure)
+    console.print(f"\nElapsed time: {time.strftime('%H:%M:%S', time.gmtime(elapsed_time))}")
 
 
 @click.command()
 @click.argument('pointcloud', type=click.Path(exists=True), required=True)
 @click.option('--output', help='Output directory.', type=click.Path(exists=False), default="output", show_default=True)
+@click.option('--folder-structure', type=click.Path(), default="folder_structure.xml", show_default=True, help="Folder structure file.")
 
-def index3d(pointcloud, output):
-    '''
+def index3d(pointcloud, folder_structure, output):
+    """
     OcTree indexing of 3D point cloud using Entwine.
-    '''
+    """
+    
+    start_time = time.time()
 
+    # Print header
+    console.print(f"{copyright}")
+    console.print("[bold cyan]OcTree indexing of 3D point cloud using Entwine[/bold cyan]\n")
+
+    # Read folder structure XML file
+    try:
+        folder_structure = os.path.join(output, folder_structure) if not os.path.exists(folder_structure) else folder_structure
+        tree = ET.parse(folder_structure)
+    except ET.ParseError:
+        console.print("[bold red]Error: {folder_structure} does not exist or is not a valid XML file.[/bold red]")
+        return
+    
+    root = tree.getroot()
+    tiles_path = root.find("indexed_pointcloud").text
+
+    # Ensure output directories exist
     os.makedirs(output, exist_ok=True)
+    tiles_full_path = os.path.join(output, tiles_path)
+    os.makedirs(tiles_full_path, exist_ok=True)
+
+    # Create temporary directory
     tmp = tempfile.mkdtemp()
 
+    # Entwine configuration
     config = {
-        "input":os.path.abspath(pointcloud),
-        "output":os.path.abspath("{}/indexed_pointcloud".format(output))
+        "input": os.path.abspath(pointcloud),
+        "output": os.path.abspath(tiles_full_path)
     }
 
     config_file = os.path.join(tmp, "config.json")
     with open(config_file, "w") as f:
         json.dump(config, f, indent=2)
 
-    os.system('entwine build -c {}'.format(config_file))
+    # Run Entwine and wait for completion
+    command = f"entwine build -c {config_file}"
+    run_command_in_terminal(command)
+
+    # Completion message with execution time
+    elapsed_time = time.time() - start_time
+    structure = Tree(output)
+    structure.add(tiles_path)
+    console.print(f"[green]\n3D point cloud indexed successfully and saved at:[/green] {os.path.abspath(tiles_full_path)}")
+    console.print(structure)
+    console.print(f"\nElapsed time: {time.strftime('%H:%M:%S', time.gmtime(elapsed_time))}")
+
 
 
 @click.command()
-@click.option('--areas', help='The calculated processing areas.', type=click.Path(exists=True), default="output/processing_areas.gpkg", show_default=True)
-@click.option('--indexed', help='Indexed 3D point cloud directory.', type=click.Path(exists=True), default="output/indexed_pointcloud", show_default=True)
 @click.option('--output', help='Output directory.', type=click.Path(exists=False), default="output", show_default=True)
+@click.option('--folder-structure', type=click.Path(), default="folder_structure.xml", show_default=True, help="Folder structure file.")
+@click.option('--areas', type=click.Path(), default="processing_areas.gpkg", show_default=True, help="Processing areas file.")
+@click.option('--max-workers', type=int, default=os.cpu_count(), show_default=True, help="Maximum number of workers for tiling.")
 
-def tiler3d(areas, indexed, output):
-    '''
+def tile3d(areas, output, folder_structure, max_workers):
+    """
     Tiling of point cloud using the calculated processing areas.
-    '''
+    """
+
     start = time.time()
 
-    os.makedirs(output, exist_ok=True)
-    os.makedirs(f"{output}/pointcloud_tiles", exist_ok=True)
+    # Print header
+    console.print(f"{copyright}")
+    console.print("[bold cyan]Tiling of point cloud using the calculated processing areas[/bold cyan]\n")
 
+    # Read folder structure XML file
+    try:
+        folder_structure = os.path.join(output, folder_structure) if not os.path.exists(folder_structure) else folder_structure
+        tree = ET.parse(folder_structure)
+    except ET.ParseError:
+        console.print("[bold red]Error: {folder_structure} does not exist or is not a valid XML file.[/bold red]")
+        return
+    
+    root = tree.getroot()
+    tiles_path = root.find("pointcloud_tiles").text
+    tiles_full_path = os.path.join(output, tiles_path)
+    indexed_path = root.find("indexed_pointcloud").text
+    indexed_full_path = os.path.join(output, indexed_path)
+
+    # Ensure the indexed point cloud exists
+    assert os.path.exists(indexed_full_path), "Indexed point cloud directory not found"
+    assert os.path.exists(os.path.join(indexed_full_path, "ept-data")), "ept-data not found in the indexed point cloud directory"
+    assert os.path.exists(os.path.join(indexed_full_path, "ept-hierarchy")), "ept-hierarchy not found in the indexed point cloud directory"
+    assert os.path.exists(os.path.join(indexed_full_path, "ept-sources")), "ept-sources not found in the indexed point cloud directory"
+    assert os.path.exists(os.path.join(indexed_full_path, "ept-build.json")), "ept.json not found in the indexed point cloud directory"
+    assert os.path.exists(os.path.join(indexed_full_path, "ept.json")), "ept.json not found in the indexed point cloud directory"
+    assert os.path.exists(areas), f"{areas} not found"
+
+    # Ensure output directories exist
+    os.makedirs(output, exist_ok=True)
+    tiles_full_path = os.path.join(output, tiles_path)
+    os.makedirs(tiles_full_path, exist_ok=True)
+
+    # Load processing areas and indexed point cloud
     tiles = gpd.read_file(areas)
 
-    processes = [multiprocessing.Process(target=tile, args=(i, tiles, indexed, output)) for i, row in tiles.iterrows()]
+    # Use ThreadPoolExecutor for tiling the point cloud with tile function
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = [executor.submit(tile, idx, tiles, indexed_full_path, tiles_full_path) for idx in range(len(tiles))]
+        
+        with Progress() as progress:
+            task = progress.add_task("[cyan]Tiling point cloud", total=len(futures))
+            for future in as_completed(futures):
+                try:
+                    future.result()
+                except Exception as e:
+                    console.print(f"[bold red]Error: {e}[/bold red]")
+                finally:
+                    progress.update(task, advance=1)
 
-    for process in processes:
-        process.start()
+    # Completion message with execution time
+    elapsed_time = time.time() - start
+    structure = Tree(output)
+    structure.add(tiles_path)
+    console.print(f"[green]\n3D point cloud tiled successfully and saved at:[/green] {os.path.abspath(tiles_full_path)}")
+    console.print(structure)
+    console.print(f"\nElapsed time: {time.strftime('%H:%M:%S', time.gmtime(elapsed_time))}")
 
-    for process in processes:
-        process.join()
-
-    end = time.time()
-    processTime = end - start
-
-    print('All tiles generated successfully')
-    click.echo("Time: {}".format(time.strftime("%H:%M:%S", time.gmtime(processTime))))
 
 @click.command()
-@click.option('--pointcloud', help='3D point cloud tiles directory.', type=click.Path(exists=True), default="output/pointcloud_tiles", show_default=True)
-@click.option('--footprints', help='2D building footprints tiles directory.', type=click.Path(exists=True), default="output/footprint_tiles", show_default=True)
 @click.option('--output', help='Output directory.', type=click.Path(exists=False), default="output", show_default=True)
+@click.option('--folder-structure', type=click.Path(), default="folder_structure.xml", show_default=True, help="Folder structure file.")
+@click.option('--max-workers', type=int, default=os.cpu_count(), show_default=True, help="Maximum number of workers for reconstruction.")
 
-def reconstruct(footprints, pointcloud, output):
-    '''
+def reconstruct(output, folder_structure, max_workers):
+    """
     Optimized 3D reconstruction of buildings using GeoFlow.
-    '''
+    """
+
     start = time.time()
 
+    # Print header
+    console.print(f"{copyright}")
+    console.print("[bold cyan]Optimized 3D reconstruction of buildings using GeoFlow[/bold cyan]\n")
+
+    # Read folder structure XML file
+    try:
+        folder_structure = os.path.join(output, folder_structure) if not os.path.exists(folder_structure) else folder_structure
+        tree = ET.parse(folder_structure)
+    except ET.ParseError:
+        console.print("[bold red]Error: {folder_structure} does not exist or is not a valid XML file.[/bold red]")
+        return
+    
+    root = tree.getroot()
+    footprints_path = root.find("footprint_tiles").text
+    pointcloud_path = root.find("pointcloud_tiles").text
+    model_path = root.find("model").text
+    footprints_full_path = os.path.join(output, footprints_path)
+    pointcloud_full_path = os.path.join(output, pointcloud_path)
+    model_full_path = os.path.join(output, model_path)
+
+    # Ensure output directories exist
+    os.makedirs(model_full_path, exist_ok=True)
+    os.makedirs(os.path.join(model_full_path, "cityjson"), exist_ok=True)
+    assert os.path.exists(footprints_full_path), "Footprint tiles directory not found"
+    assert os.path.exists(pointcloud_full_path), "Pointcloud tiles directory not found"
+
+    # Load the configuration files
     config_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config')
     config_file = os.path.join(config_dir, 'reconstruct.json')
     config_file_ = os.path.join(config_dir, 'reconstruct_.json')
@@ -267,100 +374,115 @@ def reconstruct(footprints, pointcloud, output):
     shutil.copy(config_file, os.path.join(script_dir, 'reconstruct.json'))
     shutil.copy(config_file_, os.path.join(script_dir, 'reconstruct_.json'))
 
-    with open(config_file) as file:
-        reconstruct = json.load(file)
-
-    with open(config_file_) as file:
-        reconstruct_ = json.load(file)
-
-    os.makedirs(f'{output}/model', exist_ok=True)
-    os.makedirs(f'{output}/model/cityjson', exist_ok=True)
-
     commands = [
-        f"geof reconstruct.json --input_footprint={footprints}/tile_{i}.shp --input_pointcloud={pointcloud}/tile_{i}.las --output_cityjson={output}/model/cityjson/tile_{i}.city.json"
+        f"geof reconstruct.json --input_footprint={footprints_full_path}/tile_{i}.shp --input_pointcloud={pointcloud_full_path}/tile_{i}.las --output_cityjson={output}/model/cityjson/tile_{i}.city.json"
         for i in range(len(os.listdir(f"{output}/pointcloud_tiles")))
     ]
 
     # Using ThreadPoolExecutor for managing concurrent execution
-    with ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = []
 
         for cmd in commands:
-            # Ensure memory usage is below 90%
-            while psutil.virtual_memory().percent > 90:
-                print(f"Memory usage high: {psutil.virtual_memory().percent}%. Waiting...")
-                time.sleep(2)  # Wait before checking memory again
-
             futures.append(executor.submit(run_command_in_terminal, cmd))
 
-        # Wait for all futures to complete
-        for future in as_completed(futures):
-            try:
-                future.result()  # Check if any exceptions occurred in the threads
-            except Exception as e:
-                print(f"Error with command execution: {e}")
+        with Progress() as progress:
+            task = progress.add_task("[cyan]Reconstructing buildings", total=len(futures))
+            for future in as_completed(futures):
+                try:
+                    future.result()  # Check if any exceptions occurred in the threads
+                except Exception as e:
+                    console.print(f"[bold red]Error with command execution: {e}[/bold red]")
+                finally:
+                    progress.update(task, advance=1)
 
     # Delete the config files after execution
     os.remove(os.path.join(script_dir, 'reconstruct.json'))
     os.remove(os.path.join(script_dir, 'reconstruct_.json'))
 
-    end = time.time()
-    processTime = end - start
-
-    print("All buildings reconstructed successfully")
-    click.echo("Time: {}".format(time.strftime("%H:%M:%S", time.gmtime(processTime))))
+    # Completion message with execution time
+    elapsed_time = time.time() - start
+    structure = Tree(output)
+    structure.add(model_path)
+    console.print(f"[green]\n3D buildings reconstructed successfully and saved at:[/green] {os.path.abspath(model_full_path)}")
+    console.print(structure)
+    console.print(f"\nElapsed time: {time.strftime('%H:%M:%S', time.gmtime(elapsed_time))}")
 
 
 @click.command()
-@click.option('--cityjson', help='CityJSON files directory.', type=click.Path(exists=True), default="output/model/cityjson", show_default=True)
+@click.option('--output', help='Output directory.', type=click.Path(exists=False), default="output", show_default=True)
+@click.option('--folder-structure', type=click.Path(), default="folder_structure.xml", show_default=True, help="Folder structure file.")
 
-def post(cityjson):
-    '''
+def post(output, folder_structure):
+    """
     Postprocess the generated CityJSON files.
-    '''
+    """
     start = time.time()
 
-    i = 0
-    for filename in os.listdir(cityjson):
-        with open('{}/{}'.format(cityjson, filename)) as file:
-            data = json.load(file)
-            twin = copy.deepcopy(data)
+    # Print header
+    console.print(f"{copyright}")
 
-            for (key, value) in data['CityObjects'].items():
-                children = twin['CityObjects'][key].get('children')
-                parents = twin['CityObjects'][key].get('parents')
+    # Read folder structure XML file
+    try:
+        folder_structure = os.path.join(output, folder_structure) if not os.path.exists(folder_structure) else folder_structure
+        tree = ET.parse(folder_structure)
+    except ET.ParseError:
+        console.print("[bold red]Error: {folder_structure} does not exist or is not a valid XML file.[/bold red]")
+        return
+    
+    root = tree.getroot()
+    model_path = root.find("model").text
+    cityjson_path = os.path.join(model_path, "cityjson")
+    model_full_path = os.path.join(output, model_path)
+    cityjson_full_path = os.path.join(output, cityjson_path)
 
-                if (children):
-                    for j in range(len(children)):
-                        children[j] = 'T{}_{}'.format(i,children[j])
+    # Ensure output directories exist
+    assert os.path.exists(model_full_path), "Model directory not found"
+    assert os.path.exists(cityjson_full_path), "CityJSON directory not found"
 
-                if (parents):
-                    for j in range(len(parents)):
-                        parents[j] = 'T{}_{}'.format(i,parents[j])
+    # Postprocess the CityJSON files
+    with Progress() as progress:
+        task = progress.add_task("[cyan]Postprocessing CityJSON files", total=len(os.listdir(cityjson_full_path)))
+        for i, filename in enumerate(os.listdir(cityjson_full_path)):
+            with open(os.path.join(cityjson_full_path, filename)) as file:
+                data = json.load(file)
+                twin = copy.deepcopy(data)
 
-                twin['CityObjects']['T{}_{}'.format(i,key)] = twin['CityObjects'].pop(key)
+                for key, value in data['CityObjects'].items():
+                    children = twin['CityObjects'][key].get('children')
+                    parents = twin['CityObjects'][key].get('parents')
 
-        with open('{}/{}'.format(cityjson, filename), 'w') as file:
-            json.dump(twin, file, indent=2)
+                    if children:
+                        for j in range(len(children)):
+                            children[j] = f'T{i}_{children[j]}'
 
-        print(".done: tile_{}.city.json".format(i))
-        i += 1
+                    if parents:
+                        for j in range(len(parents)):
+                            parents[j] = f'T{i}_{parents[j]}'
 
-    end = time.time()
-    processTime = end - start
+                    twin['CityObjects'][f'T{i}_{key}'] = twin['CityObjects'].pop(key)
 
-    print("All files corrected successfully")
-    click.echo("Time: {}".format(time.strftime("%H:%M:%S", time.gmtime(processTime))))
+            with open(os.path.join(cityjson_full_path, filename), 'w') as file:
+                json.dump(twin, file, indent=2)
+
+            progress.update(task, advance=1)
+    
+    # Completion message with execution time
+    elapsed_time = time.time() - start
+    structure = Tree(output)
+    structure.add(model_path)
+    console.print(f"[green]\nCityJSON files postprocessed successfully and saved at:[/green] {os.path.abspath(cityjson_full_path)}")
+    console.print(structure)
+    console.print(f"\nElapsed time: {time.strftime('%H:%M:%S', time.gmtime(elapsed_time))}")
 
 
 cli.add_command(prepare)
 cli.add_command(index2d)
 cli.add_command(index3d)
-cli.add_command(tiler3d)
+cli.add_command(tile3d)
 cli.add_command(reconstruct)
 cli.add_command(post)
 
 
 if __name__ == '__main__':
-    multiprocessing.freeze_support()
     cli(prog_name='optim3d')

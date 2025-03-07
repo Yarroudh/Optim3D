@@ -12,14 +12,19 @@ conditions associated with the use of this repository.
 
 .. code:: bibtex
 
-   @misc{yarroudh:2023:optim3d,
-     author = {Yarroudh, Anass},
-     title = {Optim3D: Optimized reconstruction of large-scale 3D building models},
-     year = {2023},
-     howpublished = {GitHub Repository},
-     url = {https://github.com/Yarroudh/Optim3D}
-   }
+   @InProceedings{10.1007/978-3-031-43699-4_50,
+    author="Yarroudh, Anass
+    and Kharroubi, Abderrazzaq
+    and Billen, Roland",
+    editor="Kolbe, Thomas H.
+    and Donaubauer, Andreas
+    and Beil, Christof",
+    title="Optim3D: Efficient and Scalable Generation of Large-Scale 3D Building Models",
+    booktitle="Recent Advances in 3D Geoinformation Science",
+    year="2024",
+    publisher="Springer Nature Switzerland",
+    address="Cham",
+    pages="835--849",
+  }
 
-Yarroudh, A. (2023). Optim3D: Optimized reconstruction of large-scale 3D
-building models [GitHub repository]. Retrieved from
-https://github.com/Yarroudh/Optim3D
+Yarroudh, A., Kharroubi, A., Billen, R. (2024). Optim3D: Efficient and Scalable Generation of Large-Scale 3D Building Models. In: Kolbe, T.H., Donaubauer, A., Beil, C. (eds) Recent Advances in 3D Geoinformation Science. 3DGeoInfo 2023. Lecture Notes in Geoinformation and Cartography. Springer, Cham. https://doi.org/10.1007/978-3-031-43699-4_50

@@ -6,7 +6,7 @@ import click
 import json
 import os
 import sys
-import sys
+import rich
 
 env_base = sys.prefix
 proj_lib_path = os.path.join(env_base, 'Library', 'share', 'proj')
@@ -19,8 +19,6 @@ import math
 import collections
 import shapely.geometry as geometry
 import psutil
-import subprocess
-
 import subprocess
 
 def run_command_in_terminal(cmd):
@@ -301,7 +299,7 @@ class QuadTree(object):
         draw_all_nodes(self)
         return df
 
-def tile(index, features, path, output):
+def tile(index, features, indexed_path, tiles_path):
     minx = features.bounds.iloc[index].minx
     maxx = features.bounds.iloc[index].maxx
     miny = features.bounds.iloc[index].miny
@@ -309,24 +307,17 @@ def tile(index, features, path, output):
 
     data ={
         "pipeline": [
-                {
-                    "type": "readers.ept",
-                    "filename":"{}/ept.json".format(path),
-                    "bounds":"([{},{}],[{},{}])".format(minx, maxx, miny, maxy)
-                },
-                {
-                    "type":"writers.las",
-                    "filename":"{}/tile_{}.las".format('{}/pointcloud_tiles'.format(output), index)
-                }
-            ]
-        }
+            {
+                "type": "readers.ept",
+                "filename":f"{indexed_path}/ept.json",
+                "bounds":f"([{minx},{maxx}],[{miny},{maxy}])"
+            },
+            {
+                "type":"writers.las",
+                "filename":f"{tiles_path}/tile_{index}.las"
+            }
+        ]
+    }
 
     pipeline = pdal.Pipeline(json.dumps(data))
     pipeline.execute()
-
-    print(".done: tile_{}.las".format(index), flush=True)
-
-def geoflow(config, i):
-    script = 'geof {}'.format(config)
-    os.system(script)
-    print('.done tile_{}'.format(i))

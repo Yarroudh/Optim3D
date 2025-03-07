@@ -5,7 +5,7 @@ sys.path.insert(0, os.path.abspath('../../optim3d'))
 project = 'Optim3D'
 copyright = '2023, Anass Yarroudh'
 author = 'Anass Yarroudh'
-version = '0.3.0'
+version = '0.4.0'
 author_website = 'http://geomatics.ulg.ac.be/'
 company = 'Geomatics Unit of ULiège'
 github_url = 'https://github.com/Yarroudh/Optim3D'
@@ -27,7 +27,8 @@ html_theme = 'sphinx_rtd_theme'
 
 html_context = {
     "display_github": True,
-    "company": "Geomatics Unit of ULiège",
+    "company": "GeoScITY Laboratory",
+    "author": "Anass Yarroudh",
     "website": "https://github.com/Yarroudh/Optim3D",
     'display_version': True,
     'versions': ['latest'],

@@ -74,11 +74,11 @@ Finally, install Optim3D using the setup.py file.
 
 .. code:: bash
 
-   pip install -e .
+   pip install .
 
 This command will install Optim3D and its dependencies in the Conda
 environment that you created earlier. These dependencies are : -
-click==8.1.8 - geopandas==1.0.1 - osmnx==2.0.1
+click==8.1.8 - geopandas==1.0.1 - osmnx==2.0.1 - rich>=13.9.0
 
 Verify the Installation
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -97,15 +97,16 @@ correctly installed in the Conda environment:
 
    Usage: optim3d [OPTIONS] COMMAND [ARGS]...
 
-     CLI tool to manage full optimized reconstruction of large-scale 3D
-     building models.
+      CLI tool to manage full optimized reconstruction of large-scale 3D building
+      models.
 
    Options:
-     --help  Show this message and exit.
+      --help  Show this message and exit.
 
    Commands:
-     index2d      QuadTree indexing and tiling of 2D building footprints.
-     index3d      OcTree indexing of 3D point cloud using Entwine.
-     tiler3d      Tiling of point cloud using the calculated processing areas.
-     reconstruct  Optimized 3D reconstruction of buildings using GeoFlow.
-     post         Post-processing generated CityJSON files.
+      prepare      Prepare the output folder structure.
+      index2d      QuadTree indexing and tiling of 2D building footprints.
+      index3d      OcTree indexing of 3D point cloud using Entwine.
+      tile3d       Tiling of point cloud using the calculated processing areas.
+      reconstruct  Optimized 3D reconstruction of buildings using GeoFlow.
+      post         Postprocess the generated CityJSON files.

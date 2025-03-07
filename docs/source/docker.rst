@@ -1,6 +1,8 @@
 Docker Image
 ~~~~~~~~~~~~
 
+**Warning: The Docker image is outdated and not maintained. We recommend using the source code to run Optim3D.**
+
 Optim3D is also available as `Docker
 image <https://hub.docker.com/r/yarroudh/optim3d>`__.
 
