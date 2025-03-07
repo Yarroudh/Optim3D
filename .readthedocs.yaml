@@ -5,7 +5,7 @@ sphinx:
 
 python:
   install:
-    - version: "3.9"
+    - requirements: requirements.txt
 
 build:
   os: ubuntu-20.04
