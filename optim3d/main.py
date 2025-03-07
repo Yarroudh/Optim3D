@@ -421,6 +421,7 @@ def post(output, folder_structure):
 
     # Print header
     console.print(f"{copyright}")
+    console.print("[bold cyan]Postprocessing CityJSON files[/bold cyan]\n")
 
     # Read folder structure XML file
     try:
