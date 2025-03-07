@@ -1,0 +1,6 @@
+__version__ = "0.3.3"
+__author__ = "Anass Yarroudh"
+__email__ = "ayarroudh@uliege.be"
+__url__ = "https://github.com/Yarroudh/Optim3D"
+__license__ = "BSD 3-Clause License"
+__description__ = "Optim3D is a Command-Line Interface (CLI) application for efficient and scalable generation of large-scale 3D building models."

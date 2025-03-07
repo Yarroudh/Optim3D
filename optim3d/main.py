@@ -15,15 +15,22 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import shutil
 import psutil
 import sys
+import xml.etree.ElementTree as ET
 
-sys.path.append('./')
-from optim3d.utils import OrderedGroup, Point, Bounds, QuadTree, euclid_compare, euclid_distance, tile, geoflow, run_command_in_terminal, memory_check
+sys.path.append(os.path.dirname(__file__))
+from utils import OrderedGroup, Point, Bounds, QuadTree, tile, run_command_in_terminal
 
 from rich.console import Console
 from rich.progress import Progress
+from rich.tree import Tree
 
 import warnings
 warnings.filterwarnings('ignore')
+
+copyright = """
+Optim3D CLI tool is developed by the GeoScITY Lab of the University of Liège.
+Licensed under the BSD 3-Clause License.
+"""
 
 @click.group(cls=OrderedGroup, help="CLI tool to manage full optimized reconstruction of large-scale 3D building models.")
 def cli():
@@ -32,23 +39,82 @@ def cli():
 console = Console()
 
 @click.command()
+@click.option('--output', type=click.Path(), default="output", show_default=True, help="Output directory.")
+@click.option('--footprint_tiles', type=click.Path(), default="footprint_tiles", show_default=True, help="Footprint tiles directory.")
+@click.option('--indexed_pointcloud', type=click.Path(), default="indexed_pointcloud", show_default=True, help="Indexed pointcloud directory.")
+@click.option('--model', type=click.Path(), default="model", show_default=True, help="Model directory.")
+@click.option('--pointcloud_tiles', type=click.Path(), default="pointcloud_tiles", show_default=True, help="Pointcloud tiles directory.")
+@click.option('--folder_structure', type=click.Path(), default="folder_structure.xml", show_default=True, help="Folder structure file.")
+
+def prepare(output, footprint_tiles, indexed_pointcloud, model, pointcloud_tiles, folder_structure):
+    """
+    Prepare the output folder structure.
+    """
+    os.makedirs(os.path.join(output, footprint_tiles), exist_ok=True)
+    os.makedirs(os.path.join(output, indexed_pointcloud, "ept-data"), exist_ok=True)
+    os.makedirs(os.path.join(output, indexed_pointcloud, "ept-hierarchy"), exist_ok=True)
+    os.makedirs(os.path.join(output, indexed_pointcloud, "ept-sources"), exist_ok=True)
+    os.makedirs(os.path.join(output, model, "cityjson"), exist_ok=True)
+    os.makedirs(os.path.join(output, model, "obj"), exist_ok=True)
+    os.makedirs(os.path.join(output, pointcloud_tiles), exist_ok=True)
+
+    # Create XML file to store folder hierarchy
+    root = ET.Element("output_structure")
+    ET.SubElement(root, "footprint_tiles").text = footprint_tiles
+    ET.SubElement(root, "indexed_pointcloud").text = indexed_pointcloud
+    ET.SubElement(root, "model").text = model
+    ET.SubElement(root, "pointcloud_tiles").text = pointcloud_tiles
+
+    tree = ET.ElementTree(root)
+    tree.write(os.path.join(output, folder_structure))
+
+    # Display the folder structure
+    console.print(f"{copyright}")
+    console.print("[bold cyan]Preparation of output folder structure[/bold cyan]\n")
+
+    structure = Tree("output")    
+    structure.add("footprint_tiles")
+    structure.add("indexed_pointcloud")
+    structure.add("model")
+    structure.add("pointcloud_tiles")
+    structure.add("folder_structure.xml")
+
+    console.print(structure)
+    console.print(f"[green]\nOutput folder structure prepared at: {os.path.abspath(output)}[/green]")
+    console.print(f"[yellow]Please refer to [bold]{folder_structure}[/bold] for the folder structure.[/yellow]")
+
+
+
+@click.command()
 @click.argument("footprints", type=click.Path(exists=True), required=False)
 @click.option("--output", type=click.Path(), default="output", show_default=True, help="Output directory.")
-@click.option("--osm", nargs=4, type=float, default=(-1, -1, -1, -1), show_default=True,
-              metavar=("WEST", "NORTH", "EAST", "SOUTH"), help="Download footprints from OSM in [west north east south] format.")
+@click.option("--folder-structure", type=click.Path(), default="folder_structure.xml", show_default=True, help="Folder structure file.")
+@click.option("--osm", nargs=4, type=float, default=(-1, -1, -1, -1), show_default=True, metavar=("WEST", "NORTH", "EAST", "SOUTH"), help="Download footprints from OSM in [west north east south] format.")
 @click.option("--osm-save-path", type=click.Path(), default=None, help="Path to save downloaded OSM footprints (optional).")
-@click.option("--tiles-path", type=click.Path(), default="footprint_tiles",
-              show_default=True, help="Directory to save footprint tiles.")
-@click.option("--quadtree-path", type=click.Path(), default=None,
-              help="Custom path to save the QuadTree file (optional). If not provided, defaults to 'output/quadtree.gpkg'.")
+@click.option("--quadtree-fname", type=click.Path(), default="quadtree.gpkg", show_default=True, help="Filename for the QuadTree file (forced to GPKG format).")
+@click.option("--processing-areas-fname", type=click.Path(), default="processing_areas.gpkg", show_default=True, help="Filename for the processing areas file (forced to GPKG format).")
 @click.option("--crs", type=int, help="Coordinate Reference System (EPSG).")
 @click.option("--max", type=int, default=3500, show_default=True, help="Max number of buildings per tile.")
 
-def index2d(footprints, output, osm, osm_save_path, tiles_path, quadtree_path, crs, max):
+def index2d(footprints, output, folder_structure, osm, osm_save_path, quadtree_fname, processing_areas_fname, crs, max):
     """
     QuadTree indexing and tiling of 2D building footprints.
     """
     start_time = time.time()
+
+    # Print header
+    console.print(f"{copyright}")
+    console.print("[bold cyan]QuadTree indexing and tiling of 2D building footprints[/bold cyan]\n")
+
+    # Read folder structure XML file
+    try:
+        tree = ET.parse(folder_structure)
+    except ET.ParseError:
+        console.print("[bold red]Error: {folder_structure} does not exist or is not a valid XML file.[/bold red]")
+        return
+    
+    root = tree.getroot()
+    tiles_path = root.find("footprint_tiles").text
 
     # Ensure output directories exist
     os.makedirs(output, exist_ok=True)
@@ -91,11 +157,8 @@ def index2d(footprints, output, osm, osm_save_path, tiles_path, quadtree_path, c
             quadTree.insert(Point(*point))
             progress.update(task, advance=1)
 
-    # Set default QuadTree path if not provided
-    if not quadtree_path:
-        quadtree_path = os.path.join(output, "quadtree.gpkg")
-
     # Export QuadTree and read it back
+    quadtree_path = os.path.join(output, quadtree_fname)
     quadTree.create().to_file(quadtree_path, driver="GPKG")
     boundings = gpd.read_file(quadtree_path)
     boundings.crs = buildings.crs
@@ -112,7 +175,8 @@ def index2d(footprints, output, osm, osm_save_path, tiles_path, quadtree_path, c
 
     bbox_geoms = grouped.apply(lambda g: g.dissolve().boundary.iloc[0].envelope.buffer(10) if not g.dissolve().boundary.empty else None)
     bbox_gdf = gpd.GeoDataFrame(geometry=bbox_geoms, crs=f"EPSG:{crs}")
-    bbox_gdf.to_file(f"{output}/processing_areas.gpkg", driver="GPKG")
+    processing_areas_path = os.path.join(output, processing_areas_fname)
+    bbox_gdf.to_file(processing_areas_path, driver="GPKG")
 
     # Save individual footprint tiles
     with Progress() as progress:
@@ -125,8 +189,10 @@ def index2d(footprints, output, osm, osm_save_path, tiles_path, quadtree_path, c
 
     # Completion message with execution time
     elapsed_time = time.time() - start_time
-    console.print("\n[bold green]All tiles generated successfully![/bold green]")
+    console.print(f"\n[bold green]All tiles generated successfully. Output saved at: {os.path.abspath(tiles_full_path)}[/bold green]")
     console.print(f"[yellow]Time: {time.strftime('%H:%M:%S', time.gmtime(elapsed_time))}[/yellow]")
+
+
 @click.command()
 @click.argument('pointcloud', type=click.Path(exists=True), required=True)
 @click.option('--output', help='Output directory.', type=click.Path(exists=False), default="output", show_default=True)
@@ -286,6 +352,8 @@ def post(cityjson):
     print("All files corrected successfully")
     click.echo("Time: {}".format(time.strftime("%H:%M:%S", time.gmtime(processTime))))
 
+
+cli.add_command(prepare)
 cli.add_command(index2d)
 cli.add_command(index3d)
 cli.add_command(tiler3d)

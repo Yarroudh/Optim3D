@@ -1,4 +1,5 @@
 geopandas>=1.0.1 
 click>=8.1.8 
 osmnx>=2.0.1
+rich>=13.9.4
 psutil
