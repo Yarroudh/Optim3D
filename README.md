@@ -340,7 +340,7 @@ The 3D building models can be inspected using [Ninja](https://github.com/cityjso
 
 ## Docker Image
 
-**WARNING:** The Docker image is not yet available. We are working on it and will update this section as soon as it is ready.
+**WARNING: The Docker image is outdated and does not include the latest version of Optim3D. We recommend building from source or using the PyPI package.**
 
 Optim3D is also available as [Docker image](https://hub.docker.com/r/yarroudh/optim3d).
 
