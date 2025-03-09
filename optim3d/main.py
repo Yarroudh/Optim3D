@@ -197,11 +197,18 @@ def index2d(footprints, output, folder_structure, osm, osm_save_path, quadtree_f
 
 
 @click.command()
-@click.argument('pointcloud', type=click.Path(exists=True), required=True)
+@click.argument("pointcloud", type=str)
 @click.option('--output', help='Output directory.', type=click.Path(exists=False), default="output", show_default=True)
 @click.option('--folder-structure', type=click.Path(), default="folder_structure.xml", show_default=True, help="Folder structure file.")
+@click.option('--threads', type=int, default=None, show_default=True, help="Number of threads for parallelization.")
+@click.option('--force', type=bool, default=False, show_default=True, help="Force a new indexing.")
+@click.option('--reprojection', type=int, default=None, show_default=True, help="Coordinate system reprojection for the point cloud [EPSG code].")
+@click.option('--maxnodesize', type=int, default=None, show_default=True, help="Soft point count at which nodes may overflow.")
+@click.option('--minnodesize', type=int, default=None, show_default=True, help="Soft minimum on the point count of nodes.")
+@click.option('--cachesize', type=int, default=None, show_default=True, help="Number of recently-unused nodes to hold in reserve.")
+@click.option('--kwargs', type=click.Path(exists=True), default=None, help="Additional keyword arguments for Entwine [.json].")
 
-def index3d(pointcloud, folder_structure, output):
+def index3d(pointcloud, folder_structure, output, threads, force, reprojection, maxnodesize, minnodesize, cachesize, kwargs):
     """
     OcTree indexing of 3D point cloud using Entwine.
     """
@@ -210,7 +217,18 @@ def index3d(pointcloud, folder_structure, output):
 
     # Print header
     console.print(f"{copyright}")
-    console.print("[bold cyan]OcTree indexing of 3D point cloud using Entwine[/bold cyan]\n")
+    console.print("[bold cyan]OcTree indexing of 3D point cloud[/bold cyan]\n")
+
+    # Print Entwine information
+    console.print("The Entwine tool is used for indexing 3D point clouds.")
+    console.print("Please ensure that Entwine is installed on your system.")
+    console.print("For more information, visit: https://entwine.io/\n")
+
+    # Check if Entwine is installed
+    response = os.system("entwine --version")
+    if response != 0:
+        console.print("[bold red]Error: Entwine is not installed. Please install it using 'conda install -c conda-forge entwine'[/bold red]")
+        return
 
     # Read folder structure XML file
     try:
@@ -223,6 +241,16 @@ def index3d(pointcloud, folder_structure, output):
     root = tree.getroot()
     tiles_path = root.find("indexed_pointcloud").text
 
+    # Assert pointcloud is a valid file or directory
+    if not os.path.exists(pointcloud):
+        console.print(f"[bold red]Error: {pointcloud} does not exist.[/bold red]")
+        return
+
+    if os.path.isdir(pointcloud):
+        if not any(os.scandir(pointcloud)):
+            console.print(f"[bold red]Error: Directory {pointcloud} is empty.[/bold red]")
+            return
+
     # Ensure output directories exist
     os.makedirs(output, exist_ok=True)
     tiles_full_path = os.path.join(output, tiles_path)
@@ -234,9 +262,32 @@ def index3d(pointcloud, folder_structure, output):
     # Entwine configuration
     config = {
         "input": os.path.abspath(pointcloud),
-        "output": os.path.abspath(tiles_full_path)
+        "output": os.path.abspath(tiles_full_path),
+        "force": force
     }
 
+    # Add options that are not None
+    if threads:
+        config["threads"] = threads
+    if reprojection:
+        config["reprojection"] = {"out": f"EPSG:{reprojection}"}
+    if maxnodesize:
+        config["maxNodeSize"] = maxnodesize
+    if minnodesize:
+        config["minNodeSize"] = minnodesize
+    if cachesize:
+        config["cacheSize"] = cachesize
+
+    # Allowed keyword arguments
+    allowed = ["tmp", "srs", "dataType", "hierarchyType", "span", "allowOriginId", "bounds", "schema", "trustHeader", "absolute", "scale", "run", "subset", "overflowDepth", "hierarchyStep"]
+
+    # Check for invalid keyword arguments
+    if kwargs is not None:
+        for key in kwargs:
+            assert key in allowed, f"Invalid keyword argument: {key}"
+        config.update(kwargs)
+
+    # Save configuration to a file
     config_file = os.path.join(tmp, "config.json")
     with open(config_file, "w") as f:
         json.dump(config, f, indent=2)
@@ -341,6 +392,11 @@ def reconstruct(output, folder_structure, max_workers):
     # Print header
     console.print(f"{copyright}")
     console.print("[bold cyan]Optimized 3D reconstruction of buildings using GeoFlow[/bold cyan]\n")
+
+    # Print GeoFlow information
+    console.print("[bold cyan]The GeoFlow-bundle tool is used for 3D reconstruction of buildings.[/bold cyan]")
+    console.print("[bold cyan]Please ensure that GeoFlow is installed on your system.[/bold cyan]")
+    console.print("[bold cyan]For more information, visit: https://github.com/geoflow3d/geoflow-bundle[/bold cyan]\n")
 
     # Read folder structure XML file
     try:
