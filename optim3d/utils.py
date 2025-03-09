@@ -299,7 +299,7 @@ class QuadTree(object):
         draw_all_nodes(self)
         return df
 
-def tile(index, features, indexed_path, tiles_path):
+def tile(index, features, indexed_path, tiles_path, in_crs, out_crs):
     minx = features.bounds.iloc[index].minx
     maxx = features.bounds.iloc[index].maxx
     miny = features.bounds.iloc[index].miny
@@ -310,6 +310,15 @@ def tile(index, features, indexed_path, tiles_path):
             {
                 "type": "readers.ept",
                 "filename":f"{indexed_path}/ept.json",
+                "bounds":f"([{minx},{maxx}],[{miny},{maxy}])"
+            },
+            {
+                "type": "filters.reprojection",
+                "in_srs": in_crs,
+                "out_srs": out_crs
+            },
+            {
+                "type":"filters.crop",
                 "bounds":f"([{minx},{maxx}],[{miny},{maxy}])"
             },
             {

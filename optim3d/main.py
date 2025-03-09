@@ -203,12 +203,12 @@ def index2d(footprints, output, folder_structure, osm, osm_save_path, quadtree_f
 @click.option('--threads', type=int, default=None, show_default=True, help="Number of threads for parallelization.")
 @click.option('--force', type=bool, default=False, show_default=True, help="Force a new indexing.")
 @click.option('--reprojection', type=int, default=None, show_default=True, help="Coordinate system reprojection for the point cloud [EPSG code].")
-@click.option('--maxnodesize', type=int, default=None, show_default=True, help="Soft point count at which nodes may overflow.")
-@click.option('--minnodesize', type=int, default=None, show_default=True, help="Soft minimum on the point count of nodes.")
+@click.option('--max-nodesize', type=int, default=None, show_default=True, help="Soft point count at which nodes may overflow.")
+@click.option('--min-nodesize', type=int, default=None, show_default=True, help="Soft minimum on the point count of nodes.")
 @click.option('--cachesize', type=int, default=None, show_default=True, help="Number of recently-unused nodes to hold in reserve.")
 @click.option('--kwargs', type=click.Path(exists=True), default=None, help="Additional keyword arguments for Entwine [.json].")
 
-def index3d(pointcloud, folder_structure, output, threads, force, reprojection, maxnodesize, minnodesize, cachesize, kwargs):
+def index3d(pointcloud, folder_structure, output, threads, force, reprojection, max_nodesize, min_nodesize, cachesize, kwargs):
     """
     OcTree indexing of 3D point cloud using Entwine.
     """
@@ -271,10 +271,10 @@ def index3d(pointcloud, folder_structure, output, threads, force, reprojection, 
         config["threads"] = threads
     if reprojection:
         config["reprojection"] = {"out": f"EPSG:{reprojection}"}
-    if maxnodesize:
-        config["maxNodeSize"] = maxnodesize
-    if minnodesize:
-        config["minNodeSize"] = minnodesize
+    if max_nodesize:
+        config["maxNodeSize"] = max_nodesize
+    if min_nodesize:
+        config["minNodeSize"] = min_nodesize
     if cachesize:
         config["cacheSize"] = cachesize
 
@@ -311,8 +311,10 @@ def index3d(pointcloud, folder_structure, output, threads, force, reprojection, 
 @click.option('--folder-structure', type=click.Path(), default="folder_structure.xml", show_default=True, help="Folder structure file.")
 @click.option('--areas', type=click.Path(), default="processing_areas.gpkg", show_default=True, help="Processing areas file.")
 @click.option('--max-workers', type=int, default=os.cpu_count(), show_default=True, help="Maximum number of workers for tiling.")
+@click.option('--crs-in', type=int, default=None, show_default=True, help="Input CRS for the point cloud.")
+@click.option('--crs-out', type=int, default=None, show_default=True, help="Output CRS for the point cloud.")
 
-def tile3d(areas, output, folder_structure, max_workers):
+def tile3d(areas, output, folder_structure, max_workers, in_crs, out_crs):
     """
     Tiling of point cloud using the calculated processing areas.
     """
@@ -345,6 +347,15 @@ def tile3d(areas, output, folder_structure, max_workers):
     assert os.path.exists(os.path.join(indexed_full_path, "ept-build.json")), "ept.json not found in the indexed point cloud directory"
     assert os.path.exists(os.path.join(indexed_full_path, "ept.json")), "ept.json not found in the indexed point cloud directory"
     assert os.path.exists(areas), f"{areas} not found"
+
+    # Check if ept.json has a stored CRS
+    with open(os.path.join(indexed_full_path, "ept.json")) as f:
+        ept_json = json.load(f)
+        in_crs = ept_json['srs']['horizontal'] if 'srs' in ept_json else None
+    
+    # Use the provided CRS if available
+    in_crs = f"EPSG:{in_crs}" if in_crs is not None else None
+    out_crs = f"EPSG:{out_crs}" if out_crs is not None else in_crs
 
     # Ensure output directories exist
     os.makedirs(output, exist_ok=True)
