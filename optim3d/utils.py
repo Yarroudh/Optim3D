@@ -299,7 +299,7 @@ class QuadTree(object):
         draw_all_nodes(self)
         return df
 
-def tile(index, features, indexed_path, tiles_path):
+def tile(index, features, indexed_path, tiles_path, in_crs, out_crs):
     minx = features.bounds.iloc[index].minx
     maxx = features.bounds.iloc[index].maxx
     miny = features.bounds.iloc[index].miny
@@ -311,13 +311,22 @@ def tile(index, features, indexed_path, tiles_path):
                 "type": "readers.ept",
                 "filename":f"{indexed_path}/ept.json",
                 "bounds":f"([{minx},{maxx}],[{miny},{maxy}])"
-            },
-            {
-                "type":"writers.las",
-                "filename":f"{tiles_path}/tile_{index}.las"
             }
         ]
     }
+
+    if in_crs is not None and out_crs is not None:
+        if in_crs != out_crs:
+            data["pipeline"].insert(1, {
+                "type":"filters.reprojection",
+                "in_srs":in_crs,
+                "out_srs":out_crs
+            })
+
+    data["pipeline"].append({
+        "type":"writers.las",
+        "filename":f"{tiles_path}/tile_{index}.las"
+    })
 
     pipeline = pdal.Pipeline(json.dumps(data))
     pipeline.execute()

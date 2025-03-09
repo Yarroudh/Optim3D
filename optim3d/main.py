@@ -202,13 +202,14 @@ def index2d(footprints, output, folder_structure, osm, osm_save_path, quadtree_f
 @click.option('--folder-structure', type=click.Path(), default="folder_structure.xml", show_default=True, help="Folder structure file.")
 @click.option('--threads', type=int, default=None, show_default=True, help="Number of threads for parallelization.")
 @click.option('--force', type=bool, default=False, show_default=True, help="Force a new indexing.")
+@click.option('--srs', type=int, default=None, show_default=True, help="Coordinate system for the point cloud [EPSG code].")
 @click.option('--reprojection', type=int, default=None, show_default=True, help="Coordinate system reprojection for the point cloud [EPSG code].")
 @click.option('--maxnodesize', type=int, default=None, show_default=True, help="Soft point count at which nodes may overflow.")
 @click.option('--minnodesize', type=int, default=None, show_default=True, help="Soft minimum on the point count of nodes.")
 @click.option('--cachesize', type=int, default=None, show_default=True, help="Number of recently-unused nodes to hold in reserve.")
 @click.option('--kwargs', type=click.Path(exists=True), default=None, help="Additional keyword arguments for Entwine [.json].")
 
-def index3d(pointcloud, folder_structure, output, threads, force, reprojection, maxnodesize, minnodesize, cachesize, kwargs):
+def index3d(pointcloud, folder_structure, output, threads, force, srs, reprojection, maxnodesize, minnodesize, cachesize, kwargs):
     """
     OcTree indexing of 3D point cloud using Entwine.
     """
@@ -269,6 +270,8 @@ def index3d(pointcloud, folder_structure, output, threads, force, reprojection, 
     # Add options that are not None
     if threads:
         config["threads"] = threads
+    if srs:
+        config["srs"] = f"EPSG:{srs}"
     if reprojection:
         config["reprojection"] = {"out": f"EPSG:{reprojection}"}
     if maxnodesize:
@@ -279,7 +282,7 @@ def index3d(pointcloud, folder_structure, output, threads, force, reprojection, 
         config["cacheSize"] = cachesize
 
     # Allowed keyword arguments
-    allowed = ["tmp", "srs", "dataType", "hierarchyType", "span", "allowOriginId", "bounds", "schema", "trustHeader", "absolute", "scale", "run", "subset", "overflowDepth", "hierarchyStep"]
+    allowed = ["tmp", "dataType", "hierarchyType", "span", "allowOriginId", "bounds", "schema", "trustHeader", "absolute", "scale", "run", "subset", "overflowDepth", "hierarchyStep"]
 
     # Check for invalid keyword arguments
     if kwargs is not None:
@@ -311,8 +314,10 @@ def index3d(pointcloud, folder_structure, output, threads, force, reprojection, 
 @click.option('--folder-structure', type=click.Path(), default="folder_structure.xml", show_default=True, help="Folder structure file.")
 @click.option('--areas', type=click.Path(), default="processing_areas.gpkg", show_default=True, help="Processing areas file.")
 @click.option('--max-workers', type=int, default=os.cpu_count(), show_default=True, help="Maximum number of workers for tiling.")
+@click.option('--crs', type=int, default=None, show_default=True, help="Coordinate system for the point cloud [EPSG code].")
+@click.option('--reprojection', type=int, default=None, show_default=True, help="Coordinate system reprojection for the point cloud [EPSG code].")
 
-def tile3d(areas, output, folder_structure, max_workers):
+def tile3d(areas, output, folder_structure, crs, reprojection, max_workers):
     """
     Tiling of point cloud using the calculated processing areas.
     """
@@ -344,7 +349,21 @@ def tile3d(areas, output, folder_structure, max_workers):
     assert os.path.exists(os.path.join(indexed_full_path, "ept-sources")), "ept-sources not found in the indexed point cloud directory"
     assert os.path.exists(os.path.join(indexed_full_path, "ept-build.json")), "ept.json not found in the indexed point cloud directory"
     assert os.path.exists(os.path.join(indexed_full_path, "ept.json")), "ept.json not found in the indexed point cloud directory"
-    assert os.path.exists(areas), f"{areas} not found"
+    
+    # Check if areas file exists inside or outside the output directory
+    areas = os.path.join(output, areas) if not os.path.exists(areas) else areas
+    assert os.path.exists(areas), "Processing areas file not found"
+
+    # Get CRS from ept.json
+    if crs is None:
+        with open(os.path.join(indexed_full_path, "ept.json")) as f:
+            ept = json.load(f)
+            crs = ept['srs']['horizontal'] if 'srs' in ept else None
+            in_crs = f"EPSG:{crs}" if crs is not None else None
+    else:
+        in_crs = f"EPSG:{crs}"
+
+    out_crs = f"EPSG:{reprojection}" if reprojection is not None else None
 
     # Ensure output directories exist
     os.makedirs(output, exist_ok=True)
@@ -356,7 +375,7 @@ def tile3d(areas, output, folder_structure, max_workers):
 
     # Use ThreadPoolExecutor for tiling the point cloud with tile function
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        futures = [executor.submit(tile, idx, tiles, indexed_full_path, tiles_full_path) for idx in range(len(tiles))]
+        futures = [executor.submit(tile, idx, tiles, indexed_full_path, tiles_full_path, in_crs, out_crs) for idx in range(len(tiles))]
         
         with Progress() as progress:
             task = progress.add_task("[cyan]Tiling point cloud", total=len(futures))
@@ -394,9 +413,9 @@ def reconstruct(output, folder_structure, max_workers):
     console.print("[bold cyan]Optimized 3D reconstruction of buildings using GeoFlow[/bold cyan]\n")
 
     # Print GeoFlow information
-    console.print("[bold cyan]The GeoFlow-bundle tool is used for 3D reconstruction of buildings.[/bold cyan]")
-    console.print("[bold cyan]Please ensure that GeoFlow is installed on your system.[/bold cyan]")
-    console.print("[bold cyan]For more information, visit: https://github.com/geoflow3d/geoflow-bundle[/bold cyan]\n")
+    console.print("The GeoFlow-bundle tool is used for 3D reconstruction of buildings.")
+    console.print("Please ensure that GeoFlow is installed on your system.")
+    console.print("For more information, visit: https://github.com/geoflow3d/geoflow-bundle/\n")
 
     # Read folder structure XML file
     try:
