@@ -317,7 +317,7 @@ def index3d(pointcloud, folder_structure, output, threads, force, srs, reproject
 @click.option('--crs', type=int, default=None, show_default=True, help="Coordinate system for the point cloud [EPSG code].")
 @click.option('--reprojection', type=int, default=None, show_default=True, help="Coordinate system reprojection for the point cloud [EPSG code].")
 
-def tile3d(areas, output, folder_structure, reprojection, max_workers):
+def tile3d(areas, output, folder_structure, crs, reprojection, max_workers):
     """
     Tiling of point cloud using the calculated processing areas.
     """
