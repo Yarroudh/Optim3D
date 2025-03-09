@@ -348,7 +348,10 @@ def tile3d(areas, output, folder_structure, reprojection, max_workers):
     assert os.path.exists(os.path.join(indexed_full_path, "ept-sources")), "ept-sources not found in the indexed point cloud directory"
     assert os.path.exists(os.path.join(indexed_full_path, "ept-build.json")), "ept.json not found in the indexed point cloud directory"
     assert os.path.exists(os.path.join(indexed_full_path, "ept.json")), "ept.json not found in the indexed point cloud directory"
-    assert os.path.exists(areas), f"{areas} not found"
+    
+    # Check if areas file exists inside or outside the output directory
+    areas = os.path.join(output, areas) if not os.path.exists(areas) else areas
+    assert os.path.exists(areas), "Processing areas file not found"
 
     # Get CRS from ept.json
     with open(os.path.join(indexed_full_path, "ept.json")) as f:
