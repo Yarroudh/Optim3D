@@ -316,12 +316,11 @@ def tile(index, features, indexed_path, tiles_path, in_crs, out_crs):
     }
 
     if in_crs is not None and out_crs is not None:
-        if in_crs != out_crs:
-            data["pipeline"].insert(1, {
-                "type":"filters.reprojection",
-                "in_srs":in_crs,
-                "out_srs":out_crs
-            })
+        data["pipeline"].append({
+            "type":"filters.reprojection",
+            "in_srs":in_crs,
+            "out_srs":out_crs
+        })
 
     data["pipeline"].append({
         "type":"writers.las",
