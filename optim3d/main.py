@@ -354,8 +354,9 @@ def tile3d(areas, output, folder_structure, reprojection, max_workers):
     with open(os.path.join(indexed_full_path, "ept.json")) as f:
         ept = json.load(f)
         crs = ept['srs']['horizontal'] if 'srs' in ept else None
-    in_crs = f"EPSG:{crs}" if crs else None
-    out_crs = f"EPSG:{reprojection}" if reprojection else None
+
+    in_crs = f"EPSG:{crs}" if crs is not None else None
+    out_crs = f"EPSG:{reprojection}" if reprojection is not None else None
 
     # Ensure output directories exist
     os.makedirs(output, exist_ok=True)
@@ -405,9 +406,9 @@ def reconstruct(output, folder_structure, max_workers):
     console.print("[bold cyan]Optimized 3D reconstruction of buildings using GeoFlow[/bold cyan]\n")
 
     # Print GeoFlow information
-    console.print("[bold cyan]The GeoFlow-bundle tool is used for 3D reconstruction of buildings.[/bold cyan]")
-    console.print("[bold cyan]Please ensure that GeoFlow is installed on your system.[/bold cyan]")
-    console.print("[bold cyan]For more information, visit: https://github.com/geoflow3d/geoflow-bundle[/bold cyan]\n")
+    console.print("The GeoFlow-bundle tool is used for 3D reconstruction of buildings.")
+    console.print("Please ensure that GeoFlow is installed on your system.")
+    console.print("For more information, visit: https://github.com/geoflow3d/geoflow-bundle/\n")
 
     # Read folder structure XML file
     try:
