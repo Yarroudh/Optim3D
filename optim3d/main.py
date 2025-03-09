@@ -314,6 +314,7 @@ def index3d(pointcloud, folder_structure, output, threads, force, srs, reproject
 @click.option('--folder-structure', type=click.Path(), default="folder_structure.xml", show_default=True, help="Folder structure file.")
 @click.option('--areas', type=click.Path(), default="processing_areas.gpkg", show_default=True, help="Processing areas file.")
 @click.option('--max-workers', type=int, default=os.cpu_count(), show_default=True, help="Maximum number of workers for tiling.")
+@click.option('--crs', type=int, default=None, show_default=True, help="Coordinate system for the point cloud [EPSG code].")
 @click.option('--reprojection', type=int, default=None, show_default=True, help="Coordinate system reprojection for the point cloud [EPSG code].")
 
 def tile3d(areas, output, folder_structure, reprojection, max_workers):
@@ -354,11 +355,14 @@ def tile3d(areas, output, folder_structure, reprojection, max_workers):
     assert os.path.exists(areas), "Processing areas file not found"
 
     # Get CRS from ept.json
-    with open(os.path.join(indexed_full_path, "ept.json")) as f:
-        ept = json.load(f)
-        crs = ept['srs']['horizontal'] if 'srs' in ept else None
+    if crs is None:
+        with open(os.path.join(indexed_full_path, "ept.json")) as f:
+            ept = json.load(f)
+            crs = ept['srs']['horizontal'] if 'srs' in ept else None
+            in_crs = f"EPSG:{crs}" if crs is not None else None
+    else:
+        in_crs = f"EPSG:{crs}"
 
-    in_crs = f"EPSG:{crs}" if crs is not None else None
     out_crs = f"EPSG:{reprojection}" if reprojection is not None else None
 
     # Ensure output directories exist
